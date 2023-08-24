@@ -1,13 +1,18 @@
 import React from "react"
+import GlobalStyles from "~/styles/GlobalStyles"
 
-const printName = (name: string) => {
-    console.log(name)
+const Btn = () => {
+    return <div>button</div>
 }
 
-printName("Ha van Duoc")
-
 function App() {
-    return <div className="App">app</div>
+    return (
+        <GlobalStyles>
+            <div className="App">
+                app <Btn />
+            </div>
+        </GlobalStyles>
+    )
 }
 
 export default App
