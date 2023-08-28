@@ -1,8 +1,8 @@
 import React from "react"
 import { Layout, Row, Col } from "antd"
-import Logo from "./components/Logo"
 import SearchAutoComplete from "./components/SearchAutoComplete"
 import NavRight from "./components/NavRight"
+import Web from "./components/Web"
 
 const { Header: HeaderAntDesign } = Layout
 
@@ -16,7 +16,7 @@ const Header = () => {
         <HeaderAntDesign style={headerStyle}>
             <Row gutter={30}>
                 <Col className="snoCenter">
-                    <Logo />
+                    <Web />
                 </Col>
 
                 <Col className="snoCenter snoMaxWidth">

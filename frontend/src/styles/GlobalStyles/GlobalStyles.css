@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
+
 :root {
-    --color-hover: #f3f4f5
+    --main-color: "#FF914D";
+    --color-hover: #f3f4f5;
 }
 
 * {
