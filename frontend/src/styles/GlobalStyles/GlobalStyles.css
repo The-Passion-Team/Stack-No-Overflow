@@ -1,0 +1,31 @@
+:root {
+    --color-hover: #f3f4f5
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Helvetica, sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-rendering: optimizeSpeed;
+}
+
+.snoCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.snoContainer {
+    width: 1200px;
+    margin: 0 auto !important;
+}
+
+.snoMaxWidth {
+    flex: 1
+}
