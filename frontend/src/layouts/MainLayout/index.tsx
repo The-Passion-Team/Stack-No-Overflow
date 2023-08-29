@@ -2,8 +2,8 @@ import React from "react"
 import { Space, Layout } from "antd"
 import Header from "./components/Header"
 import Sider from "./components/Sider"
-import Content from "./components/Content"
 import Footer from "./components/Footer"
+import Feeder from "./components/Feeder"
 
 type MainLayoutProps = {
     children: any
@@ -16,7 +16,7 @@ const MainLayout = (props: MainLayoutProps) => {
                 <Header />
                 <Layout hasSider className="snoContainer">
                     <Sider />
-                    <Content page={props.children} />
+                    <Feeder page={props.children} />
                 </Layout>
                 <Footer />
             </Layout>

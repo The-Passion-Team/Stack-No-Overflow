@@ -4,19 +4,15 @@ import { Layout } from "antd"
 const { Content: ContentAntDesign } = Layout
 
 const contentStyle: React.CSSProperties = {
-    textAlign: "center",
-    minHeight: 120,
-    lineHeight: "120px",
-    color: "#fff",
-    backgroundColor: "#108ee9",
+    padding: "20px 0"
 }
 
 type ContentProps = {
     page: any
 }
 
-const Content = (props: ContentProps) => {
+const Feeder = (props: ContentProps) => {
     return <ContentAntDesign style={contentStyle}>{props.page}</ContentAntDesign>
 }
 
-export default Content
+export default Feeder

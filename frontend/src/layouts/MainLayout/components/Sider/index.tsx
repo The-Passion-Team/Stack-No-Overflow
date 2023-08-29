@@ -6,6 +6,8 @@ import {
     MoneyCollectOutlined,
     TeamOutlined,
 } from "@ant-design/icons"
+import { useNavigate } from "react-router-dom"
+import { pathCompanies, pathHome, pathQuestions, pathTags, pathUsers } from "~/routes"
 
 const { Sider: SiderAntDesign } = Layout
 
@@ -34,13 +36,13 @@ function getItem(
 }
 
 const items: MenuProps["items"] = [
-    getItem("Home", "home", <HomeOutlined />),
+    getItem("Home", pathHome, <HomeOutlined />),
 
     getItem("Public", "public", <AppstoreOutlined />, [
-        getItem("Questions", "Questions"),
-        getItem("Tags", "tags"),
-        getItem("Users", "users"),
-        getItem("Companies", "companies"),
+        getItem("Questions", pathQuestions),
+        getItem("Tags", pathTags),
+        getItem("Users", pathUsers),
+        getItem("Companies", pathCompanies),
     ]),
 
     { type: "divider" },
@@ -76,8 +78,10 @@ const Sider = () => {
         }
     }
 
+    const navigate = useNavigate()
+
     const onClick: MenuProps["onClick"] = (e) => {
-        console.log("click ", e)
+        navigate(e.key)
     }
 
     return (
@@ -85,8 +89,8 @@ const Sider = () => {
             <Menu
                 onClick={onClick}
                 style={{ width: "100%" }}
-                defaultSelectedKeys={["home"]}
-                defaultOpenKeys={["home"]}
+                defaultSelectedKeys={[pathHome]}
+                defaultOpenKeys={[pathHome]}
                 openKeys={openKeys}
                 onOpenChange={onOpenChange}
                 mode="inline"
