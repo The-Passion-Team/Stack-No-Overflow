@@ -1,8 +1,7 @@
 import { Space } from "antd"
 import React from "react"
 
-const Profile = () => {
+export function Profile() {
     return <Space>Profile Page</Space>
 }
 
-export default Profile

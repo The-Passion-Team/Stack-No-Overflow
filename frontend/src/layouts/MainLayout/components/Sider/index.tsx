@@ -64,7 +64,7 @@ const items: MenuProps["items"] = [
     ),
 ]
 
-const Sider = () => {
+export function Sider() {
     const [openKeys, setOpenKeys] = useState(["public"])
 
     const rootSubmenuKeys = ["home", "public"]
@@ -99,5 +99,3 @@ const Sider = () => {
         </SiderAntDesign>
     )
 }
-
-export default Sider

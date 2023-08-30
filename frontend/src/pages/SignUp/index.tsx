@@ -1,8 +1,7 @@
 import { Space } from "antd"
 import React from "react"
 
-const SignUp = () => {
+export function SignUp() {
     return <Space>SignUp Page</Space>
 }
 
-export default SignUp

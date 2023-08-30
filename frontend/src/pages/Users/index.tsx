@@ -1,8 +1,7 @@
 import { Space } from "antd"
 import React from "react"
 
-const Users = () => {
+export function Users() {
     return <Space>Users Page</Space>
 }
 
-export default Users

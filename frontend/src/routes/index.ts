@@ -1,12 +1,5 @@
 import OnlyHeaderLayout from "~/layouts/OnlyHeaderLayout"
-import Companies from "~/pages/Companies"
-import Home from "~/pages/Home"
-import LogIn from "~/pages/LogIn"
-import Profile from "~/pages/Profile"
-import Questions from "~/pages/Questions"
-import SignUp from "~/pages/SignUp"
-import Tags from "~/pages/Tags"
-import Users from "~/pages/Users"
+import {Companies, Home, LogIn, Profile, Questions, SignUp, Tags,Users} from "~/pages"
 
 export const Path = {
     Home: "/",

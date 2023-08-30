@@ -50,7 +50,8 @@ const STACKEXCHANGENETWORK = {
 
 const MEDIA = ["Blog", "Facebook", "Twitter", "LinkedIn", "Instagram"]
 
-const Footer = () => {
+
+export function Footer() {
     return (
         <FooterAntDesign style={footerStyle}>
             <Row gutter={15}>
@@ -106,4 +107,3 @@ const Footer = () => {
     )
 }
 
-export default Footer
