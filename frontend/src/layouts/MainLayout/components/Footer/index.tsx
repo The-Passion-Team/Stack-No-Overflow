@@ -1,6 +1,6 @@
 import React from "react"
 import { Col, Layout, Row, Typography } from "antd"
-import Logo from "~/components/Logo"
+import { Logo } from "~/components"
 import List from "./components/List"
 import "./styles/Footer.css"
 
