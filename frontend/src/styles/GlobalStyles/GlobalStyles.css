@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
+
+:root {
+    --main-color: "#FF914D";
+    --color-hover: #f3f4f5;
+    --main-bg-color: #fff;
+    --divider-color: #d6d9dc;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Helvetica, sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-rendering: optimizeSpeed;
+}
+
+.snoCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.snoContainer {
+    width: 1200px;
+    margin: 0 auto !important;
+}
+
+.snoMaxWidth {
+    flex: 1
+}
