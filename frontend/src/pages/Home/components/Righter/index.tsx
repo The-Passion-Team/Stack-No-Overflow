@@ -1,7 +1,7 @@
 import React from "react"
 
 const Righter = () => {
-    return <div>Righter</div>
+    return <div>Rightersfsdfsdfsdfsdfsdfsdfs</div>
 }
 
 export default Righter

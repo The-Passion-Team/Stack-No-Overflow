@@ -1,15 +1,19 @@
-import { Space } from "antd"
+import { Col, Row } from "antd"
 import React from "react"
 import Content from "./components/Content"
 import Righter from "./components/Righter"
 
 const Home = () => {
     return (
-        <Space>
-            <Content />
+        <Row>
+            <Col flex="auto">
+                <Content />
+            </Col>
 
-            <Righter />
-        </Space>
+            <Col flex="none">
+                <Righter />
+            </Col>
+        </Row>
     )
 }
 
