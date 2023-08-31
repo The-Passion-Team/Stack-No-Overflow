@@ -1,7 +1,8 @@
 import React from "react"
+import HeaderContent from "./components/HeaderContent"
 
 const Content = () => {
-    return <div>Content</div>
+    return <HeaderContent />
 }
 
 export default Content
