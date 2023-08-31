@@ -1,0 +1,14 @@
+.footerText {
+    color: #babfc4;
+    font-size: 13px;
+    line-height: 15px;
+}
+
+.footerTitle {
+    font-weight: 500;
+    line-height: 20px;
+    color: #babfc4;
+    display: flex;
+    padding-bottom: 5;
+    text-transform: uppercase;
+}
