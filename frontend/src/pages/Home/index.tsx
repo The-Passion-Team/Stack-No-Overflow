@@ -1,5 +1,5 @@
-import { Col, Row } from "antd"
 import React from "react"
+import { Col, Row } from "antd"
 import Content from "./components/Content"
 import Righter from "./components/Righter"
 
