@@ -1,18 +1,17 @@
 import React from "react"
 import { PF } from "~/utils/variables"
 
-type props = {
+type LogoProps = {
     size?: number
 }
 
-const Logo: React.FC<props> = ({ size }) => {
+export function Logo(props: LogoProps) {
     return (
         <img
             src={PF + "/assets/Untitled_design-removebg-preview.png"}
             alt="Logo"
-            style={{ height: size || 35 }}
+            style={{ height: props.size || 35 }}
         />
     )
 }
 
-export default Logo

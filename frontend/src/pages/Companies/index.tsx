@@ -1,8 +1,7 @@
 import { Space } from "antd"
 import React from "react"
 
-const Companies = () => {
+export function Companies() {
     return <Space>Companies Page</Space>
 }
 
-export default Companies

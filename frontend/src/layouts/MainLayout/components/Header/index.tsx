@@ -11,7 +11,7 @@ const headerStyle: React.CSSProperties = {
     borderBottom: "1px solid #ccc",
 }
 
-const Header = () => {
+export function Header() {
     return (
         <HeaderAntDesign style={headerStyle}>
             <Row gutter={30}>
@@ -30,5 +30,3 @@ const Header = () => {
         </HeaderAntDesign>
     )
 }
-
-export default Header

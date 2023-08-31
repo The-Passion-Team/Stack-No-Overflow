@@ -3,7 +3,7 @@ import React from "react"
 import Content from "./components/Content"
 import Righter from "./components/Righter"
 
-const Home = () => {
+export function Home() {
     return (
         <Row>
             <Col flex="auto">
@@ -17,4 +17,3 @@ const Home = () => {
     )
 }
 
-export default Home

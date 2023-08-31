@@ -1,8 +1,7 @@
 import { Space } from "antd"
 import React from "react"
 
-const Questions = () => {
+export function Questions() {
     return <Space>Questions Page</Space>
 }
 
-export default Questions

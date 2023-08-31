@@ -11,8 +11,7 @@ type ContentProps = {
     page: any
 }
 
-const Feeder = (props: ContentProps) => {
+export function Feeder(props: ContentProps) {
     return <ContentAntDesign style={contentStyle}>{props.page}</ContentAntDesign>
 }
 
-export default Feeder

@@ -7,7 +7,7 @@ import {
     TeamOutlined,
 } from "@ant-design/icons"
 import { useNavigate } from "react-router-dom"
-import { pathCompanies, pathHome, pathQuestions, pathTags, pathUsers } from "~/routes"
+import { Path } from "~/routes"
 
 const { Sider: SiderAntDesign } = Layout
 
@@ -36,13 +36,13 @@ function getItem(
 }
 
 const items: MenuProps["items"] = [
-    getItem("Home", pathHome, <HomeOutlined />),
+    getItem("Home", Path.Home, <HomeOutlined />),
 
     getItem("Public", "public", <AppstoreOutlined />, [
-        getItem("Questions", pathQuestions),
-        getItem("Tags", pathTags),
-        getItem("Users", pathUsers),
-        getItem("Companies", pathCompanies),
+        getItem("Questions", Path.Questions),
+        getItem("Tags", Path.Tags),
+        getItem("Users", Path.Users),
+        getItem("Companies", Path.Companies),
     ]),
 
     { type: "divider" },
@@ -64,7 +64,7 @@ const items: MenuProps["items"] = [
     ),
 ]
 
-const Sider = () => {
+export function Sider() {
     const [openKeys, setOpenKeys] = useState(["public"])
 
     const rootSubmenuKeys = ["home", "public"]
@@ -89,8 +89,8 @@ const Sider = () => {
             <Menu
                 onClick={onClick}
                 style={{ width: "100%" }}
-                defaultSelectedKeys={[pathHome]}
-                defaultOpenKeys={[pathHome]}
+                defaultSelectedKeys={[Path.Home]}
+                defaultOpenKeys={[Path.Home]}
                 openKeys={openKeys}
                 onOpenChange={onOpenChange}
                 mode="inline"
@@ -99,5 +99,3 @@ const Sider = () => {
         </SiderAntDesign>
     )
 }
-
-export default Sider

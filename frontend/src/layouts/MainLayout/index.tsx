@@ -1,9 +1,6 @@
 import React from "react"
 import { Space, Layout } from "antd"
-import Header from "./components/Header"
-import Sider from "./components/Sider"
-import Footer from "./components/Footer"
-import Feeder from "./components/Feeder"
+import {Header, Sider, Footer, Feeder} from "./components"
 
 type MainLayoutProps = {
     children: any

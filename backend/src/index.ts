@@ -1,17 +1,38 @@
 import express from "express"
 import dotenv from "dotenv"
+import cors from "cors";
+import helmet from "helmet";
+import morgan from "morgan";
+import cookieParser from "cookie-parser";
+import {authRouter, mainRouter} from "./routes";
+import connectDB from "./utils/connectDB"
 
 const app = express()
 dotenv.config()
 
-const PORT = process.env.PORT || 5000
+//middleware
+app.use(express.json());
+app.use(helmet());
+app.use(morgan("common"));
+app.use(
+	cors({
+		origin: ["http://localhost:3000"]
+	})
+);
+app.use(cookieParser());
 
-const router = express.Router()
 
-router.get("/", (req, res) => {
-    console.log("this is first route")
-})
+// app.get("/", (req, res) => {
+// 	res.send("API Running");
+//   });
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`)
+app.use("/auth", authRouter());
+app.use(mainRouter());
+
+
+const port = process.env.PORT || 5000
+
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+    connectDB();
 })

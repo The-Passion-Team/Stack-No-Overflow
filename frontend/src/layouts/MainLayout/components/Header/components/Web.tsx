@@ -1,15 +1,14 @@
 import React from "react"
 import { Col, Row } from "antd"
-import Logo from "~/components/Logo"
-import Brand from "~/components/Brand"
+import { Logo, Brand } from "~/components"
 import { useNavigate } from "react-router-dom"
-import { pathHome } from "~/routes"
+import { Path } from "~/routes"
 
 const Web: React.FC = () => {
     const navigate = useNavigate()
 
     const onClick = () => {
-        navigate(pathHome)
+        navigate(Path.Home)
     }
 
     return (
