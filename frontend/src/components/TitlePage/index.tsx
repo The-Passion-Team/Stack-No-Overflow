@@ -1,12 +1,12 @@
 import { Typography } from "antd"
 import React from "react"
 
-interface props {
+interface IContent {
     content: string
 }
 
-const TitlePage: React.FC<props> = ({ content }) => {
-    return <Typography.Title level={3}>{content}</Typography.Title>
+export function TitlePage(props: IContent) {
+    return <Typography.Title level={3}>{props.content}</Typography.Title>
 }
 
-export default TitlePage
+
