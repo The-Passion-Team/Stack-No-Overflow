@@ -1,7 +1,7 @@
 import { Typography } from "antd"
 import React from "react"
 
-interface props {
+interface IContent {
     content: string
 }
 
@@ -9,8 +9,7 @@ const styles = {
     fontSize: 28,
 }
 
-const TitlePage: React.FC<props> = ({ content }) => {
-    return <Typography.Text style={styles}>{content}</Typography.Text>
+export function TitlePage( props: IContent ) {
+    return <Typography.Text style={styles}>{props.content}</Typography.Text>
 }
 
-export default TitlePage
