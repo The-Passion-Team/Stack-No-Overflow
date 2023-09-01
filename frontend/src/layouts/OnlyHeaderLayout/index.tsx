@@ -1,6 +1,6 @@
-import { Layout, Space } from "antd"
 import React from "react"
-import {Header, Feeder} from "../MainLayout/components"
+import { Layout, Space } from "antd"
+import { Feeder, Header } from "~/components/layouts"
 
 interface props {
     children?: any
