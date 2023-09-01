@@ -5,7 +5,7 @@ import Righter from "./components/Righter"
 
 export function Home() {
     return (
-        <Row>
+        <Row wrap={false}>
             <Col flex="auto">
                 <Content />
             </Col>

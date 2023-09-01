@@ -1,0 +1,13 @@
+.styles {
+    color: #39739d;
+    background-color: #e1ecf4;
+    cursor: pointer;
+    padding: 1px 10px;
+    margin: 5px;
+    border-radius: 5px;
+    font-size: 13px;
+
+    &:hover {
+        background-color: #d7e2eb;
+    }
+}

@@ -1,6 +1,6 @@
 import React from "react"
 import { Space, Layout } from "antd"
-import { Header, Sider, Footer, Feeder } from "./components"
+import { Feeder, Footer, Header, Sider } from "~/components/layouts"
 
 type MainLayoutProps = {
     children: any
@@ -9,9 +9,9 @@ type MainLayoutProps = {
 const MainLayout = (props: MainLayoutProps) => {
     return (
         <Space direction="vertical" style={{ width: "100%" }}>
-            <Layout style={{ backgroundColor: "var(--main-bg-color)" }}>
+            <Layout>
                 <Header />
-                <Layout hasSider className="snoContainer" style={{ backgroundColor: "var(--main-bg-color)" }}>
+                <Layout hasSider className="snoContainer">
                     <Sider />
                     <Feeder page={props.children} />
                 </Layout>
