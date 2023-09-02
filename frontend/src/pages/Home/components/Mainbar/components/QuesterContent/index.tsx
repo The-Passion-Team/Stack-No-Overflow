@@ -1,4 +1,4 @@
-import { Col, Divider, Row, Space } from "antd"
+import { Col, Divider, FloatButton, Row, Space } from "antd"
 import Ask from "./components/Ask"
 import Tags from "./components/Tags"
 import Users from "./components/Users"
@@ -6,6 +6,118 @@ import Rate from "./components/Rate"
 import { Fragment } from "react"
 
 const dummy = [
+    {
+        ask: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quoplaceat ipsam. Quod tempore temporibus assumenda?",
+        tags: ["c#", "asp.net", "angular", "reactjs"],
+        avatar: null,
+        username: "Ha Van Duoc",
+        timepost: "asked 1 min ago",
+    },
+    {
+        ask: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quoplaceat ipsam. Quod tempore temporibus assumenda?",
+        tags: ["c#", "asp.net", "angular", "reactjs"],
+        avatar: null,
+        username: "Ha Van Duoc",
+        timepost: "asked 1 min ago",
+    },
+    {
+        ask: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quoplaceat ipsam. Quod tempore temporibus assumenda?",
+        tags: ["c#", "asp.net", "angular", "reactjs"],
+        avatar: null,
+        username: "Ha Van Duoc",
+        timepost: "asked 1 min ago",
+    },
+    {
+        ask: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quoplaceat ipsam. Quod tempore temporibus assumenda?",
+        tags: ["c#", "asp.net", "angular", "reactjs"],
+        avatar: null,
+        username: "Ha Van Duoc",
+        timepost: "asked 1 min ago",
+    },
+    {
+        ask: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quoplaceat ipsam. Quod tempore temporibus assumenda?",
+        tags: ["c#", "asp.net", "angular", "reactjs"],
+        avatar: null,
+        username: "Ha Van Duoc",
+        timepost: "asked 1 min ago",
+    },
+    {
+        ask: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quoplaceat ipsam. Quod tempore temporibus assumenda?",
+        tags: ["c#", "asp.net", "angular", "reactjs"],
+        avatar: null,
+        username: "Ha Van Duoc",
+        timepost: "asked 1 min ago",
+    },
+    {
+        ask: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quoplaceat ipsam. Quod tempore temporibus assumenda?",
+        tags: ["c#", "asp.net", "angular", "reactjs"],
+        avatar: null,
+        username: "Ha Van Duoc",
+        timepost: "asked 1 min ago",
+    },
+    {
+        ask: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quoplaceat ipsam. Quod tempore temporibus assumenda?",
+        tags: ["c#", "asp.net", "angular", "reactjs"],
+        avatar: null,
+        username: "Ha Van Duoc",
+        timepost: "asked 1 min ago",
+    },
+    {
+        ask: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quoplaceat ipsam. Quod tempore temporibus assumenda?",
+        tags: ["c#", "asp.net", "angular", "reactjs"],
+        avatar: null,
+        username: "Ha Van Duoc",
+        timepost: "asked 1 min ago",
+    },
+    {
+        ask: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quoplaceat ipsam. Quod tempore temporibus assumenda?",
+        tags: ["c#", "asp.net", "angular", "reactjs"],
+        avatar: null,
+        username: "Ha Van Duoc",
+        timepost: "asked 1 min ago",
+    },
+    {
+        ask: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quoplaceat ipsam. Quod tempore temporibus assumenda?",
+        tags: ["c#", "asp.net", "angular", "reactjs"],
+        avatar: null,
+        username: "Ha Van Duoc",
+        timepost: "asked 1 min ago",
+    },
+    {
+        ask: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quoplaceat ipsam. Quod tempore temporibus assumenda?",
+        tags: ["c#", "asp.net", "angular", "reactjs"],
+        avatar: null,
+        username: "Ha Van Duoc",
+        timepost: "asked 1 min ago",
+    },
+    {
+        ask: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quoplaceat ipsam. Quod tempore temporibus assumenda?",
+        tags: ["c#", "asp.net", "angular", "reactjs"],
+        avatar: null,
+        username: "Ha Van Duoc",
+        timepost: "asked 1 min ago",
+    },
+    {
+        ask: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quoplaceat ipsam. Quod tempore temporibus assumenda?",
+        tags: ["c#", "asp.net", "angular", "reactjs"],
+        avatar: null,
+        username: "Ha Van Duoc",
+        timepost: "asked 1 min ago",
+    },
+    {
+        ask: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quoplaceat ipsam. Quod tempore temporibus assumenda?",
+        tags: ["c#", "asp.net", "angular", "reactjs"],
+        avatar: null,
+        username: "Ha Van Duoc",
+        timepost: "asked 1 min ago",
+    },
+    {
+        ask: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quoplaceat ipsam. Quod tempore temporibus assumenda?",
+        tags: ["c#", "asp.net", "angular", "reactjs"],
+        avatar: null,
+        username: "Ha Van Duoc",
+        timepost: "asked 1 min ago",
+    },
     {
         ask: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quoplaceat ipsam. Quod tempore temporibus assumenda?",
         tags: ["c#", "asp.net", "angular", "reactjs"],
@@ -95,6 +207,8 @@ const QuesterContent = () => {
                     </Row>
                 )
             })}
+
+            <FloatButton.BackTop type="primary" />
         </Fragment>
     )
 }

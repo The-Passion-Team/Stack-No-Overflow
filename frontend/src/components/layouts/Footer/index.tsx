@@ -50,7 +50,6 @@ const STACKEXCHANGENETWORK = {
 
 const MEDIA = ["Blog", "Facebook", "Twitter", "LinkedIn", "Instagram"]
 
-
 export function Footer() {
     return (
         <FooterAntDesign style={footerStyle}>
@@ -77,7 +76,6 @@ export function Footer() {
                             display: "flex",
                             flexDirection: "column",
                             justifyContent: "space-between",
-                            alignItems: "start",
                         }}
                     >
                         <Col>
@@ -106,4 +104,3 @@ export function Footer() {
         </FooterAntDesign>
     )
 }
-
