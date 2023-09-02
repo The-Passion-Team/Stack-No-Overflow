@@ -1,8 +1,8 @@
-import React, { Fragment } from "react"
+import { Fragment } from "react"
 import HeaderContent from "./components/HeaderContent"
 import QuesterContent from "./components/QuesterContent"
 
-const Content = () => {
+const MainBar = () => {
     return (
         <Fragment>
             <HeaderContent />
@@ -11,4 +11,4 @@ const Content = () => {
     )
 }
 
-export default Content
+export default MainBar

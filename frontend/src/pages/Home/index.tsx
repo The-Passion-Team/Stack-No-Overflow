@@ -1,19 +1,18 @@
 import React from "react"
 import { Col, Row } from "antd"
-import Content from "./components/Content"
-import Righter from "./components/Righter"
+import SideBar from "./components/Sidebar"
+import MainBar from "./components/Mainbar"
 
 export function Home() {
     return (
         <Row wrap={false}>
             <Col flex="auto">
-                <Content />
+                <MainBar />
             </Col>
 
             <Col flex="none">
-                <Righter />
+                <SideBar />
             </Col>
         </Row>
     )
 }
-

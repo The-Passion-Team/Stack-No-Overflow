@@ -1,4 +1,3 @@
-import React from "react"
 import { Space, Layout } from "antd"
 import { Feeder, Footer, Header, Sider } from "~/components/layouts"
 
@@ -11,7 +10,7 @@ const MainLayout = (props: MainLayoutProps) => {
         <Space direction="vertical" style={{ width: "100%" }}>
             <Layout>
                 <Header />
-                <Layout hasSider className="snoContainer">
+                <Layout hasSider className="snoContainer" style={{ position: "relative" }}>
                     <Sider />
                     <Feeder page={props.children} />
                 </Layout>
