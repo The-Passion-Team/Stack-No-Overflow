@@ -3,7 +3,7 @@ import { Filter, Title } from "~/components/contents"
 
 const ButtonAskQuestion = () => {
     return (
-        <Button type="primary" size="large">
+        <Button type="primary" size="middle">
             Ask Question
         </Button>
     )
