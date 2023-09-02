@@ -1,6 +1,5 @@
 import { AntDesignOutlined, HighlightOutlined, MessageOutlined } from "@ant-design/icons"
 import { Space, Typography } from "antd"
-import React from "react"
 import "./styles.scss"
 
 const dummy = [

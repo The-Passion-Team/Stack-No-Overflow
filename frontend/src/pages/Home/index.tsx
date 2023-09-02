@@ -5,7 +5,7 @@ import MainBar from "./components/Mainbar"
 
 export function Home() {
     return (
-        <Row wrap={false}>
+        <Row wrap={false} gutter={20}>
             <Col flex="auto">
                 <MainBar />
             </Col>

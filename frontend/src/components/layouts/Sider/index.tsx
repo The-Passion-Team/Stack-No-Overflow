@@ -16,7 +16,7 @@ const siderStyle: React.CSSProperties = {
     padding: "20px 0",
     borderRight: "1px solid var(--divider-color)",
     overflow: "auto",
-    height: "100%",
+    height: "100vh",
     position: "sticky",
     left: 0,
     top: 64,
@@ -91,7 +91,7 @@ export function Sider() {
     }
 
     return (
-        <SiderAntDesign style={siderStyle}>
+        <SiderAntDesign style={siderStyle} className="stylesSider">
             <Menu
                 onClick={onClick}
                 style={{ width: "100%" }}

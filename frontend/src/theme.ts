@@ -1,6 +1,6 @@
 const theme = {
     token: {
-        colorText: "#525960",
+        colorText: "#000",
     },
     components: {
         Layout: {

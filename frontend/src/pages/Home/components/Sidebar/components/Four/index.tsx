@@ -1,6 +1,7 @@
-import { Row, Space, Typography } from "antd"
+import { Button, Row, Space, Typography } from "antd"
+import React from "react"
 
-const Second = () => {
+const Four = () => {
     return (
         <Space
             direction="vertical"
@@ -19,14 +20,16 @@ const Second = () => {
                     borderBottom: "1px solid #ccc",
                 }}
             >
-                <Typography style={{ fontSize: 15 }}>Custom filters</Typography>
+                <Typography style={{ fontSize: 15 }}>Ignored Tags</Typography>
             </Row>
 
-            <Row style={{ padding: "5px 20px", paddingBottom: 10 }}>
-                <Typography.Link style={{ fontSize: 13 }}>Create a custom filter</Typography.Link>
+            <Row style={{ padding: "15px 20px" }} justify={"center"}>
+                <Space direction="vertical" align="center">
+                    <Button type="primary">Add an ignored tag</Button>
+                </Space>
             </Row>
         </Space>
     )
 }
 
-export default Second
+export default Four
