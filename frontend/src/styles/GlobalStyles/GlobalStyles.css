@@ -3,6 +3,8 @@
 :root {
     --main-color: "#FF914D";
     --color-hover: #f3f4f5;
+    --main-bg-color: #fff;
+    --divider-color: #d6d9dc;
 }
 
 * {

@@ -12,9 +12,10 @@ import { Path } from "~/routes"
 const { Sider: SiderAntDesign } = Layout
 
 const siderStyle: React.CSSProperties = {
-    minHeight: "100vh",
+    height: "100vh",
     backgroundColor: "#fff",
     padding: "20px 0",
+    borderRight: "1px solid var(--divider-color)",
 }
 
 type MenuItem = Required<MenuProps>["items"][number]
