@@ -1,0 +1,31 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    border-radius: 3px;
+    border: 1px solid #ebda9d;
+    overflow: hidden;
+}
+
+article {
+    color: #000 !important;
+}
+
+
+.padding {
+    padding: 10px 20px;
+}
+
+.bg {
+    background-color: #FDF7E2;
+}
+
+.txt {
+    font-size: 13px;
+}
+
+.title {
+    font-weight: 500;
+    background-color: #FBF3D5;
+    display: flex;
+    flex: 1;
+}
