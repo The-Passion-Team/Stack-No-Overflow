@@ -15,7 +15,7 @@ const Second = () => {
             <Row
                 style={{
                     padding: "10px 20px",
-                    backgroundColor: "#f4f4f4",
+                    backgroundColor: "#00000005",
                     borderBottom: "1px solid #ccc",
                 }}
             >

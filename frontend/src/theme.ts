@@ -4,7 +4,7 @@ const theme = {
     },
     components: {
         Layout: {
-            colorBgBody: "#fff",
+            // colorBgLayout: "#fff",
         },
     },
 }

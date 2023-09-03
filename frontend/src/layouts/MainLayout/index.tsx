@@ -8,9 +8,9 @@ type MainLayoutProps = {
 const MainLayout = (props: MainLayoutProps) => {
     return (
         <Space direction="vertical" style={{ width: "100%" }}>
-            <Layout>
+            <Layout style={{ backgroundColor: "#fff" }}>
                 <Header />
-                <Layout hasSider className="snoContainer" style={{ position: "relative" }}>
+                <Layout hasSider className="snoContainer" style={{ background: "#fff" }}>
                     <Sider />
                     <Feeder page={props.children} />
                 </Layout>
