@@ -6,7 +6,7 @@ import "./LogIn.scss"
 
 export function LogIn() {
     return (
-        <Layout className="styleLogInPage">
+        <Layout id="login-page">
             <Space className="container">
                 <Space className="space logo">
                     <Logo />

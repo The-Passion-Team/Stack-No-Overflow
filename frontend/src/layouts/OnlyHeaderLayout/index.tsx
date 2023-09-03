@@ -11,7 +11,15 @@ const OnlyHeaderLayout: React.FC<props> = ({ children }) => {
         <Space direction="vertical" style={{ width: "100%" }}>
             <Layout>
                 <Header />
-                <Feeder page={children} />
+                <Layout
+                    style={{
+                        backgroundColor: "#f1f2f3",
+                        position: "relative",
+                        height: "calc(100vh - 64px)",
+                    }}
+                >
+                    <Feeder page={children} />
+                </Layout>
             </Layout>
         </Space>
     )
