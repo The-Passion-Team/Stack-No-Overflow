@@ -3,6 +3,7 @@ import { Button, Layout, Space, Typography } from "antd"
 import LoginForm from "./components/LoginForm"
 import { Logo } from "~/components"
 import "./LogIn.scss"
+import { Link } from "react-router-dom"
 
 export function LogIn() {
     return (
@@ -42,7 +43,10 @@ export function LogIn() {
 
                 <Space className="space" direction="vertical">
                     <Typography>
-                        Don’t have an account? <Typography.Link>Sign up</Typography.Link>
+                        Don’t have an account?{" "}
+                        <Link to="/signup">
+                            <Typography.Link>Sign up</Typography.Link>
+                        </Link>
                     </Typography>
                     <Typography>
                         Forgot Password? <Typography.Link>Change password</Typography.Link>
