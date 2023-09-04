@@ -3,6 +3,10 @@ import { Layout, Row, Col } from "antd"
 import SearchAutoComplete from "./components/SearchAutoComplete"
 import NavRight from "./components/NavRight"
 import Web from "./components/Web"
+import { useSelector } from "react-redux"
+import { selectorCurrentUser } from "~/redux/authSlice"
+import BtnLogIn from "./components/BtnLogIn"
+import BtnSignUp from "./components/BtnSignUp"
 
 const { Header: HeaderAntDesign } = Layout
 
@@ -16,6 +20,8 @@ const headerStyle: React.CSSProperties = {
 }
 
 export function Header() {
+    const currentUser = useSelector(selectorCurrentUser)?.data
+
     return (
         <HeaderAntDesign style={headerStyle}>
             <Row gutter={30}>
@@ -28,7 +34,14 @@ export function Header() {
                 </Col>
 
                 <Col>
-                    <NavRight />
+                    {currentUser ? (
+                        <NavRight />
+                    ) : (
+                        <>
+                            <BtnLogIn />
+                            <BtnSignUp />
+                        </>
+                    )}
                 </Col>
             </Row>
         </HeaderAntDesign>
