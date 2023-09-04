@@ -1,21 +1,26 @@
+import { Path } from "~/routes"
 import React, { useState } from "react"
 import { Layout, Menu, MenuProps } from "antd"
+import { useNavigate } from "react-router-dom"
 import {
     AppstoreOutlined,
     HomeOutlined,
     MoneyCollectOutlined,
     TeamOutlined,
 } from "@ant-design/icons"
-import { useNavigate } from "react-router-dom"
-import { Path } from "~/routes"
 
 const { Sider: SiderAntDesign } = Layout
 
 const siderStyle: React.CSSProperties = {
-    height: "100vh",
     backgroundColor: "#fff",
     padding: "20px 0",
     borderRight: "1px solid var(--divider-color)",
+    overflow: "auto",
+    height: "100vh",
+    position: "sticky",
+    left: 0,
+    top: 64,
+    bottom: 0,
 }
 
 type MenuItem = Required<MenuProps>["items"][number]
@@ -86,7 +91,7 @@ export function Sider() {
     }
 
     return (
-        <SiderAntDesign style={siderStyle}>
+        <SiderAntDesign style={siderStyle} className="stylesSider">
             <Menu
                 onClick={onClick}
                 style={{ width: "100%" }}
