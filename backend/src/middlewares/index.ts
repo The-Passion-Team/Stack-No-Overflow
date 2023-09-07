@@ -3,13 +3,14 @@ import HttpStatusCodes from "http-status-codes"
 import jwt from "jsonwebtoken"
 import Payload from "../types/Payload"
 import Request from "../types/Request"
+import { config } from "../index"
 
 export const verifyToken = (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization || ""
     if (token) {
         try {
             const accessToken = token.split(" ")[1]
-            const payload: Payload | any = jwt.verify(accessToken, process.env.JWT_SECRET || "")
+            const payload: Payload | any = jwt.verify(accessToken, config.jwtSecret)
             req.userId = payload.userId
             next()
         } catch (error) {

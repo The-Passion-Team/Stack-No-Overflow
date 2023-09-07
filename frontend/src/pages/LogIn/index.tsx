@@ -49,7 +49,7 @@ export function LogIn() {
                         </Link>
                     </Typography>
                     <Typography>
-                        Forgot Password? <Typography.Link>Change password</Typography.Link>
+                        Forgot Password? <Link to="/signup"> Change password </Link>
                     </Typography>
                 </Space>
             </Space>
