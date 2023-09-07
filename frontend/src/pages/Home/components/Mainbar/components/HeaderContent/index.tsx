@@ -1,9 +1,17 @@
 import { Button, Layout, Row, Space } from "antd"
+import { useNavigate } from "react-router-dom"
 import { Filter, Title } from "~/components/contents"
+import { Path } from "~/routes"
 
 const ButtonAskQuestion = () => {
+    const navigate = useNavigate()
+
+    const onClick = () => {
+        navigate(Path.Ask)
+    }
+
     return (
-        <Button type="primary" size="middle">
+        <Button type="primary" size="middle" onClick={onClick}>
             Ask Question
         </Button>
     )

@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
 
 :root {
+    --main-bg-color: #fff;
     --main-color: "#FF914D";
     --color-hover: #f3f4f5;
-    --main-bg-color: #fff;
     --divider-color: #d6d9dc;
 }
 
