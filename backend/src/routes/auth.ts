@@ -6,12 +6,77 @@ import User from "../models/User"
 import jwt from "jsonwebtoken"
 import { config } from "../index"
 import HttpStatusCodes from "http-status-codes"
+import { verifyToken } from "../middlewares"
+
+export const generateAccessToken = (user: any) => {
+    return jwt.sign(
+        {
+            id: user.id,
+            admin: user.admin,
+        },
+        config.jwtActive,
+        { expiresIn: "60d" },
+    )
+}
+
+export const generateRefreshToken = (user: any) => {
+    return jwt.sign(
+        {
+            id: user.id,
+            admin: user.admin,
+        },
+        config.jwtRefresh,
+        { expiresIn: "365d" },
+    )
+}
 
 export function authRouter(): Router {
     const router = Router()
-    router.get("/login", (req, res) => {
-        res.send("this is login route")
-    })
+
+    router.post(
+        "/login",
+        check("email", "Please include a valid email")
+            .isEmail()
+            .normalizeEmail(),
+        async (req: Request, res: Response) => {
+            try {
+                const { email, password } = req.body
+                //find the user's email in the model
+                const user = await User.findOne({ email }).select("+password")
+                if (!user) {
+                    res.status(HttpStatusCodes.NOT_FOUND).send({ msg: "User not found" })
+                    return
+                }
+
+                //compare the user-entered password with the hashed password
+                const matchPassword = await bcrypt.compare(password, user.password)
+
+                if (!matchPassword) {
+                    res.status(HttpStatusCodes.BAD_REQUEST).send({ msg: "Wrong password" })
+                    return
+                } else if (user && matchPassword) {
+                    //Generate access token
+                    const accessToken = generateAccessToken(user)
+                    //Generate refresh token
+                    const refreshToken = generateRefreshToken(user)
+
+                    //STORE REFRESH TOKEN IN COOKIE
+                    res.cookie("refreshToken", refreshToken, {
+                        httpOnly: true,
+                        secure: false,
+                        path: "/",
+                        sameSite: "strict",
+                    })
+                    const userLogin = await User.findOne({ email }).select("-password")
+                    // const { password, ...others } = user._doc;
+                    res.status(HttpStatusCodes.OK).json({ userLogin, accessToken })
+                }
+            } catch (err: any) {
+                console.error(err.message)
+                res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+            }
+        },
+    )
 
     router.post(
         "/signup",
@@ -53,5 +118,16 @@ export function authRouter(): Router {
             }
         },
     )
+
+    router.post(
+        "/logout",
+        async (req: Request, res: Response) => {
+            verifyToken
+            //Clear cookies when user logs out
+            res.clearCookie("refreshToken");
+            res.status(HttpStatusCodes.OK).json({ msg:"Logged out successfully!" });
+        },
+    )
+
     return router
 }
