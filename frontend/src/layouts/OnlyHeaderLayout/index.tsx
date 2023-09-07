@@ -12,11 +12,8 @@ const OnlyHeaderLayout: React.FC<props> = ({ children }) => {
             <Layout>
                 <Header />
                 <Layout
-                    style={{
-                        backgroundColor: "#f1f2f3",
-                        position: "relative",
-                        height: "calc(100vh - 64px)",
-                    }}
+                    className="snoContainer"
+                    style={{ position: "relative", height: "calc(100vh - 64px)" }}
                 >
                     <Feeder page={children} />
                 </Layout>

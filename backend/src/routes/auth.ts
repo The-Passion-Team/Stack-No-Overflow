@@ -1,3 +1,4 @@
+import { verifyToken } from "./../middlewares/index"
 import { Router } from "express"
 import { check } from "express-validator"
 import { Request, Response } from "express"
@@ -6,7 +7,6 @@ import User from "../models/User"
 import jwt from "jsonwebtoken"
 import { config } from "../index"
 import HttpStatusCodes from "http-status-codes"
-import { verifyToken } from "../middlewares"
 
 export const generateAccessToken = (user: any) => {
     return jwt.sign(
@@ -35,9 +35,7 @@ export function authRouter(): Router {
 
     router.post(
         "/login",
-        check("email", "Please include a valid email")
-            .isEmail()
-            .normalizeEmail(),
+        check("email", "Please include a valid email").isEmail().normalizeEmail(),
         async (req: Request, res: Response) => {
             try {
                 const { email, password } = req.body
@@ -104,6 +102,7 @@ export function authRouter(): Router {
                     }
 
                     jwt.sign(newUser, config.jwtSecret, { expiresIn: "60d" })
+                    
                     await new User(newUser).save()
 
                     res.status(HttpStatusCodes.OK).send({ msg: "Signup Success!" })
@@ -119,15 +118,12 @@ export function authRouter(): Router {
         },
     )
 
-    router.post(
-        "/logout",
-        async (req: Request, res: Response) => {
-            verifyToken
-            //Clear cookies when user logs out
-            res.clearCookie("refreshToken");
-            res.status(HttpStatusCodes.OK).json({ msg:"Logged out successfully!" });
-        },
-    )
+    router.post("/logout", async (req: Request, res: Response) => {
+        verifyToken
+        //Clear cookies when user logs out
+        res.clearCookie("refreshToken")
+        res.status(HttpStatusCodes.OK).json({ msg: "Logged out successfully!" })
+    })
 
     return router
 }
