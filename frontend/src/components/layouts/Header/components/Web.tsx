@@ -1,6 +1,6 @@
 import React from "react"
 import { Col, Row } from "antd"
-import { Logo, Brand } from "~/components"
+import {Logo, Brand} from "~/components"
 import { useNavigate } from "react-router-dom"
 import { Path } from "~/routes"
 
