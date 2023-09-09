@@ -4,9 +4,10 @@ import SearchAutoComplete from "./components/SearchAutoComplete"
 import NavRight from "./components/NavRight"
 import Web from "./components/Web"
 import { useSelector } from "react-redux"
-import { selectorCurrentUser } from "~/redux/authSlice"
+// import { selectorCurrentUser } from "~/redux/authSlice"
 import BtnLogIn from "./components/BtnLogIn"
 import BtnSignUp from "./components/BtnSignUp"
+import { RootState } from "~/redux/interfaces"
 
 const { Header: HeaderAntDesign } = Layout
 
@@ -20,7 +21,8 @@ const headerStyle: React.CSSProperties = {
 }
 
 export function Header() {
-    const currentUser = useSelector(selectorCurrentUser)?.data
+    // const currentUser = useSelector(selectorCurrentUser)?.data
+    const { currentUser } = useSelector((state: RootState) => state.auth);
 
     return (
         <HeaderAntDesign style={headerStyle}>
