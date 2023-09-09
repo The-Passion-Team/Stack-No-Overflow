@@ -1,22 +1,15 @@
-import { Row, Typography } from "antd"
+import { Space, Typography } from "antd"
 import "./tags.scss"
-
-type props = {
+interface ITags {
     listTags: string[]
 }
 
-const Tags: React.FC<props> = ({ listTags }) => {
-    return (
-        <Row align="middle" gutter={15}>
-            {listTags.map((tag, index) => {
-                return (
-                    <Typography.Paragraph className="styles" key={index}>
-                        {tag}
-                    </Typography.Paragraph>
-                )
-            })}
-        </Row>
-    )
-}
+const Tags = ({ listTags }: ITags) => (
+    <Space align="center">
+        {listTags.map((tag, index) => (
+            <Typography children={tag} className="tag" key={index} />
+        ))}
+    </Space>
+)
 
 export default Tags

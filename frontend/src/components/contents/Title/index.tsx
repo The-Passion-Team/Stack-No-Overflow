@@ -8,6 +8,6 @@ interface props {
     content: string
 }
 
-export const Title = (props: props) => {
-    return <Typography.Text style={styles}>{props.content}</Typography.Text>
+export const Title = ({ content }: props) => {
+    return <Typography.Text style={styles}>{content}</Typography.Text>
 }

@@ -1,5 +1,5 @@
 import { UserOutlined } from "@ant-design/icons"
-import { Avatar, Col, Row, Typography } from "antd"
+import { Avatar, Space, Typography } from "antd"
 
 interface props {
     avatar?: string
@@ -7,19 +7,13 @@ interface props {
     timepost: string
 }
 
-const Users = (props: props) => {
+const Users = ({ avatar, username, timepost }: props) => {
     return (
-        <Row align="middle" justify="end" gutter={5}>
-            <Col>
-                <Avatar shape="square" size="small" icon={<UserOutlined />} />
-            </Col>
-            <Col>
-                <Typography.Link style={{ fontSize: 13 }}>{props.username}</Typography.Link>
-            </Col>
-            <Col>
-                <Typography style={{ fontSize: 13 }}>{props.timepost}</Typography>
-            </Col>
-        </Row>
+        <Space>
+            <Avatar shape="square" size="small" icon={avatar || <UserOutlined />} />
+            <Typography.Link style={{ fontSize: 13 }}>{username}</Typography.Link>
+            <Typography style={{ fontSize: 13 }}>{timepost}</Typography>
+        </Space>
     )
 }
 

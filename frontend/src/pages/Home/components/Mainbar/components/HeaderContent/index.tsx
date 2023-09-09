@@ -1,21 +1,7 @@
-import { Button, Layout, Row, Space } from "antd"
-import { useNavigate } from "react-router-dom"
+import { Layout, Row, Space } from "antd"
 import { Filter, Title } from "~/components/contents"
 import { Path } from "~/routes"
-
-const ButtonAskQuestion = () => {
-    const navigate = useNavigate()
-
-    const onClick = () => {
-        navigate(Path.Ask)
-    }
-
-    return (
-        <Button type="primary" size="middle" onClick={onClick}>
-            Ask Question
-        </Button>
-    )
-}
+import ButtonAskQuestion from "./components/ButtonAskQuestion"
 
 const style1 = {
     paddingLeft: 20,
@@ -37,11 +23,16 @@ const HeaderContent = () => {
             <Space direction="vertical" size="middle">
                 <Row align="middle" justify="space-between">
                     <Title content="Top Questions" />
-                    <ButtonAskQuestion />
+                    <ButtonAskQuestion
+                        children="Ask question"
+                        path={Path.Ask}
+                        type="primary"
+                        size="middle"
+                    />
                 </Row>
 
                 <Row align="middle" justify="end">
-                    <Filter data={dummyData} />
+                    <Filter arrayData={dummyData} />
                 </Row>
             </Space>
         </Layout>
