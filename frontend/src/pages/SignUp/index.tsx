@@ -1,9 +1,6 @@
 import {
     ApiOutlined,
     ExportOutlined,
-    FacebookOutlined,
-    GithubOutlined,
-    GoogleOutlined,
     QuestionCircleOutlined,
     TagsOutlined,
     TrophyOutlined,
@@ -12,6 +9,7 @@ import { Button, Layout, Row, Space, Typography } from "antd"
 import SignUpForm from "./components/SignUpForm"
 import { Link } from "react-router-dom"
 import "./SignUp.scss"
+import { MethodLogin } from "../LogIn"
 
 const dummy1 = [
     { typ: "Get unstuck — ask a question", icon: <QuestionCircleOutlined /> },
@@ -54,27 +52,19 @@ export function SignUp() {
 
                 <Space direction="vertical" style={{ width: 300 }}>
                     <Space direction="vertical" className="space">
-                        <Button
-                            icon={<GoogleOutlined />}
-                            className="btnLogin"
-                            style={{ backgroundColor: "#fff", fontSize: 13 }}
-                        >
-                            Log in with Google
-                        </Button>
-                        <Button
-                            icon={<GithubOutlined />}
-                            className="btnLogin"
-                            style={{ backgroundColor: "#232629", color: "#fff", fontSize: 13 }}
-                        >
-                            Log in with GitHub
-                        </Button>
-                        <Button
-                            icon={<FacebookOutlined />}
-                            className="btnLogin"
-                            style={{ backgroundColor: "#314A86", color: "#fff", fontSize: 13 }}
-                        >
-                            Log in with Facebook
-                        </Button>
+                        {MethodLogin.map((item, index) => (
+                            <Button
+                                key={index}
+                                children={item.btn}
+                                icon={item.icon}
+                                className="btnLogin"
+                                style={{
+                                    color: item.color,
+                                    backgroundColor: item.backgroundColor,
+                                    fontSize: 13,
+                                }}
+                            />
+                        ))}
                     </Space>
 
                     <Space className="space">

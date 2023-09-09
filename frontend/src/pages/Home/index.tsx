@@ -1,4 +1,3 @@
-import React from "react"
 import { Col, Row } from "antd"
 import SideBar from "./components/Sidebar"
 import MainBar from "./components/Mainbar"

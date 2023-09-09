@@ -1,5 +1,4 @@
-import { Row, Space, Typography } from "antd"
-import './Rate.scss'
+import { Space, Typography } from "antd"
 
 interface props {
     vote?: number
@@ -7,18 +6,20 @@ interface props {
     views?: number
 }
 
-const Rate = (props: props) => {
+const Rate = ({ vote, answers, views }: props) => {
+    const type = [
+        { name: "vote", value: vote },
+        { name: "answers", value: answers },
+        { name: "views", value: views },
+    ]
+
     return (
-        <Space direction="vertical" align="end" className="stylesRate">
-            <Row>
-                <Typography>{props.vote || 0} vote</Typography>
-            </Row>
-            <Row>
-                <Typography>{props.answers || 0} answers</Typography>
-            </Row>
-            <Row>
-                <Typography>{props.views || 0} views</Typography>
-            </Row>
+        <Space direction="vertical" align="end">
+            {type.map((item, index) => (
+                <Typography key={index} style={{ fontSize: 13.5 }}>
+                    {item.value || 0} {item.name}
+                </Typography>
+            ))}
         </Space>
     )
 }
