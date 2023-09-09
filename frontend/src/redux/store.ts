@@ -1,10 +1,38 @@
-import { configureStore } from "@reduxjs/toolkit"
-import authSlice from "./authSlice"
+import { authReducer } from "./auth"
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import { usersReducer } from "./users";
 
-const store = configureStore({
-    reducer: {
-        auth: authSlice,
-    },
-})
+const persistConfig = {
+	key: "root",
+	version: 1,
+	storage,
+	whitelist: ["auth", "users"]
+};
 
-export default store
+const combinedReducer = combineReducers({
+	auth: authReducer,
+	user: usersReducer,
+});
+
+const rootReducer = (state: any, action: any) => {
+	// if (action.type === "auth/logoutSuccess") {
+	// 	state = undefined;
+	// }
+	return combinedReducer(state, action);
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+export const store = configureStore({
+	reducer: persistedReducer,
+	// middleware: (getDefaultMiddleware) =>
+	// 	getDefaultMiddleware({
+	// 		serializableCheck: {
+	// 			ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+	// 		}
+	// 	})
+});
+
+export const StorePersistor = persistStore(store);
+
