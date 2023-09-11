@@ -4,12 +4,12 @@ import { useSelector } from "react-redux"
 import { selectorFormAsk } from "~/redux/formAsk"
 import { PF } from "~/utils/variables"
 
-const SuggestWritingTitle = () => {
+const SuggestWritingDetail = () => {
     const form = useSelector(selectorFormAsk)
 
     return (
         <>
-            {form.title.current ? (
+            {form.detail.current ? (
                 <Fragment />
             ) : (
                 <Space
@@ -29,18 +29,15 @@ const SuggestWritingTitle = () => {
                             borderBottom: "1px solid #ccc",
                         }}
                     >
-                        Writing a good title
+                        Introduce the problem
                     </Space>
 
                     <Space style={{ backgroundColor: "#fff", padding: 20 }}>
                         <img src={`${PF}/assets/icons8-sign-up-50.png`} alt="" width={45} />
                         <Space direction="vertical">
                             <Typography.Text style={{ fontSize: 12 }}>
-                                Your title should summarize the problem.
-                            </Typography.Text>
-                            <Typography.Text style={{ fontSize: 12 }}>
-                                You might find that you have a better idea of your title after
-                                writing out the rest of the question.
+                                Explain how you encountered the problem you’re trying to solve, and
+                                any difficulties that have prevented you from solving it yourself.
                             </Typography.Text>
                         </Space>
                     </Space>
@@ -50,4 +47,4 @@ const SuggestWritingTitle = () => {
     )
 }
 
-export default SuggestWritingTitle
+export default SuggestWritingDetail

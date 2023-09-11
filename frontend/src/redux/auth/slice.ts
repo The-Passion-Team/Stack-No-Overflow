@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { Status } from "~/utils"
 import { signupToAccount } from "./actions"
 import { AuthState } from "./interfaces"
 

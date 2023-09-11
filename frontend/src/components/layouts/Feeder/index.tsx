@@ -1,16 +1,17 @@
 import React from "react"
 import { Layout } from "antd"
-
-const { Content: ContentAntDesign } = Layout
+const { Content } = Layout
 
 const contentStyle: React.CSSProperties = {
-    padding: "20px 0",
+    minHeight: "calc(100vh - 64px)",
+    paddingTop: 20,
+    paddingBottom: 20,
 }
 
-type ContentProps = {
-    page: any
+interface ContentProps {
+    children?: React.ReactNode
 }
 
-export function Feeder(props: ContentProps) {
-    return <ContentAntDesign style={contentStyle}>{props.page}</ContentAntDesign>
+export function Feeder({ children }: ContentProps) {
+    return <Content style={contentStyle}>{children}</Content>
 }

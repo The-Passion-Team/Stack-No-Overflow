@@ -5,11 +5,11 @@ import {
     TagsOutlined,
     TrophyOutlined,
 } from "@ant-design/icons"
-import { Button, Layout, Row, Space, Typography } from "antd"
+import { Button, Space, Typography } from "antd"
 import SignUpForm from "./components/SignUpForm"
 import { Link } from "react-router-dom"
-import "./SignUp.scss"
 import { MethodLogin } from "../LogIn"
+import "./SignUp.scss"
 
 const dummy1 = [
     { typ: "Get unstuck — ask a question", icon: <QuestionCircleOutlined /> },
@@ -20,22 +20,22 @@ const dummy1 = [
 
 export function SignUp() {
     return (
-        <Layout id="signup-page">
-            <Space className="container">
-                <Space direction="vertical" style={{ width: 500 }} className="left">
+        <div id="signup-page">
+            <Space style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+                <Space direction="vertical" size="large" style={{ width: 500 }}>
                     <Space style={{ textAlign: "left" }}>
                         <Typography style={{ fontSize: 26 }}>
                             Join the Stack Overflow community
                         </Typography>
                     </Space>
 
-                    <Space direction="vertical" style={{ marginTop: 10, marginBottom: 10 }}>
+                    <Space direction="vertical">
                         {dummy1.map((item, index) => {
                             return (
-                                <Row key={index} className="rowText">
+                                <Space align="center" key={index} className="rowText">
                                     {item.icon}
                                     <Typography>{item.typ}</Typography>
-                                </Row>
+                                </Space>
                             )
                         })}
                     </Space>
@@ -50,28 +50,27 @@ export function SignUp() {
                     </Space>
                 </Space>
 
-                <Space direction="vertical" style={{ width: 300 }}>
-                    <Space direction="vertical" className="space">
+                <Space direction="vertical" size="middle" style={{ width: 300 }}>
+                    <Space direction="vertical" style={{ width: "100%" }}>
                         {MethodLogin.map((item, index) => (
                             <Button
                                 key={index}
                                 children={item.btn}
                                 icon={item.icon}
-                                className="btnLogin"
+                                size="large"
                                 style={{
                                     color: item.color,
                                     backgroundColor: item.backgroundColor,
                                     fontSize: 13,
+                                    width: "100%",
                                 }}
                             />
                         ))}
                     </Space>
 
-                    <Space className="space">
-                        <SignUpForm />
-                    </Space>
+                    <SignUpForm />
 
-                    <Space className="space" direction="vertical">
+                    <Space className="space" direction="vertical" align="center">
                         <Typography>
                             Already have an account?{" "}
                             <Link to="/login">
@@ -87,6 +86,6 @@ export function SignUp() {
                     </Space>
                 </Space>
             </Space>
-        </Layout>
+        </div>
     )
 }

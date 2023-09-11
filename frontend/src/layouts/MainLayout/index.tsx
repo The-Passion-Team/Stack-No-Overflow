@@ -1,4 +1,5 @@
 import { Space, Layout } from "antd"
+import Container from "~/components/Container"
 import { Feeder, Footer, Header, Sider } from "~/components/layouts"
 
 type MainLayoutProps = {
@@ -8,12 +9,12 @@ type MainLayoutProps = {
 const MainLayout = (props: MainLayoutProps) => {
     return (
         <Space direction="vertical" style={{ width: "100%" }}>
-            <Layout style={{ backgroundColor: "var(--main-bg-color)" }}>
+            <Layout>
                 <Header />
-                <Layout hasSider className="snoContainer" style={{ background: "var(--main-bg-color)" }}>
+                <Container hasSider>
                     <Sider />
-                    <Feeder page={props.children} />
-                </Layout>
+                    <Feeder children={props.children} />
+                </Container>
                 <Footer />
             </Layout>
         </Space>

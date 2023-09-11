@@ -1,22 +1,25 @@
-import { Row } from "antd"
 import { Title } from "~/components"
 import { PF } from "~/utils/variables"
 
-const Header = () => {
+interface props {
+    title: string
+}
+
+const Header = ({ title }: props) => {
     return (
-        <Row
-            align="middle"
+        <div
             style={{
                 backgroundImage: `url("${PF}/assets/Screenshot_2023-09-06_163645-removebg-preview.png")`,
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "right bottom",
                 backgroundSize: "auto 100%",
                 height: 130,
-                marginBottom: 10,
+                display: "flex",
+                alignItems: "center",
             }}
         >
-            <Title content="Ask a public question" />
-        </Row>
+            <Title content={title} />
+        </div>
     )
 }
 
