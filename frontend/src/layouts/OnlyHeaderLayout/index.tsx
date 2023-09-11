@@ -1,24 +1,19 @@
-import React from "react"
-import { Layout, Space } from "antd"
+import { Layout } from "antd"
+import Container from "~/components/Container"
 import { Feeder, Header } from "~/components/layouts"
 
 interface props {
-    children?: any
+    children?: JSX.Element
 }
 
-const OnlyHeaderLayout: React.FC<props> = ({ children }) => {
+const OnlyHeaderLayout = ({ children }: props) => {
     return (
-        <Space direction="vertical" style={{ width: "100%" }}>
-            <Layout>
-                <Header />
-                <Layout
-                    className="snoContainer"
-                    style={{ position: "relative", height: "calc(100vh - 64px)" }}
-                >
-                    <Feeder page={children} />
-                </Layout>
-            </Layout>
-        </Space>
+        <Layout>
+            <Header />
+            <Container>
+                <Feeder>{children}</Feeder>
+            </Container>
+        </Layout>
     )
 }
 
