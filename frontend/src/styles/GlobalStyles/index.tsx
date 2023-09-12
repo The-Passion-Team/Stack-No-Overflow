@@ -1,5 +1,5 @@
 import React from "react"
-import "./GlobalStyles.css"
+import "./GlobalStyles.scss"
 
 type props = {
     children: any
