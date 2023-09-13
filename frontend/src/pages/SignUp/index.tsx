@@ -22,7 +22,7 @@ export function SignUp() {
     return (
         <div id="signup-page">
             <Space style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-                <Space direction="vertical" size="large" style={{ width: 500 }}>
+                <Space direction="vertical" size="large" style={{ width: 500 }} className="left">
                     <Space style={{ textAlign: "left" }}>
                         <Typography style={{ fontSize: 26 }}>
                             Join the Stack Overflow community
@@ -51,6 +51,12 @@ export function SignUp() {
                 </Space>
 
                 <Space direction="vertical" size="middle" style={{ width: 300 }}>
+                    <Space className="title-right">
+                        <Typography style={{ fontSize: 18, textAlign: "center" }}>
+                            Create your Stack Overflow account. It's free and only takes a miunte.
+                        </Typography>
+                    </Space>
+
                     <Space direction="vertical" style={{ width: "100%" }}>
                         {MethodLogin.map((item, index) => (
                             <Button
