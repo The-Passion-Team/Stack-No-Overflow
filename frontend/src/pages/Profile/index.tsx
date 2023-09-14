@@ -1,7 +1,8 @@
-import { Col, Row } from "antd"
+import { Col, Row, Space } from "antd"
 import Navigation from "./components/Navigation"
 import Relative from "./components/Relative"
 import Stats from "./components/Stats"
+import Collectives from "./components/Collectives"
 
 export function Profile() {
     return (
@@ -18,9 +19,15 @@ export function Profile() {
 
             <Row gutter={[16, 16]}>
                 <Col lg={7} xs={24}>
-                    <div>
+                    <Space direction="vertical" size="large" style={{ width: "100%" }}>
                         <Stats reputation={2310} reached={2345} answers={588} questions={324} />
-                    </div>
+                        <Collectives
+                            reputation={2310}
+                            reached={2345}
+                            answers={588}
+                            questions={324}
+                        />
+                    </Space>
                 </Col>
                 <Col lg={16} xs={24}>
                     2
