@@ -36,13 +36,13 @@ export function Header() {
                 </Col>
 
                 <Col>
-                    {currentUser ? (
-                        <NavRight />
-                    ) : (
+                    {currentUser === undefined ? (
                         <>
                             <BtnLogIn />
                             <BtnSignUp />
-                        </>
+                        </>      
+                    ) : (
+                        <NavRight />
                     )}
                 </Col>
             </Row>
