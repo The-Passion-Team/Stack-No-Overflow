@@ -3,20 +3,22 @@ import { Button, Form, Input } from "antd"
 import "./SignUpForm.scss"
 import Typography from "antd/es/typography/Typography"
 import Link from "antd/es/typography/Link"
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { signupToAccount } from "~/redux/auth"
-import {ThunkDispatch} from "@reduxjs/toolkit";
+import React, { useState } from "react"
+import { useDispatch } from "react-redux"
+import { AuthState, signupToAccount } from "~/redux/auth"
+import { ThunkDispatch } from "@reduxjs/toolkit"
 
-const SignUpForm = () => {
-    const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-    const [displayname, setDisplayName] = useState("");
-    const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+const SignUpForm = ({ setNotiRegistrationEmail, setEmailConfirm }: AuthState) => {
+    const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
+    const [displayname, setDisplayName] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
     const onFinish = (values: any) => {
         console.log("Received values of form: ", values)
-        console.log("displayname: ", displayname);
-        dispatch(signupToAccount({displayname, email, password}));
+        console.log("displayname: ", displayname)
+        setNotiRegistrationEmail(true)
+        setEmailConfirm(email)
+        dispatch(signupToAccount({ displayname, email, password }))
     }
 
     return (

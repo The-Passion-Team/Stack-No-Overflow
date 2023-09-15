@@ -2,10 +2,13 @@ import { Status } from "~/utils"
 import { UserData } from "../users/interfaces";
 
 export interface AuthState {
-	status: Status;
+	status?: Status;
 	currentUser?: UserData;
 	error?: Error;
 	msg?: any;
+	setNotiRegistrationEmail?: any;
+	emailConfirm?: string;
+	setEmailConfirm?: any;
 }
 
 export interface LoginPayload {
