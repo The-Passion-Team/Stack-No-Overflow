@@ -1,4 +1,5 @@
-import { NoSiderLayout, OnlyHeaderLayout } from "~/layouts"
+import NoSiderLayout from "~/layouts/NoSiderLayout"
+import OnlyHeaderLayout from "~/layouts/OnlyHeaderLayout"
 import {
     Ask,
     Companies,
