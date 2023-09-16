@@ -4,6 +4,7 @@ import { check } from "express-validator"
 import { Request, Response } from "express"
 import bcrypt from "bcrypt"
 import User from "../models/User"
+import Role from "../models/Role"
 import jwt from "jsonwebtoken"
 import { config } from "../index"
 import HttpStatusCodes from "http-status-codes"
@@ -33,9 +34,10 @@ export const generateRefreshToken = (user: any) => {
 export function authRouter(): Router {
     const router = Router()
 
+    // LOGIN ROUTE
     router.post(
         "/login",
-        check("email", "Please include a valid email").isEmail().normalizeEmail(),
+        check("email", "Please include a valid email").isEmail(),
         async (req: Request, res: Response) => {
             try {
                 const { email, password } = req.body
@@ -65,8 +67,11 @@ export function authRouter(): Router {
                         path: "/",
                         sameSite: "strict",
                     })
-                    const userLogin = await User.findOne({ email }).select("-password")
-                    // const { password, ...others } = user._doc;
+                    const userLogin = await User.findOne({ email }).select("-password").populate({ path: 'role', select: 'name -_id' })
+
+                    console.log("userLogin", userLogin)
+
+                    // const { password, creat, ...others } = user._doc;
                     res.status(HttpStatusCodes.OK).json({ userLogin, accessToken })
                 }
             } catch (err: any) {
@@ -85,8 +90,8 @@ export function authRouter(): Router {
                 .isLength({ min: 8 }),
         ],
         async (req: Request, res: Response) => {
-            const { username, email, password } = req.body
             try {
+                const { username, email, password, role } = req.body
                 //generate salt to hash password
                 const salt = await bcrypt.genSalt(10)
                 //set user password to hashed password
@@ -99,10 +104,11 @@ export function authRouter(): Router {
                         username,
                         email,
                         password: hashedPassword,
+                        role,
                     }
 
                     jwt.sign(newUser, config.jwtSecret, { expiresIn: "60d" })
-                    
+
                     await new User(newUser).save()
 
                     res.status(HttpStatusCodes.OK).send({ msg: "Signup Success!" })
@@ -123,6 +129,17 @@ export function authRouter(): Router {
         //Clear cookies when user logs out
         res.clearCookie("refreshToken")
         res.status(HttpStatusCodes.OK).json({ msg: "Logged out successfully!" })
+    })
+
+    router.post("/add", async (req: Request, res: Response) => {
+        try {
+            await new Role({ name: "admin" }).save()
+
+            res.status(HttpStatusCodes.OK).send({ msg: "Add Success!" })
+        } catch (err: any) {
+            console.error(err.message)
+            res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+        }
     })
 
     return router

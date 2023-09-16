@@ -1,4 +1,3 @@
-import NoSiderLayout from "~/layouts/NoSiderLayout"
 import OnlyHeaderLayout from "~/layouts/OnlyHeaderLayout"
 import NoSiderLayout from "~/layouts/NoSiderLayout"
 import {
@@ -36,7 +35,6 @@ export const routes: props = [
     { path: Path.Home, page: Home },
     { path: Path.LogIn, page: LogIn, layout: OnlyHeaderLayout },
     { path: Path.SignUp, page: SignUp, layout: OnlyHeaderLayout },
-    { path: Path.RequestCheckMail, page: RequestCheckMail, layout: OnlyHeaderLayout },
     { path: Path.Profile, page: Profile },
     { path: Path.Questions, page: Questions },
     { path: Path.Ask, page: Ask, layout: NoSiderLayout },
