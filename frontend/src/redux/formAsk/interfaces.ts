@@ -22,3 +22,10 @@ export interface FormAskState {
         data: string[] | null
     }
 }
+
+export interface CreateQuestionPayload {
+	title: string;
+	detail: any;
+    try: any;
+    tags: any;
+}

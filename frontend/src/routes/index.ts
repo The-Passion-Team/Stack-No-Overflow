@@ -1,5 +1,6 @@
 import NoSiderLayout from "~/layouts/NoSiderLayout"
 import OnlyHeaderLayout from "~/layouts/OnlyHeaderLayout"
+import NoSiderLayout from "~/layouts/NoSiderLayout"
 import {
     Ask,
     Companies,
@@ -10,7 +11,6 @@ import {
     SignUp,
     Tags,
     Users,
-    RequestCheckMail,
 } from "~/pages"
 
 export const Path = {
