@@ -1,0 +1,12 @@
+.tag {
+    color: #39739d;
+    background-color: #e1ecf4;
+    padding: 1px 10px;
+    border-radius: 5px;
+    font-size: 13px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #d7e2eb;
+    }
+}
