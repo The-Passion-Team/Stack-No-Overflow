@@ -1,12 +1,12 @@
-import { LockOutlined, SmileOutlined, UserOutlined } from "@ant-design/icons"
-import { Button, Form, Input } from "antd"
 import "./SignUpForm.scss"
-import Typography from "antd/es/typography/Typography"
-import Link from "antd/es/typography/Link"
-import React, { useState } from "react"
+import { useState } from "react"
 import { useDispatch } from "react-redux"
-import { AuthState, signupToAccount } from "~/redux/auth"
+import { Button, Form, Input } from "antd"
+import Link from "antd/es/typography/Link"
 import { ThunkDispatch } from "@reduxjs/toolkit"
+import Typography from "antd/es/typography/Typography"
+import { AuthState, signupToAccount } from "~/redux/auth"
+import { LockOutlined, SmileOutlined, UserOutlined } from "@ant-design/icons"
 
 const SignUpForm = ({ setNotiRegistrationEmail, setEmailConfirm }: AuthState) => {
     const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
@@ -38,7 +38,10 @@ const SignUpForm = ({ setNotiRegistrationEmail, setEmailConfirm }: AuthState) =>
             </Form.Item>
             <Form.Item
                 name="email"
-                rules={[{ required: true, message: "Please input your Email!" }]}
+                rules={[
+                    { type: "email", message: "The input is not valid E-mail!!" },
+                    { required: true, message: "Please input your Email!" },
+                ]}
             >
                 <Input
                     prefix={<UserOutlined className="site-form-item-icon" />}
@@ -50,8 +53,9 @@ const SignUpForm = ({ setNotiRegistrationEmail, setEmailConfirm }: AuthState) =>
             <Form.Item
                 name="password"
                 rules={[{ required: true, message: "Please input your Password!" }]}
+                hasFeedback
             >
-                <Input
+                <Input.Password
                     prefix={<LockOutlined className="site-form-item-icon" />}
                     size="large"
                     type="password"

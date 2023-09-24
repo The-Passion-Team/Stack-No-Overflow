@@ -1,5 +1,4 @@
-import mongoose, { model, Schema, SchemaDefinitionProperty } from "mongoose"
-import RoleSchema, { IRole } from "./Role"
+import { model, Schema, SchemaDefinitionProperty } from "mongoose"
 
 export interface IUser {
     username: string
@@ -26,15 +25,11 @@ const userSchema = new Schema<IUser>(
         role: {
             type: Schema.Types.ObjectId,
             ref: "Role",
+            default: "6505da44751464ef46c01d22",
         },
     },
     { timestamps: true },
 )
-
-userSchema.pre("save", function (next) {
-    this.role == null ? (this.role = "6505da44751464ef46c01d22") : null
-    next()
-})
 
 const User = model<IUser>("User", userSchema)
 

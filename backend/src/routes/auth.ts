@@ -44,16 +44,18 @@ export function authRouter(): Router {
                 //find the user's email in the model
                 const user = await User.findOne({ email }).select("+password")
                 if (!user) {
-                    res.status(HttpStatusCodes.NOT_FOUND).send({ msg: "User not found" })
-                    return
+                    return res
+                        .status(HttpStatusCodes.NOT_FOUND)
+                        .send({ err: true, msg: "User not found" })
                 }
 
                 //compare the user-entered password with the hashed password
                 const matchPassword = await bcrypt.compare(password, user.password)
 
                 if (!matchPassword) {
-                    res.status(HttpStatusCodes.BAD_REQUEST).send({ msg: "Wrong password" })
-                    return
+                    return res
+                        .status(HttpStatusCodes.BAD_REQUEST)
+                        .send({ err: true, msg: "Wrong password" })
                 } else if (user && matchPassword) {
                     //Generate access token
                     const accessToken = generateAccessToken(user)
@@ -67,12 +69,16 @@ export function authRouter(): Router {
                         path: "/",
                         sameSite: "strict",
                     })
-                    const userLogin = await User.findOne({ email }).select("-password").populate({ path: 'role', select: 'name -_id' })
-
-                    console.log("userLogin", userLogin)
+                    const userLogin = await User.findOne({ email })
+                        .select("-password")
+                        .populate({ path: "role", select: "name -_id" })
 
                     // const { password, creat, ...others } = user._doc;
-                    res.status(HttpStatusCodes.OK).json({ userLogin, accessToken })
+                    res.status(HttpStatusCodes.OK).json({
+                        err: false,
+                        msg: "Login Success!",
+                        data: { userLogin, accessToken },
+                    })
                 }
             } catch (err: any) {
                 console.error(err.message)

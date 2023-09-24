@@ -17,7 +17,4 @@ const roleSchema = new Schema<IRole>(
 
 const RoleSchema = model<IRole>("Role", roleSchema)
 
-// const role = new RoleSchema({ name: "admin" }, { name: "user" })
-// await role.save()
-
 export default RoleSchema
