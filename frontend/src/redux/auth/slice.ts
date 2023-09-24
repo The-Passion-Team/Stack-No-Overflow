@@ -1,15 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { signupToAccount } from "./actions"
-import { AuthState } from "./interfaces"
+import { Status } from "~/utils"
+// import { AuthState } from "./interfaces"
 
-const authState: AuthState = {
-    status: "pending",
+interface AuthState {
+    status?: Status
+    // currentUser?: UserData
+    error?: Error
+    msg?: any
+    setNotiRegistrationEmail?: any
+    emailConfirm?: string
+    setEmailConfirm?: any
+}
+
+const initialState: AuthState = {
+    status: "idle",
     msg: "",
 }
 
 const authSlice = createSlice({
     name: "auth",
-    initialState: authState,
+    initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder

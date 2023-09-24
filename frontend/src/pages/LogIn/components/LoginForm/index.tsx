@@ -16,7 +16,10 @@ const LoginForm = () => {
         >
             <Form.Item
                 name="email"
-                rules={[{ required: true, message: "Please input your Email!" }]}
+                rules={[
+                    { type: "email", message: "The input is not valid Email!" },
+                    { required: true, message: "Please input your Email!" },
+                ]}
             >
                 <Input
                     prefix={<UserOutlined className="site-form-item-icon" />}
@@ -27,8 +30,9 @@ const LoginForm = () => {
             <Form.Item
                 name="password"
                 rules={[{ required: true, message: "Please input your Password!" }]}
+                hasFeedback
             >
-                <Input
+                <Input.Password
                     prefix={<LockOutlined className="site-form-item-icon" />}
                     size="large"
                     type="password"

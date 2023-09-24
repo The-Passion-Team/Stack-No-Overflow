@@ -1,11 +1,11 @@
-import { model, Schema } from "mongoose"
+import { model, Schema, SchemaDefinitionProperty } from "mongoose"
 
 export interface IUser {
     username: string
     email: string
     password: string
     avatar: string
-    admin: boolean
+    role: SchemaDefinitionProperty
 }
 
 const userSchema = new Schema<IUser>(
@@ -22,14 +22,15 @@ const userSchema = new Schema<IUser>(
         avatar: {
             type: String,
         },
-        admin: {
-            type: Boolean,
-            default: false,
+        role: {
+            type: Schema.Types.ObjectId,
+            ref: "Role",
+            default: "6505da44751464ef46c01d22",
         },
     },
     { timestamps: true },
 )
 
-const User = model<IUser>("Users", userSchema)
+const User = model<IUser>("User", userSchema)
 
 export default User

@@ -1,8 +1,9 @@
-import { Col, Divider, FloatButton, Row, Space } from "antd"
+import { Divider, FloatButton, Row, Space } from "antd"
 import Ask from "./components/Ask"
 import Tags from "./components/Tags"
 import Users from "./components/Users"
 import Rate from "./components/Rate"
+import "./styles.scss"
 
 const QuesterContent = () => {
     return (
@@ -12,26 +13,27 @@ const QuesterContent = () => {
                 const tags = item.tags
 
                 return (
-                    <Row key={index}>
+                    <Row key={index} className="snoQuester">
                         <Divider style={{ backgroundColor: "#ddd" }} />
 
-                        <Row gutter={20}>
-                            <Col span={4}>
-                                <Row justify="end" align={"middle"}>
-                                    <Rate vote={1} answers={2} views={5} />
-                                </Row>
-                            </Col>
+                        <Space className="space1">
+                            <Rate vote={1} answers={2} views={5} />
 
-                            <Col span={18}>
+                            <Space>
                                 <Space direction="vertical" size="middle">
                                     <Ask content={content} size={16} />
-                                    <Row justify="space-between" align="middle">
+                                    <Space
+                                        align="center"
+                                        wrap
+                                        size={["small", "middle"]}
+                                        style={{ justifyContent: "space-between", width: "100%" }}
+                                    >
                                         <Tags listTags={tags} />
                                         <Users username="Ha Van Duoc" timepost="asked 1 min ago" />
-                                    </Row>
+                                    </Space>
                                 </Space>
-                            </Col>
-                        </Row>
+                            </Space>
+                        </Space>
                     </Row>
                 )
             })}
