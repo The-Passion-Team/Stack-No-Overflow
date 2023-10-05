@@ -1,8 +1,8 @@
 import { Status } from "~/utils"
 
 export interface UserData {
-	id: number;
-	email: string;
+	id?: number;
+	email?: string;
 	displayname?:string;
 	password?: string;
 	firstName?: string;

@@ -5,22 +5,6 @@ import { Link } from "react-router-dom"
 import { Logo } from "~/components"
 import "./LogIn.scss"
 
-export const MethodLogin = [
-    { btn: "Log in with Google", icon: <GoogleOutlined />, color: "", backgroundColor: "#fff" },
-    {
-        btn: "Log in with GitHub",
-        icon: <GithubOutlined />,
-        color: "#fff",
-        backgroundColor: "#232629",
-    },
-    {
-        btn: "Log in with Facebook",
-        icon: <FacebookOutlined />,
-        color: "#fff",
-        backgroundColor: "#314A86",
-    },
-]
-
 export function LogIn() {
     return (
         <Layout id="login-page">
@@ -64,3 +48,19 @@ export function LogIn() {
         </Layout>
     )
 }
+
+export const MethodLogin = [
+    { btn: "Log in with Google", icon: <GoogleOutlined />, color: "", backgroundColor: "#fff" },
+    {
+        btn: "Log in with GitHub",
+        icon: <GithubOutlined />,
+        color: "#fff",
+        backgroundColor: "#232629",
+    },
+    {
+        btn: "Log in with Facebook",
+        icon: <FacebookOutlined />,
+        color: "#fff",
+        backgroundColor: "#314A86",
+    },
+]
