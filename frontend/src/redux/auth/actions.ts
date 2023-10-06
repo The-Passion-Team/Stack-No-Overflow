@@ -4,6 +4,7 @@ import { LoginPayload, SignupPayload } from "./interfaces"
 import { APIPaths } from "~/utils"
 import { useNavigate } from "react-router-dom"
 
+// API LOG IN
 export const requestLogin = createAsyncThunk("auth/login", async (userData: LoginPayload) => {
     try {
         const res = await axios.post(`${APIPaths.Auth}/login`, userData)
@@ -13,6 +14,7 @@ export const requestLogin = createAsyncThunk("auth/login", async (userData: Logi
     }
 })
 
+// API SIGN UP
 export const signupToAccount = createAsyncThunk<any, SignupPayload>(
     "auth/signup",
     async (payload, { rejectWithValue }) => {

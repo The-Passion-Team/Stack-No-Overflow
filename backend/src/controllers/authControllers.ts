@@ -30,12 +30,12 @@ export const generateRefreshToken = (user: any) => {
 export const login = async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body
-        console.log("req.body", req.body)
-        console.log("first")
         // find the user's email in the model
         const user = await User.findOne({ email }).select("+password")
         if (!user) {
-            return res.status(HttpStatusCodes.NOT_FOUND).send({ err: true, msg: "User not found" })
+            return res
+                .status(HttpStatusCodes.NOT_FOUND)
+                .send({ error: true, message: "Email does not exist" })
         }
 
         //  compare the user-entered password with the hashed password
@@ -43,7 +43,7 @@ export const login = async (req: Request, res: Response) => {
         if (!matchPassword) {
             return res
                 .status(HttpStatusCodes.BAD_REQUEST)
-                .send({ err: true, msg: "Wrong password" })
+                .send({ err: true, message: "Wrong password" })
         }
 
         // Not Error get data
@@ -60,21 +60,24 @@ export const login = async (req: Request, res: Response) => {
                 path: "/",
                 sameSite: "strict",
             })
-            const userLogin = await User.findOne({ email })
-                .select("-password")
+            const userLogin: any = await User.findOne({ email })
+                .select("-password -__v -updatedAt")
                 .populate({ path: "role", select: "-_id name" })
                 .exec()
 
-            console.log("userLogin", userLogin)
+            // Custom data return
+            let data = new Object()
+            data = userLogin._doc
+            data = { ...data, accessToken }
 
             res.status(HttpStatusCodes.OK).json({
-                err: false,
-                msg: "Login Success!",
-                data: { userLogin, accessToken },
+                error: null,
+                message: "Login Success!",
+                data: data,
             })
         }
-    } catch (err: any) {
-        console.error(err.message)
+    } catch (error: any) {
+        console.error(error.message)
         res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
     }
 }
@@ -101,11 +104,11 @@ export const signup = async (req: Request, res: Response) => {
 
             await new User(newUser).save()
 
-            res.status(HttpStatusCodes.OK).send({ msg: "Signup Success!" })
+            res.status(HttpStatusCodes.OK).send({ message: "Signup Success!" })
         } else {
             return res
                 .status(HttpStatusCodes.BAD_REQUEST)
-                .json({ msg: "This email already exists." })
+                .json({ message: "This email already exists." })
         }
     } catch (err: any) {
         console.error(err.message)

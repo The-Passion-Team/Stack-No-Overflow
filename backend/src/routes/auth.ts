@@ -6,7 +6,7 @@ import Role from "../models/Role"
 import HttpStatusCodes from "http-status-codes"
 import * as authControllers from "../controllers/authControllers"
 
-export function authRouter(): Router {
+const authRouter = (): Router => {
     const router = Router()
 
     // LOGIN ROUTE
@@ -49,3 +49,5 @@ export function authRouter(): Router {
 
     return router
 }
+
+export default authRouter

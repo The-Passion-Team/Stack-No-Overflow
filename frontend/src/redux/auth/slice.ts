@@ -27,10 +27,12 @@ const authSlice = createSlice({
             .addCase(requestLogin.pending, (state, action) => {
                 state.status = "pending"
                 state.data = action.payload
+
             })
             .addCase(requestLogin.rejected, (state, action) => {
                 state.status = "failed"
                 state.data = action.payload
+
             })
             .addCase(requestLogin.fulfilled, (state, action) => {
                 state.status = "succeeded"

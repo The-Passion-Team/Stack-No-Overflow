@@ -1,14 +1,16 @@
+import dotenv from "dotenv"
 import express from "express"
 import cors from "cors"
 import helmet from "helmet"
 import morgan from "morgan"
 import cookieParser from "cookie-parser"
-import initRoute, { authRouter, mainRouter } from "./routes"
 import connectDB from "./utils/connectDB"
 import _ from "lodash"
 import { ApplicationConfig } from "./interfaces"
+import initRoutes from "./routes"
 
 const app = express()
+dotenv.config()
 
 export const config: ApplicationConfig = {
     serverPort: _.toNumber(process.env.PORT) || 5000,
@@ -24,14 +26,11 @@ app.use(morgan("common"))
 app.use(cookieParser())
 app.use(
     cors({
-        origin: ["http://localhost:3000"],
+        origin: [process.env.CLIENT_HOST || "http://localhost:3000"],
     }),
 )
 
-// initRoute()
-
-app.use("/auth", authRouter())
-app.use(mainRouter())
+initRoutes(app)
 
 app.listen(config.serverPort, () => {
     console.log(`Server is running on port ${config.serverPort}`)
