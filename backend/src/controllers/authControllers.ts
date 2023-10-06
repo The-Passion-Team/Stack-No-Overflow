@@ -34,7 +34,7 @@ export const login = async (req: Request, res: Response) => {
         const user = await User.findOne({ email }).select("+password")
         if (!user) {
             return res
-                .status(HttpStatusCodes.NOT_FOUND)
+                .status(HttpStatusCodes.OK)
                 .send({ error: true, message: "Email does not exist" })
         }
 
@@ -42,7 +42,7 @@ export const login = async (req: Request, res: Response) => {
         const matchPassword = await bcrypt.compare(password, user.password)
         if (!matchPassword) {
             return res
-                .status(HttpStatusCodes.BAD_REQUEST)
+                .status(HttpStatusCodes.OK)
                 .send({ err: true, message: "Wrong password" })
         }
 

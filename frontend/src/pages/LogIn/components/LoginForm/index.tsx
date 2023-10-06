@@ -1,6 +1,6 @@
+import "./LoginForm.scss"
 import { LockOutlined, UserOutlined } from "@ant-design/icons"
 import { Button, Form, Input } from "antd"
-import "./LoginForm.scss"
 import { useDispatch } from "react-redux"
 import { LoginPayload, requestLogin } from "~/redux/auth"
 import { AppDispatch } from "~/redux/store"
@@ -9,7 +9,6 @@ const LoginForm = () => {
     const dispatch = useDispatch<AppDispatch>()
 
     const onFinish = (values: LoginPayload) => {
-        console.log("Received values of form: ", values)
         dispatch(requestLogin(values))
     }
 
