@@ -1,12 +1,13 @@
 import { model, Schema } from "mongoose"
 
 export interface IPost {
+    _id?: string,
     title: string
     content: string
-    votes: Array<string>
-    answers: Array<string>
-    views: Array<string>
-    tags: Array<string>
+    votes?: string[]
+    answers?: string[]
+    views?: string[]
+    tags?: string[]
 }
 
 const postSchema = new Schema<IPost>(
@@ -19,7 +20,19 @@ const postSchema = new Schema<IPost>(
             type: String,
             required: true,
         },
+        tags: {
+            type: [],
+            default: [],
+        },
         votes: {
+            type: [],
+            default: [],
+        },
+        answers: {
+            type: [],
+            default: [],
+        },
+        views: {
             type: [],
             default: [],
         },

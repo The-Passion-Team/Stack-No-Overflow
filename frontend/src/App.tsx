@@ -2,8 +2,13 @@ import React from "react"
 import MainLayout from "./layouts/MainLayout"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { routes } from "./routes"
+import { useEffect } from "react"
 
 function App() {
+    useEffect(() => {
+        // checkLogged()
+    }, [])
+
     return (
         <BrowserRouter>
             <Routes>

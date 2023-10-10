@@ -1,15 +1,22 @@
-import { LockOutlined, UserOutlined } from "@ant-design/icons"
-import { Button, Form, Input } from "antd"
 import "./LoginForm.scss"
-import { useDispatch } from "react-redux"
+import { LockOutlined, UserOutlined } from "@ant-design/icons"
+import { Button, Form, Input, message } from "antd"
+import { useDispatch, useSelector } from "react-redux"
 import { LoginPayload, requestLogin } from "~/redux/auth"
+import { selectorLogin } from "~/redux/auth/containers"
 import { AppDispatch } from "~/redux/store"
+import { useEffect } from "react"
 
 const LoginForm = () => {
     const dispatch = useDispatch<AppDispatch>()
 
+    const resultLogin = useSelector(selectorLogin)
+
+    useEffect(() => {
+        console.log("resultLogin", resultLogin)
+    }, [resultLogin])
+
     const onFinish = (values: LoginPayload) => {
-        console.log("Received values of form: ", values)
         dispatch(requestLogin(values))
     }
 

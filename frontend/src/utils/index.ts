@@ -1,12 +1,13 @@
 export type Status = "idle" | "pending" | "succeeded" | "failed"
 
-export const APIBase = "http://localhost:5000"
+export const APIHost = "http://localhost:5000"
+export const APIVer1 = "api/v1"
 export const APIPaths = {
-    Auth: `${APIBase}/auth`,
-    Companies: `${APIBase}/companies`,
-    Profile: `${APIBase}/profile`,
-    Users: `${APIBase}/users`,
-    Questions: `${APIBase}/questions`,
-    Tags: `${APIBase}/tags`,
-    Permissions: `${APIBase}/permissions`,
+    Auth: `${APIHost}/${APIVer1}/auth`,
+    Companies: `${APIHost}/companies`,
+    Profile: `${APIHost}/profile`,
+    Users: `${APIHost}/users`,
+    Questions: `${APIHost}/questions`,
+    Tags: `${APIHost}/tags`,
+    Permissions: `${APIHost}/permissions`,
 }

@@ -1,19 +1,14 @@
-import HttpStatusCodes from "http-status-codes"
-export * from "./auth"
-export * from "./main"
-import express from "express"
-import { authRouter } from "./auth"
-const app = express()
+import { HandleError } from "../middlewares"
+import authRouter from "./auth"
+import postRouter from "./posts"
 
-const initRoute = () => {
-    console.log("first")
+const initRoutes = (app: any) => {
     const v1 = "/api/v1"
 
-    app.use(`${v1}/auth`, authRouter)
+    app.use(`${v1}/auth`, authRouter())
+    app.use(`${v1}/post`, postRouter())
 
-    return app.use((req, res, err) => {
-        return res.status(HttpStatusCodes.NOT_FOUND).send({ msg: "Not found" })
-    })
+    return app.use(HandleError.notFound)
 }
 
-export default initRoute
+export default initRoutes

@@ -1,19 +1,22 @@
-import { verifyToken } from "./../middlewares/index"
 import { Router } from "express"
 import { check } from "express-validator"
 import { Request, Response } from "express"
 import Role from "../models/Role"
 import HttpStatusCodes from "http-status-codes"
-import * as authControllers from "../controllers/authControllers"
+import AuthControllers from "../controllers/authControllers"
+import { Middlewares } from "../middlewares"
 
-export function authRouter(): Router {
+const authRouter = (): Router => {
     const router = Router()
+
+    // CHECK check logged
+    // router.get("/checkLogged", )
 
     // LOGIN ROUTE
     router.post(
         "/login",
         check("email", "Please include a valid email").isEmail(),
-        authControllers.login,
+        AuthControllers.login,
     )
 
     // SIGN UP
@@ -25,12 +28,13 @@ export function authRouter(): Router {
                 .exists()
                 .isLength({ min: 8 }),
         ],
-        authControllers.signup,
+
+        AuthControllers.signup,
     )
 
     // LOG OUT
     router.post("/logout", async (req: Request, res: Response) => {
-        verifyToken
+        Middlewares.verifyToken
         //Clear cookies when user logs out
         res.clearCookie("refreshToken")
         res.status(HttpStatusCodes.OK).json({ msg: "Logged out successfully!" })
@@ -49,3 +53,5 @@ export function authRouter(): Router {
 
     return router
 }
+
+export default authRouter
