@@ -41,7 +41,7 @@ namespace PostControllers {
 
     export const deletePost = async (req: Request, res: Response) => {
         try {
-            const response = await PostServices.deletePost(req.body.id)
+            const response = await PostServices.deletePost(req.body._id)
             res.status(HttpStatusCodes.OK).json(response)
         } catch (error) {
             return error
