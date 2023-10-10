@@ -1,7 +1,7 @@
 import { Result } from "antd"
 import { AuthState } from "~/redux/auth"
 
-export const RequestCheckMail = ({emailConfirm}: AuthState) => {
+export const RequestCheckMail = ({ emailConfirm }: AuthState) => {
     // const email = new URLSearchParams(window.location.search).get("email") || "havanduoc@gmail.com"
 
     return (
