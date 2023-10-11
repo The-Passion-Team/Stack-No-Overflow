@@ -1,7 +1,7 @@
 import { Space, Typography } from "antd"
 import Link from "antd/es/typography/Link"
 
-const Notice = () => {
+export const Notice = () => {
     return (
         <Space
             direction="vertical"
@@ -38,5 +38,3 @@ const Notice = () => {
         </Space>
     )
 }
-
-export default Notice

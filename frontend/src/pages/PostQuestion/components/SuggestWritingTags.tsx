@@ -1,15 +1,16 @@
 import { Space, Typography } from "antd"
+import Link from "antd/es/typography/Link"
 import { Fragment } from "react"
 import { useSelector } from "react-redux"
 import { selectorFormAsk } from "~/redux/formAsk"
 import { PF } from "~/utils/variables"
 
-const SuggestWritingTitle = () => {
+export const SuggestWritingTags = () => {
     const form = useSelector(selectorFormAsk)
 
     return (
         <>
-            {form.title.current ? (
+            {form.tags.current ? (
                 <Fragment />
             ) : (
                 <Space
@@ -29,18 +30,18 @@ const SuggestWritingTitle = () => {
                             borderBottom: "1px solid #ccc",
                         }}
                     >
-                        Writing a good title
+                        Adding tags
                     </Space>
 
                     <Space style={{ backgroundColor: "#fff", padding: 20 }}>
                         <img src={`${PF}/assets/icons8-sign-up-50.png`} alt="" width={45} />
                         <Space direction="vertical">
                             <Typography.Text style={{ fontSize: 12 }}>
-                                Your title should summarize the problem.
+                                Tags help ensure that your question will get attention from the
+                                right people.
                             </Typography.Text>
                             <Typography.Text style={{ fontSize: 12 }}>
-                                You might find that you have a better idea of your title after
-                                writing out the rest of the question.
+                                <Link>Learn more about tagging</Link>
                             </Typography.Text>
                         </Space>
                     </Space>
@@ -49,5 +50,3 @@ const SuggestWritingTitle = () => {
         </>
     )
 }
-
-export default SuggestWritingTitle

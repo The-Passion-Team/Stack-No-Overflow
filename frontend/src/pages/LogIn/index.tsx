@@ -3,9 +3,9 @@ import { Button, Layout, Space, Typography } from "antd"
 import LoginForm from "./components/LoginForm"
 import { Link } from "react-router-dom"
 import { Logo } from "~/components"
-import "./LogIn.scss"
+import "./styles/Login.scss"
 
-export function LogIn() {
+export const LogIn = () => {
     return (
         <Layout id="login-page">
             <Space className="container">
@@ -35,10 +35,7 @@ export function LogIn() {
 
                 <Space className="space" direction="vertical">
                     <Typography>
-                        Don’t have an account?{" "}
-                        <Link to="/signup">
-                            <Typography.Link>Sign up</Typography.Link>
-                        </Link>
+                        Don’t have an account? <Link to="/signup">Sign up</Link>
                     </Typography>
                     <Typography>
                         Forgot Password? <Link to="/signup"> Change password </Link>

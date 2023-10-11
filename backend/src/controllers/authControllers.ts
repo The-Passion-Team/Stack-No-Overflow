@@ -43,7 +43,7 @@ namespace AuthControllers {
             const matchPassword = await bcrypt.compare(password, user.password)
             if (!matchPassword) {
                 return res
-                    .status(HttpStatusCodes.BAD_REQUEST)
+                    .status(HttpStatusCodes.OK)
                     .send({ err: true, message: "Wrong password" })
             }
 

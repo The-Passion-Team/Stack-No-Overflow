@@ -5,11 +5,7 @@ import { AuthState } from "./interfaces"
 const initialState: AuthState = {
     status: "idle",
     message: null,
-    login: {
-        status: "idle",
-        message: null,
-        error: null,
-    },
+    currentUser: null,
 }
 
 const authSlice = createSlice({
@@ -19,16 +15,13 @@ const authSlice = createSlice({
     extraReducers: (builder) => {
         builder
             // LOG IN
-            .addCase(requestLogin.pending, (state, action) => {
-                // state.login?.status = "pending"
-                console.log('state', {state, action})
-            })
-            .addCase(requestLogin.rejected, (state, action) => {
-                state.status = "failed"
+            .addCase(requestLogin.pending, (state) => {
+                state.status = "pending"
             })
             .addCase(requestLogin.fulfilled, (state, action) => {
                 state.status = "succeeded"
-                state.data = action.payload
+                state.message = action.payload.message
+                state.currentUser = action.payload.data
             })
 
             // SIGN UP

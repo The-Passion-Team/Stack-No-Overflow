@@ -1,23 +1,29 @@
 import "./LoginForm.scss"
 import { LockOutlined, UserOutlined } from "@ant-design/icons"
-import { Button, Form, Input, message } from "antd"
-import { useDispatch, useSelector } from "react-redux"
+import { Button, Form, Input } from "antd"
+import { useSelector } from "react-redux"
+// import { useSelector } from "react-redux"
 import { LoginPayload, requestLogin } from "~/redux/auth"
-import { selectorLogin } from "~/redux/auth/containers"
-import { AppDispatch } from "~/redux/store"
-import { useEffect } from "react"
+import { selectorAuth } from "~/redux/auth/containers"
+// import { selectorLogin } from "~/redux/auth/containers"
+import { useAppDispatch } from "~/redux/store"
+// import { useEffect } from "react"
 
 const LoginForm = () => {
-    const dispatch = useDispatch<AppDispatch>()
+    const dispatch = useAppDispatch()
 
-    const resultLogin = useSelector(selectorLogin)
+    const auth = useSelector(selectorAuth)
 
-    useEffect(() => {
-        console.log("resultLogin", resultLogin)
-    }, [resultLogin])
+    console.log("auth", auth)
+
+    // const resultLogin = useSelector(selectorLogin)
+
+    // useEffect(() => {
+    //     console.log("resultLogin", resultLogin)
+    // }, [resultLogin])
 
     const onFinish = (values: LoginPayload) => {
-        dispatch(requestLogin(values))
+        console.log(dispatch(requestLogin(values)))
     }
 
     return (
