@@ -1,10 +1,20 @@
+import React, { useState } from "react"
+import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom";
+import { ThunkDispatch } from "@reduxjs/toolkit"
+import { loginToAccount } from "~/redux/auth"
 import { LockOutlined, UserOutlined } from "@ant-design/icons"
 import { Button, Form, Input } from "antd"
 import "./LoginForm.scss"
 
 const LoginForm = () => {
+    const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
+    const navigate = useNavigate();
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
     const onFinish = (values: any) => {
         console.log("Received values of form: ", values)
+        dispatch(loginToAccount({ email, password, navigate}))
     }
 
     return (
@@ -22,6 +32,7 @@ const LoginForm = () => {
                     prefix={<UserOutlined className="site-form-item-icon" />}
                     size="large"
                     placeholder="Email"
+                    onChange={(e) => setEmail(e.target.value)}
                 />
             </Form.Item>
             <Form.Item
@@ -33,6 +44,7 @@ const LoginForm = () => {
                     size="large"
                     type="password"
                     placeholder="Password"
+                    onChange={(e) => setPassword(e.target.value)}
                 />
             </Form.Item>
 

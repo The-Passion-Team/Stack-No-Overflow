@@ -2,8 +2,12 @@ import { FacebookOutlined, GithubOutlined, GoogleOutlined } from "@ant-design/ic
 import { Button, Layout, Space, Typography } from "antd"
 import LoginForm from "./components/LoginForm"
 import { Logo } from "~/components"
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import "./LogIn.scss"
+import { useDispatch } from "react-redux"
+import { useEffect } from "react"
+import { activationEmail } from "~/redux/auth"
+import { ThunkDispatch } from "@reduxjs/toolkit"
 
 export const MethodLogin = [
     { btn: "Log in with Google", icon: <GoogleOutlined />, color: "", backgroundColor: "#fff" },
@@ -22,6 +26,14 @@ export const MethodLogin = [
 ]
 
 export function LogIn() {
+    const { activationToken } = useParams();
+	const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
+
+	useEffect(() => {
+		if (activationToken) {
+			dispatch(activationEmail({activationToken}));
+		}
+	}, []);
     return (
         <Layout id="login-page">
             <Space className="container">

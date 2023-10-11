@@ -1,9 +1,10 @@
-import { verifyToken } from "./../middlewares/index"
+import { sendEmail, verifyToken } from "./../middlewares/index"
 import { Router } from "express"
-import { check } from "express-validator"
+import { check, validationResult } from "express-validator"
 import { Request, Response } from "express"
 import bcrypt from "bcrypt"
 import User from "../models/User"
+import Role from "../models/Role"
 import jwt from "jsonwebtoken"
 import { config } from "../index"
 import HttpStatusCodes from "http-status-codes"
@@ -12,9 +13,8 @@ export const generateAccessToken = (user: any) => {
     return jwt.sign(
         {
             id: user.id,
-            admin: user.admin,
         },
-        config.jwtActive,
+        config.jwtAccess,
         { expiresIn: "60d" },
     )
 }
@@ -23,26 +23,35 @@ export const generateRefreshToken = (user: any) => {
     return jwt.sign(
         {
             id: user.id,
-            admin: user.admin,
         },
         config.jwtRefresh,
         { expiresIn: "365d" },
     )
 }
 
+export const generateActivationToken = (user: any) => {
+	return jwt.sign(user, config.jwtSecret, { expiresIn: "60d" });
+};
+
 export function authRouter(): Router {
     const router = Router()
 
     router.post(
         "/login",
-        check("email", "Please include a valid email").isEmail().normalizeEmail(),
+        check("email", "Please include a valid email").isEmail(),
         async (req: Request, res: Response) => {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+            return res
+                .status(HttpStatusCodes.BAD_REQUEST)
+                .json({ errors: errors.array() });
+            }
             try {
                 const { email, password } = req.body
                 //find the user's email in the model
                 const user = await User.findOne({ email }).select("+password")
                 if (!user) {
-                    res.status(HttpStatusCodes.NOT_FOUND).send({ msg: "User not found" })
+                    res.status(HttpStatusCodes.BAD_REQUEST).send({ msg: "User not found" })
                     return
                 }
 
@@ -62,12 +71,13 @@ export function authRouter(): Router {
                     res.cookie("refreshToken", refreshToken, {
                         httpOnly: true,
                         secure: false,
-                        path: "/",
+                        path: "/login",
                         sameSite: "strict",
                     })
                     const userLogin = await User.findOne({ email }).select("-password")
-                    // const { password, ...others } = user._doc;
-                    res.status(HttpStatusCodes.OK).json({ userLogin, accessToken })
+                    // const roleLogin = await Role.findById(userLogin?.role).select("name -_id")
+                    
+                    res.status(HttpStatusCodes.OK).json({ userLogin, accessToken})
                 }
             } catch (err: any) {
                 console.error(err.message)
@@ -85,7 +95,7 @@ export function authRouter(): Router {
                 .isLength({ min: 8 }),
         ],
         async (req: Request, res: Response) => {
-            const { username, email, password } = req.body
+            const { displayname, email, password } = req.body
             try {
                 //generate salt to hash password
                 const salt = await bcrypt.genSalt(10)
@@ -96,16 +106,47 @@ export function authRouter(): Router {
                 if (!user) {
                     //create new user
                     const newUser = {
-                        username,
+                        displayname,
                         email,
                         password: hashedPassword,
                     }
 
-                    jwt.sign(newUser, config.jwtSecret, { expiresIn: "60d" })
-                    
-                    await new User(newUser).save()
+                    const activationToken = generateActivationToken(newUser);
+				    const url = `${config.clientUrl}/activation/${activationToken}`;
+				    sendEmail({email, displayname, url});
 
-                    res.status(HttpStatusCodes.OK).send({ msg: "Signup Success!" })
+                    res.status(HttpStatusCodes.OK).send({ msg: "Please complete your registration." })
+                } else {
+                    return res
+                        .status(HttpStatusCodes.BAD_REQUEST)
+                        .json({ msg: "This email already exists." })
+                }
+            } catch (err: any) {
+                console.error(err.message)
+                res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+            }
+        },
+    )
+
+    router.post(
+        "/activation",
+        async (req: Request, res: Response) => {
+            try {
+                const { activationToken } = req.body;
+                const user: any = jwt.verify(activationToken, config.jwtSecret);
+                const { displayname, email, password } = user;
+                const checkEmail = await User.findOne({ email });
+                if (!checkEmail) {
+                    //create new user
+                    const newUser = new User({
+                        displayname,
+                        email,
+                        password,
+                    });
+                    
+                    await newUser.save()
+
+                    res.status(HttpStatusCodes.OK).send({ msg: "Account has been activated!" })
                 } else {
                     return res
                         .status(HttpStatusCodes.BAD_REQUEST)

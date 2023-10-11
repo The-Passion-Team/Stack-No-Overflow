@@ -36,7 +36,7 @@ export function Header() {
                 </Col>
 
                 <Col>
-                    {currentUser === undefined ? (
+                    {currentUser === null ? (
                         <>
                             <BtnLogIn />
                             <BtnSignUp />
