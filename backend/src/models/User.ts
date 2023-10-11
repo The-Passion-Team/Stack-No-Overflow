@@ -6,6 +6,7 @@ export interface IUser {
     password: string
     avatar: string
     role: SchemaDefinitionProperty
+    status: SchemaDefinitionProperty
 }
 
 const userSchema = new Schema<IUser>(
@@ -26,6 +27,11 @@ const userSchema = new Schema<IUser>(
             type: Schema.Types.ObjectId,
             ref: "Role",
             default: "6505da44751464ef46c01d22",
+        },
+        status: {
+            type: Schema.Types.ObjectId,
+            ref: "StatusAccount",
+            default: "65261b9e437a3832ea6ee552", // Default offline
         },
     },
     { timestamps: true },
