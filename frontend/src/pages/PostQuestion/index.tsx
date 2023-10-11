@@ -1,19 +1,21 @@
 import { Button, Space } from "antd"
-import Header from "./components/Header"
-import Inrow from "./components/Inrow"
-import Title from "./components/Title"
-import Notice from "./components/Notice"
-import SuggestWritingTitle from "./components/SuggestWritingTitle"
-import DetailProblem from "./components/DetailProblem"
-import YouTry from "./components/YouTry"
-import Tags from "./components/Tags"
-import SuggestWritingDetail from "./components/SuggestWritingDetail"
-import SuggestWritingTry from "./components/SuggestWritingTry"
-import SuggestWritingTags from "./components/SuggestWritingTags"
 import { useSelector } from "react-redux"
 import { selectorFormAsk } from "~/redux/formAsk"
+import {
+    DetailProblem,
+    Header,
+    Inrow,
+    Notice,
+    SuggestWritingDetail,
+    SuggestWritingTags,
+    SuggestWritingTitle,
+    SuggestWritingTry,
+    Tags,
+    Title,
+    YouTry,
+} from "./components"
 
-export function Ask() {
+export const PostQuestion = () => {
     const form = useSelector(selectorFormAsk)
 
     const handleSubmit = () => {

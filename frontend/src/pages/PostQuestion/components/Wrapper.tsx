@@ -13,12 +13,10 @@ const style: React.CSSProperties = {
     boxShadow: "0px 0px 1px 1px rgba(0,0,0,0.1)",
 }
 
-const Wrapper = ({ children }: IWrapper) => {
+export const Wrapper = ({ children }: IWrapper) => {
     return (
         <Space direction="vertical" style={style}>
             {children}
         </Space>
     )
 }
-
-export default Wrapper

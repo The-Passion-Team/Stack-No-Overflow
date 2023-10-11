@@ -1,10 +1,10 @@
 import { Button, Form, Input, Typography } from "antd"
-import Wrapper from "./Wrapper"
 import { useDispatch, useSelector } from "react-redux"
 import { selectorFormAsk, setStatusTitle, setTitle } from "~/redux/formAsk"
 import { Fragment } from "react"
+import { Wrapper } from "./Wrapper"
 
-const Title = () => {
+export const Title = () => {
     const form = useSelector(selectorFormAsk)
     const dispatch = useDispatch()
 
@@ -20,7 +20,7 @@ const Title = () => {
         if (value === "") return
         dispatch(setStatusTitle())
 
-        console.log('form.title.data', form.title.data)
+        console.log("form.title.data", form.title.data)
     }
 
     return (
@@ -46,5 +46,3 @@ const Title = () => {
         </Form>
     )
 }
-
-export default Title

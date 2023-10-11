@@ -1,6 +1,6 @@
 import "./LoginForm.scss"
 import { LockOutlined, UserOutlined } from "@ant-design/icons"
-import { Button, Form, Input, message } from "antd"
+import { Button, Form, Input } from "antd"
 import { useDispatch, useSelector } from "react-redux"
 import { LoginPayload, requestLogin } from "~/redux/auth"
 import { selectorLogin } from "~/redux/auth/containers"

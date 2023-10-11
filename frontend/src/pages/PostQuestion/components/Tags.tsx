@@ -1,10 +1,10 @@
 import { Button, Form, Input, Typography } from "antd"
-import Wrapper from "./Wrapper"
 import { useDispatch, useSelector } from "react-redux"
 import { selectorFormAsk, setStatusTags, setTags } from "~/redux/formAsk"
 import { Fragment } from "react"
+import { Wrapper } from "./Wrapper"
 
-const Tags = () => {
+export const Tags = () => {
     const form = useSelector(selectorFormAsk)
     const dispatch = useDispatch()
 
@@ -47,5 +47,3 @@ const Tags = () => {
         </Form>
     )
 }
-
-export default Tags

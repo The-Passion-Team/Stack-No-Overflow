@@ -1,7 +1,8 @@
 import { model, Schema } from "mongoose"
 
 export interface IPost {
-    _id?: string,
+    _id?: string
+    auth: Schema.Types.ObjectId
     title: string
     content: string
     votes?: string[]
@@ -12,6 +13,11 @@ export interface IPost {
 
 const postSchema = new Schema<IPost>(
     {
+        auth: {
+            type: Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+        },
         title: {
             type: String,
             required: true,

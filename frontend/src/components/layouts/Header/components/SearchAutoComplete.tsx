@@ -52,7 +52,6 @@ const SearchAutoComplete: React.FC = () => {
     return (
         <AutoComplete
             popupClassName="certain-category-search-dropdown"
-            dropdownMatchSelectWidth={500}
             options={options}
             className="snoMaxWidth"
         >
