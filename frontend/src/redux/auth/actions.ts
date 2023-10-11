@@ -16,15 +16,13 @@ import { useNavigate } from "react-router-dom"
 // API LOG IN
 export const requestLogin = createAsyncThunk<any, LoginPayload>(
     "auth/login",
-    async (userData, { rejectWithValue }) => {
+    async (userData, { rejectWithValue, fulfillWithValue }) => {
         try {
             const response = await axios.post(`${APIPaths.Auth}/login`, userData)
-            console.log('response', response.data.data)
-            if(response) localStorage.setItem('token', response.data.data.accessToken)
-            return
+            if (response) localStorage.setItem("token", response.data.data.accessToken)
+            return fulfillWithValue(response.data)
         } catch (error: any) {
-            console.log("error: ", error.response.data)
-            return error
+            return rejectWithValue(error)
         }
     },
 )
