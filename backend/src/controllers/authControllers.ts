@@ -42,9 +42,7 @@ namespace AuthControllers {
             //  compare the user-entered password with the hashed password
             const matchPassword = await bcrypt.compare(password, user.password)
             if (!matchPassword) {
-                return res
-                    .status(HttpStatusCodes.OK)
-                    .send({ err: true, message: "Wrong password" })
+                return res.status(HttpStatusCodes.OK).send({ err: true, message: "Wrong password" })
             }
 
             // Not Error get data
@@ -66,10 +64,14 @@ namespace AuthControllers {
                     .populate({ path: "role", select: "-_id name" })
                     .exec()
 
+                console.log("userLogin", userLogin)
+
                 // Custom data return
                 let data = new Object()
                 data = userLogin._doc
                 data = { ...data, accessToken }
+
+                console.log('data', data)
 
                 res.status(HttpStatusCodes.OK).json({
                     error: null,

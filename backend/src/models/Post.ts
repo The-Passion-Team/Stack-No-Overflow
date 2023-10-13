@@ -4,11 +4,13 @@ export interface IPost {
     _id?: string
     auth: Schema.Types.ObjectId
     title: string
-    content: string
+    problem: string
+    tried: string
     votes?: string[]
     answers?: string[]
     views?: string[]
     tags?: string[]
+    customTags?: string[]
 }
 
 const postSchema = new Schema<IPost>(
@@ -22,11 +24,19 @@ const postSchema = new Schema<IPost>(
             type: String,
             required: true,
         },
-        content: {
+        problem: {
+            type: String,
+            required: true,
+        },
+        tried: {
             type: String,
             required: true,
         },
         tags: {
+            type: [],
+            default: [],
+        },
+        customTags: {
             type: [],
             default: [],
         },

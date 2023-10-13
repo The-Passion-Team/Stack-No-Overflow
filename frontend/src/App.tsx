@@ -1,13 +1,20 @@
-import React from "react"
 import MainLayout from "./layouts/MainLayout"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { routes } from "./routes"
 import { useEffect } from "react"
+import { useSelector } from "react-redux"
+import { selectorAuth } from "./redux/auth/containers"
+import { checkLogged } from "./redux/auth"
+import { useAppDispatch } from "./redux/store"
 
 function App() {
+    const accessToken = useSelector(selectorAuth)?.currentUser?.accessToken
+    // console.log('accessToken 2', accessToken)
+    const dispatch = useAppDispatch()
+
     useEffect(() => {
-        // checkLogged()
-    }, [])
+        accessToken && dispatch(checkLogged(accessToken))
+    }, [accessToken, dispatch])
 
     return (
         <BrowserRouter>

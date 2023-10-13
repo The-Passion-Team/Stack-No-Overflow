@@ -22,8 +22,6 @@ const headerStyle: React.CSSProperties = {
 export function Header() {
     const currentUser = useSelector(selectorAuth)?.currentUser
 
-    console.log("currentUser", currentUser)
-
     return (
         <HeaderAntDesign style={headerStyle}>
             <Row gutter={30}>

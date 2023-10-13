@@ -9,6 +9,7 @@ export const APIPaths = {
     Profile: `${APIHost}/profile`,
     Users: `${APIHost}/users`,
     Questions: `${APIHost}/questions`,
-    Tags: `${APIHost}/tags`,
+    Tags: `${APIHost}/${APIVer1}/tag`,
     Permissions: `${APIHost}/permissions`,
+    Post: `${APIHost}/${APIVer1}/post`,
 }

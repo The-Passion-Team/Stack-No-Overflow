@@ -5,13 +5,16 @@ import { APIPaths } from "~/utils"
 import { useNavigate } from "react-router-dom"
 
 // CHECK LOGGED
-// export const checkLogged = createAsyncThunk("auth/checkLogged", async (token, {rejectWithValue}) => {
-//     try {
-//         console.log('token', token)
-//     } catch (error) {
-//         console.log('error', error)
-//     }
-// })
+export const checkLogged = createAsyncThunk(
+    "auth/checkLogged",
+    async (accessToken: string, { rejectWithValue }) => {
+        try {
+            // return console.log("accessToken", accessToken)
+        } catch (error) {
+            console.log("error", error)
+        }
+    },
+)
 
 // API LOG IN
 export const requestLogin = createAsyncThunk<any, LoginPayload>(

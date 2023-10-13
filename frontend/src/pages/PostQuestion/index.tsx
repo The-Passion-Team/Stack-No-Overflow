@@ -14,24 +14,39 @@ import {
     Title,
     YouTry,
 } from "./components"
+import { selectorAuth } from "~/redux/auth/containers"
+import { useAppDispatch } from "~/redux/store"
+import { requestCreatePost } from "~/redux/posts/actions"
+import { IPost } from "~/redux/posts/interfaces"
 
 export const PostQuestion = () => {
     const form = useSelector(selectorFormAsk)
+    const currentUser_id = useSelector(selectorAuth)?.currentUser?._id
+    const dispatch = useAppDispatch()
 
-    const handleSubmit = () => {
+    // console.log("currentUser_id", currentUser_id)
+
+    const handleSubmit = async () => {
         const title = form.title.data
-        const detail = form.detail.data
-        const expecting = form.try.data
+        const problem = form.detail.data
+        const tried = form.try.data
         const tags = form.tags.data
 
-        let data = {
+        if (!currentUser_id || !title || !problem || !tried || !tags) return
+
+        let data: IPost = {
+            auth: currentUser_id,
             title,
-            detail,
-            expecting,
+            problem,
+            tried,
             tags,
         }
 
         console.log("data", data)
+
+        const response_post_question = await dispatch(requestCreatePost(data))
+
+        console.log("response_post_question", response_post_question)
     }
 
     return (
