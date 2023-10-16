@@ -3,7 +3,7 @@ import { Avatar, Space, Typography } from "antd"
 
 interface props {
     avatar?: string
-    username: string
+    username?: string
     timepost: string
 }
 

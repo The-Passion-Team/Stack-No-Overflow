@@ -5,12 +5,13 @@ import { formAskReducer } from "./formAsk"
 import { persistStore, persistReducer } from "redux-persist"
 import storage from "redux-persist/lib/storage"
 import { useDispatch } from "react-redux"
+import { postReducer } from "./posts/slice"
 
 const rootPersistConfig = {
     key: "root",
     version: 1,
     storage,
-    blacklist: ["formAsk"],
+    blacklist: ["formAsk", "posts"],
 }
 
 const authPersistConfig = {
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
     auth: authPersistReducer,
     user: usersReducer,
     formAsk: formAskReducer,
+    posts: postReducer,
 })
 
 const rootPersistReducer = persistReducer(rootPersistConfig, rootReducer)

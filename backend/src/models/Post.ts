@@ -9,7 +9,7 @@ export interface IPost {
     votes?: string[]
     answers?: string[]
     views?: string[]
-    tags?: string[]
+    tags?: Schema.Types.ObjectId[]
     customTags?: string[]
 }
 
@@ -34,6 +34,7 @@ const postSchema = new Schema<IPost>(
         },
         tags: {
             type: [],
+            ref: "Tag",
             default: [],
         },
         customTags: {

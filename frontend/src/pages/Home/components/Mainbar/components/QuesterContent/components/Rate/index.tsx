@@ -1,4 +1,4 @@
-import { Space, Typography } from "antd"
+import { Flex, Typography } from "antd"
 
 interface props {
     vote?: number
@@ -14,13 +14,13 @@ const Rate = ({ vote, answers, views }: props) => {
     ]
 
     return (
-        <Space className="snoRate">
+        <Flex vertical align="flex-end" gap="small" style={{ minWidth: 120 }}>
             {type.map((item, index) => (
                 <Typography key={index} style={{ fontSize: 13.5 }}>
                     {item.value || 0} {item.name}
                 </Typography>
             ))}
-        </Space>
+        </Flex>
     )
 }
 

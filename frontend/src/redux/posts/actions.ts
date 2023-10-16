@@ -8,7 +8,19 @@ export const requestCreatePost = createAsyncThunk(
     async (data: IPost, { rejectWithValue, fulfillWithValue }) => {
         try {
             const response = await axios.post(`${APIPaths.Post}/createPost`, data)
-            return response.data.data
+            return fulfillWithValue(response.data)
+        } catch (error) {
+            return rejectWithValue(error)
+        }
+    },
+)
+
+export const requestGetPosts = createAsyncThunk(
+    "post/getPosts",
+    async (_, { rejectWithValue, fulfillWithValue }) => {
+        try {
+            const response = await axios.get(`${APIPaths.Post}/getAllPosts`)
+            return fulfillWithValue(response.data)
         } catch (error) {
             return rejectWithValue(error)
         }

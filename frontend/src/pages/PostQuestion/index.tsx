@@ -34,8 +34,8 @@ export const PostQuestion = () => {
 
         if (!currentUser_id || !title || !problem || !tried || !tags) return
 
-        let data: IPost = {
-            auth: currentUser_id,
+        let data: any = {
+            auth: "6526b26727aa9a20c20a8595",
             title,
             problem,
             tried,

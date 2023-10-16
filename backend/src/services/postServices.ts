@@ -41,11 +41,16 @@ namespace PostServices {
     export const getAllPosts = async () => {
         try {
             const data = await Post.find()
+                .sort({ createdAt: -1 })
+                .limit(20)
+                .skip(0)
+                .populate("auth", "displayname")
+                .populate("tags", "name")
 
             return {
                 error: data ? null : true,
                 message: data ? "Successful" : "Failed",
-                data: data || null,
+                data: data,
             }
         } catch (error) {
             return error
