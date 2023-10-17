@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { activationEmail, signupToAccount, loginToAccount, logoutFromAccount } from "./actions"
+import { activationEmail, signupToAccount, logoutFromAccount, requestLogin } from "./actions"
 import { AuthState } from "./interfaces"
 
 const initialState: AuthState = {
@@ -7,7 +7,7 @@ const initialState: AuthState = {
     message: null,
     currentUser: null,
     accessToken: undefined,
-    _id: undefined
+    _id: undefined,
 }
 
 const authSlice = createSlice({
@@ -16,17 +16,17 @@ const authSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(loginToAccount.pending, (state, action) => {
-            	state.status = "pending";
+            .addCase(requestLogin.pending, (state, action) => {
+                state.status = "pending"
             })
-            .addCase(loginToAccount.rejected, (state, action) => {
-            	state.status = "failed";
-            	state.message = action.payload;
+            .addCase(requestLogin.rejected, (state, action) => {
+                state.status = "failed"
+                state.message = action.payload
             })
-            .addCase(loginToAccount.fulfilled, (state, action) => {
-            	state.status = "succeeded";
-            	// state.msg = action.payload;
-                state.currentUser = action.payload;
+            .addCase(requestLogin.fulfilled, (state, action) => {
+                state.status = "succeeded"
+                // state.msg = action.payload;
+                state.currentUser = action.payload
             })
             .addCase(signupToAccount.pending, (state, action) => {
                 state.status = "pending"
@@ -58,8 +58,8 @@ const authSlice = createSlice({
             .addCase(logoutFromAccount.fulfilled, (state, action) => {
                 state.status = "succeeded"
                 state.currentUser = null
-				// return authState;
-			});
+                // return authState;
+            })
     },
 })
 

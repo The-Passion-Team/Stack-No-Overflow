@@ -15,6 +15,7 @@ export const checkLogged = createAsyncThunk(
         }
     },
 )
+
 // API LOG IN
 export const requestLogin = createAsyncThunk<any, LoginPayload>(
     "auth/login",

@@ -1,13 +1,62 @@
 import { FacebookOutlined, GithubOutlined, GoogleOutlined } from "@ant-design/icons"
-import { Button, Layout, Space, Typography } from "antd"
+import { Button, Flex, Typography } from "antd"
 import LoginForm from "./components/LoginForm"
 import { Logo } from "~/components"
 import { Link, useParams } from "react-router-dom"
-import "./styles/Login.scss"
-import { useDispatch } from "react-redux"
 import { useEffect } from "react"
 import { activationEmail } from "~/redux/auth"
-import { ThunkDispatch } from "@reduxjs/toolkit"
+import { useAppDispatch } from "~/redux/store"
+
+export function LogIn() {
+    const { activationToken } = useParams()
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        if (activationToken) {
+            dispatch(activationEmail({ activationToken }))
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+    return (
+        <Flex align="center" justify="center" style={{ minHeight: "calc(100vh - 104px)" }}>
+            <Flex
+                gap="middle"
+                vertical
+                align="center"
+                style={{ minWidth: 280, width: 280, height: "100%" }}
+            >
+                <Logo />
+
+                <Flex vertical gap="small" style={{ width: "100%" }}>
+                    {MethodLogin.map((item, index) => (
+                        <Button
+                            key={index}
+                            children={item.btn}
+                            icon={item.icon}
+                            style={{
+                                color: item.color,
+                                backgroundColor: item.backgroundColor,
+                                fontSize: 13,
+                                height: 40,
+                            }}
+                        />
+                    ))}
+                </Flex>
+
+                <LoginForm />
+
+                <Flex align="center" justify="center" vertical>
+                    <Typography>
+                        Don’t have an account? <Link to="/signup">Sign up</Link>
+                    </Typography>
+                    <Typography>
+                        Forgot Password? <Link to="/signup"> Change password </Link>
+                    </Typography>
+                </Flex>
+            </Flex>
+        </Flex>
+    )
+}
 
 export const MethodLogin = [
     { btn: "Log in with Google", icon: <GoogleOutlined />, color: "", backgroundColor: "#fff" },
@@ -24,54 +73,3 @@ export const MethodLogin = [
         backgroundColor: "#314A86",
     },
 ]
-
-export function LogIn() {
-    const { activationToken } = useParams();
-	const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
-
-	useEffect(() => {
-		if (activationToken) {
-			dispatch(activationEmail({activationToken}));
-		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-    return (
-        <Layout id="login-page">
-            <Space className="container">
-                <Space className="space logo">
-                    <Logo />
-                </Space>
-
-                <Space direction="vertical" className="space">
-                    {MethodLogin.map((item, index) => (
-                        <Button
-                            key={index}
-                            children={item.btn}
-                            icon={item.icon}
-                            className="btnLogin"
-                            style={{
-                                color: item.color,
-                                backgroundColor: item.backgroundColor,
-                                fontSize: 13,
-                            }}
-                        />
-                    ))}
-                </Space>
-
-                <Space className="space">
-                    <LoginForm />
-                </Space>
-
-                <Space className="space" direction="vertical">
-                    <Typography>
-                        Don’t have an account? <Link to="/signup">Sign up</Link>
-                    </Typography>
-                    <Typography>
-                        Forgot Password? <Link to="/signup"> Change password </Link>
-                    </Typography>
-                </Space>
-            </Space>
-        </Layout>
-    )
-}
-

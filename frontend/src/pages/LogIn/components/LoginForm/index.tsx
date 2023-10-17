@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { LockOutlined, UserOutlined } from "@ant-design/icons"
-import { Button, Form, Input } from "antd"
+import { Button, Flex, Form, Input } from "antd"
 import { useSelector } from "react-redux"
 // import { useSelector } from "react-redux"
 import { LoginPayload, requestLogin } from "~/redux/auth"
@@ -32,46 +32,55 @@ const LoginForm = () => {
     }
 
     return (
-        <Form
-            name="normal_login"
-            className="login-form"
-            initialValues={{ remember: true }}
-            onFinish={onFinish}
-        >
-            <Form.Item
-                name="email"
-                rules={[
-                    { type: "email", message: "The input is not valid Email!" },
-                    { required: true, message: "Please input your Email!" },
-                ]}
+        <Flex style={{ width: "100%" }}>
+            <Form
+                name="normal_login"
+                className="login-form"
+                initialValues={{ remember: true }}
+                onFinish={onFinish}
+                style={{ width: "100%" }}
             >
-                <Input
-                    prefix={<UserOutlined className="site-form-item-icon" />}
-                    size="large"
-                    placeholder="Email"
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-            </Form.Item>
-            <Form.Item
-                name="password"
-                rules={[{ required: true, message: "Please input your Password!" }]}
-                hasFeedback
-            >
-                <Input.Password
-                    prefix={<LockOutlined className="site-form-item-icon" />}
-                    size="large"
-                    type="password"
-                    placeholder="Password"
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-            </Form.Item>
+                <Form.Item
+                    name="email"
+                    rules={[
+                        { type: "email", message: "The input is not valid Email!" },
+                        { required: true, message: "Please input your Email!" },
+                    ]}
+                >
+                    <Input
+                        prefix={<UserOutlined className="site-form-item-icon" />}
+                        size="large"
+                        placeholder="Email"
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                </Form.Item>
+                <Form.Item
+                    name="password"
+                    rules={[{ required: true, message: "Please input your Password!" }]}
+                    hasFeedback
+                >
+                    <Input.Password
+                        prefix={<LockOutlined className="site-form-item-icon" />}
+                        size="large"
+                        type="password"
+                        placeholder="Password"
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                </Form.Item>
 
-            <Form.Item style={{ marginBottom: 0 }}>
-                <Button type="primary" htmlType="submit" className="login-form-button" size="large">
-                    Log in
-                </Button>
-            </Form.Item>
-        </Form>
+                <Form.Item style={{ marginBottom: 0 }}>
+                    <Button
+                        type="primary"
+                        htmlType="submit"
+                        className="login-form-button"
+                        size="large"
+                        style={{ width: "100%" }}
+                    >
+                        Log in
+                    </Button>
+                </Form.Item>
+            </Form>
+        </Flex>
     )
 }
 
