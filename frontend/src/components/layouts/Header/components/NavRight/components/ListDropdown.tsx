@@ -1,11 +1,7 @@
 import React from "react"
 import { Row, Col, Space, Badge, Button, Dropdown, MenuProps } from "antd"
-import {
-    InboxOutlined,
-    TrophyOutlined,
-    QuestionCircleOutlined,
-    UngroupOutlined,
-} from "@ant-design/icons"
+import { InboxOutlined, TrophyOutlined, QuestionCircleOutlined } from "@ant-design/icons"
+import SettingDropdown from "./SettingDropdown"
 
 const items: MenuProps["items"] = [
     {
@@ -38,7 +34,7 @@ const itemList = [
     { key: 1, badgeCount: 1, icon: <InboxOutlined /> },
     { key: 2, badgeCount: 0, icon: <TrophyOutlined /> },
     { key: 3, badgeCount: 0, icon: <QuestionCircleOutlined /> },
-    { key: 41, badgeCount: 0, icon: <UngroupOutlined /> },
+    // { key: 41, badgeCount: 0, icon: <UngroupOutlined /> },
 ]
 
 const ListDropdown: React.FC = () => {
@@ -57,6 +53,7 @@ const ListDropdown: React.FC = () => {
                     </Col>
                 )
             })}
+            <SettingDropdown />
         </Row>
     )
 }

@@ -2,6 +2,8 @@ import { Error, Status } from "~/utils"
 import { UserData } from "../users/interfaces"
 
 export interface AuthState {
+    accessToken?: any
+    _id?: any
     status?: Status
     currentUser?: UserData | null
     error?: Error
@@ -9,12 +11,12 @@ export interface AuthState {
     setNotiRegistrationEmail?: any
     emailConfirm?: string
     setEmailConfirm?: any
-    data?: any
 }
 
 export interface LoginPayload {
-    email: string
-    password: string
+	email: string;
+	password: string;
+	navigate: any;
 }
 
 export interface SignupPayload {
@@ -22,3 +24,14 @@ export interface SignupPayload {
     email: string
     password: string
 }
+
+export interface ActivationPayload {
+	activationToken: string;
+}
+
+export interface LogoutPayload {
+	userId: any;
+	headers: any;
+	navigate: any;
+}
+

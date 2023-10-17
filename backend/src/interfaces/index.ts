@@ -1,6 +1,7 @@
 export interface ApplicationConfig {
 	serverPort: number;
 	jwtSecret: string;
-	jwtActive: string;
+	jwtAccess: string;
 	jwtRefresh: string;
+	clientUrl: string;
 }

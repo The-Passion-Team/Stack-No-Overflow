@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { check } from "express-validator"
+import { check, validationResult } from "express-validator"
 import { Request, Response } from "express"
 import Role from "../models/Role"
 import HttpStatusCodes from "http-status-codes"

@@ -1,14 +1,34 @@
-import "./LoginForm.scss"
+import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { LockOutlined, UserOutlined } from "@ant-design/icons"
 import { Button, Form, Input } from "antd"
+import { useSelector } from "react-redux"
+// import { useSelector } from "react-redux"
 import { LoginPayload, requestLogin } from "~/redux/auth"
+import { selectorAuth } from "~/redux/auth/containers"
+// import { selectorLogin } from "~/redux/auth/containers"
 import { useAppDispatch } from "~/redux/store"
 
 const LoginForm = () => {
     const dispatch = useAppDispatch()
 
+    const auth = useSelector(selectorAuth)
+
+    console.log("auth", auth)
+
+    // const resultLogin = useSelector(selectorLogin)
+
+    // useEffect(() => {
+    //     console.log("resultLogin", resultLogin)
+    // }, [resultLogin])
+
+    // const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
+    const navigate = useNavigate()
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
     const onFinish = (values: LoginPayload) => {
-        console.log(dispatch(requestLogin(values)))
+        // console.log(dispatch(requestLogin(values)))
+        dispatch(requestLogin({ email, password, navigate }))
     }
 
     return (
@@ -29,6 +49,7 @@ const LoginForm = () => {
                     prefix={<UserOutlined className="site-form-item-icon" />}
                     size="large"
                     placeholder="Email"
+                    onChange={(e) => setEmail(e.target.value)}
                 />
             </Form.Item>
             <Form.Item
@@ -41,6 +62,7 @@ const LoginForm = () => {
                     size="large"
                     type="password"
                     placeholder="Password"
+                    onChange={(e) => setPassword(e.target.value)}
                 />
             </Form.Item>
 

@@ -23,6 +23,7 @@ export const Path = {
     Users: "/users",
     Companies: "/companies",
     Ask: "/questions/ask",
+    ActivationEmail: "/activation/:activationToken"
 }
 
 type props = {
@@ -41,4 +42,5 @@ export const routes: props = [
     { path: Path.Tags, page: Tags },
     { path: Path.Users, page: Users },
     { path: Path.Companies, page: Companies },
+    { path: Path.ActivationEmail, page: LogIn, layout: OnlyHeaderLayout },
 ]

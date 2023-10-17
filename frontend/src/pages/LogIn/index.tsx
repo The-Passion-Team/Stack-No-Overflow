@@ -1,11 +1,40 @@
 import { FacebookOutlined, GithubOutlined, GoogleOutlined } from "@ant-design/icons"
 import { Button, Layout, Space, Typography } from "antd"
 import LoginForm from "./components/LoginForm"
-import { Link } from "react-router-dom"
 import { Logo } from "~/components"
+import { Link, useParams } from "react-router-dom"
 import "./styles/Login.scss"
+import { useDispatch } from "react-redux"
+import { useEffect } from "react"
+import { activationEmail } from "~/redux/auth"
+import { ThunkDispatch } from "@reduxjs/toolkit"
 
-export const LogIn = () => {
+export const MethodLogin = [
+    { btn: "Log in with Google", icon: <GoogleOutlined />, color: "", backgroundColor: "#fff" },
+    {
+        btn: "Log in with GitHub",
+        icon: <GithubOutlined />,
+        color: "#fff",
+        backgroundColor: "#232629",
+    },
+    {
+        btn: "Log in with Facebook",
+        icon: <FacebookOutlined />,
+        color: "#fff",
+        backgroundColor: "#314A86",
+    },
+]
+
+export function LogIn() {
+    const { activationToken } = useParams();
+	const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
+
+	useEffect(() => {
+		if (activationToken) {
+			dispatch(activationEmail({activationToken}));
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
     return (
         <Layout id="login-page">
             <Space className="container">
@@ -46,18 +75,3 @@ export const LogIn = () => {
     )
 }
 
-export const MethodLogin = [
-    { btn: "Log in with Google", icon: <GoogleOutlined />, color: "", backgroundColor: "#fff" },
-    {
-        btn: "Log in with GitHub",
-        icon: <GithubOutlined />,
-        color: "#fff",
-        backgroundColor: "#232629",
-    },
-    {
-        btn: "Log in with Facebook",
-        icon: <FacebookOutlined />,
-        color: "#fff",
-        backgroundColor: "#314A86",
-    },
-]
