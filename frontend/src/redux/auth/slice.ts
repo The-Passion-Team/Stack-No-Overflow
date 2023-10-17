@@ -16,7 +16,8 @@ const authSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(requestLogin.pending, (state, action) => {
+            // LOG IN
+            .addCase(requestLogin.pending, (state) => {
                 state.status = "pending"
             })
             .addCase(requestLogin.rejected, (state, action) => {
@@ -24,14 +25,17 @@ const authSlice = createSlice({
                 state.message = action.payload
             })
             .addCase(requestLogin.fulfilled, (state, action) => {
+                console.log('action.payload', action.payload)
                 state.status = "succeeded"
-                // state.msg = action.payload;
-                state.currentUser = action.payload
+                state.message = action.payload?.message
+                state.currentUser = action.payload?.data
             })
-            .addCase(signupToAccount.pending, (state, action) => {
+
+            // SIGN UP
+            .addCase(signupToAccount.pending, (state) => {
                 state.status = "pending"
             })
-            .addCase(signupToAccount.rejected, (state, action) => {
+            .addCase(signupToAccount.rejected, (state) => {
                 state.status = "failed"
                 // state.msg = action.payload
             })
@@ -39,26 +43,29 @@ const authSlice = createSlice({
                 state.status = "succeeded"
                 state.message = action.payload
             })
-            .addCase(activationEmail.pending, (state, action) => {
+
+            // ACTIVE EMAIL
+            .addCase(activationEmail.pending, (state) => {
                 state.status = "pending"
             })
-            .addCase(activationEmail.rejected, (state, action) => {
+            .addCase(activationEmail.rejected, (state) => {
                 state.status = "failed"
             })
             .addCase(activationEmail.fulfilled, (state, action) => {
                 state.status = "succeeded"
                 state.message = action.payload
             })
-            .addCase(logoutFromAccount.pending, (state, action) => {
+
+            // LOG OUT
+            .addCase(logoutFromAccount.pending, (state) => {
                 state.status = "pending"
             })
-            .addCase(logoutFromAccount.rejected, (state, action) => {
+            .addCase(logoutFromAccount.rejected, (state) => {
                 state.status = "failed"
             })
-            .addCase(logoutFromAccount.fulfilled, (state, action) => {
+            .addCase(logoutFromAccount.fulfilled, (state) => {
                 state.status = "succeeded"
                 state.currentUser = null
-                // return authState;
             })
     },
 })

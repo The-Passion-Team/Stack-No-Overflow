@@ -3,18 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit"
 import { ActivationPayload, LoginPayload, LogoutPayload, SignupPayload } from "./interfaces"
 import { APIPaths } from "~/utils"
 import { useNavigate } from "react-router-dom"
-
-// CHECK LOGGED
-export const checkLogged = createAsyncThunk(
-    "auth/checkLogged",
-    async (accessToken: string, { rejectWithValue }) => {
-        try {
-            // return console.log("accessToken", accessToken)
-        } catch (error) {
-            console.log("error", error)
-        }
-    },
-)
+import Message from "~/components/Message"
 
 // API LOG IN
 export const requestLogin = createAsyncThunk<any, LoginPayload>(
@@ -22,7 +11,16 @@ export const requestLogin = createAsyncThunk<any, LoginPayload>(
     async (userData, { rejectWithValue, fulfillWithValue }) => {
         try {
             const res = await axios.post(`${APIPaths.Auth}/login`, userData)
-            userData.navigate("/")
+            const err = res?.data?.error
+            const msg = res?.data?.message
+
+            Message(err, msg)
+
+            if (err === 0) {
+                userData.navigate("/")
+                fulfillWithValue(res.data)
+            }
+
             return fulfillWithValue(res.data)
         } catch (error: any) {
             return rejectWithValue(error)

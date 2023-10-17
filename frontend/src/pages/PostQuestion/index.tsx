@@ -17,13 +17,14 @@ import {
 import { selectorAuth } from "~/redux/auth/containers"
 import { useAppDispatch } from "~/redux/store"
 import { requestCreatePost } from "~/redux/posts/actions"
+import { useNavigate } from "react-router-dom"
+import Message from "~/components/Message"
 
 export const PostQuestion = () => {
     const form = useSelector(selectorFormAsk)
     const currentUser_id = useSelector(selectorAuth)?.currentUser?._id
     const dispatch = useAppDispatch()
-
-    // console.log("currentUser_id", currentUser_id)
+    const navigate = useNavigate()
 
     const handleSubmit = async () => {
         const title = form.title.data
@@ -34,18 +35,21 @@ export const PostQuestion = () => {
         if (!currentUser_id || !title || !problem || !tried || !tags) return
 
         let data: any = {
-            auth: "6526b26727aa9a20c20a8595",
+            auth: currentUser_id,
             title,
             problem,
             tried,
             tags,
         }
 
-        console.log("data", data)
-
         const response_post_question = await dispatch(requestCreatePost(data))
 
-        console.log("response_post_question", response_post_question)
+        const error = response_post_question?.payload?.error
+        const message = response_post_question?.payload?.message
+
+        Message(error, message)
+
+        if (!error) return navigate("/")
     }
 
     return (

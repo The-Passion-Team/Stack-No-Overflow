@@ -1,34 +1,32 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { LockOutlined, UserOutlined } from "@ant-design/icons"
 import { Button, Flex, Form, Input } from "antd"
-import { useSelector } from "react-redux"
-// import { useSelector } from "react-redux"
 import { LoginPayload, requestLogin } from "~/redux/auth"
-import { selectorAuth } from "~/redux/auth/containers"
-// import { selectorLogin } from "~/redux/auth/containers"
 import { useAppDispatch } from "~/redux/store"
 
 const LoginForm = () => {
+    const [loadings, setLoadings] = useState<boolean[]>([])
     const dispatch = useAppDispatch()
 
-    const auth = useSelector(selectorAuth)
-
-    console.log("auth", auth)
-
-    // const resultLogin = useSelector(selectorLogin)
-
-    // useEffect(() => {
-    //     console.log("resultLogin", resultLogin)
-    // }, [resultLogin])
-
-    // const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
     const navigate = useNavigate()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const onFinish = (values: LoginPayload) => {
-        // console.log(dispatch(requestLogin(values)))
-        dispatch(requestLogin({ email, password, navigate }))
+        setLoadings((prevLoadings) => {
+            const newLoadings = [...prevLoadings]
+            newLoadings[0] = true
+            return newLoadings
+        })
+
+        setTimeout(() => {
+            setLoadings((prevLoadings) => {
+                const newLoadings = [...prevLoadings]
+                newLoadings[0] = false
+                return newLoadings
+            })
+            dispatch(requestLogin({ email, password, navigate }))
+        }, 1500)
     }
 
     return (
@@ -75,6 +73,7 @@ const LoginForm = () => {
                         className="login-form-button"
                         size="large"
                         style={{ width: "100%" }}
+                        loading={loadings[0]}
                     >
                         Log in
                     </Button>

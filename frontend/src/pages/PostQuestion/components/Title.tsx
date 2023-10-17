@@ -19,8 +19,6 @@ export const Title = () => {
         const value = input?.value
         if (value === "") return
         dispatch(setStatusTitle())
-
-        console.log("form.title.data", form.title.data)
     }
 
     return (
