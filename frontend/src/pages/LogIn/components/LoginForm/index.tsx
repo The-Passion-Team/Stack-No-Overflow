@@ -1,10 +1,9 @@
-import "./LoginForm.scss"
+import React, { useState } from "react"
+import { useNavigate } from "react-router-dom";
+import { loginToAccount } from "~/redux/auth"
 import { LockOutlined, UserOutlined } from "@ant-design/icons"
 import { Button, Form, Input } from "antd"
-import { useSelector } from "react-redux"
-// import { useSelector } from "react-redux"
-import { LoginPayload, requestLogin } from "~/redux/auth"
-import { selectorAuth } from "~/redux/auth/containers"
+import { LoginPayload } from "~/redux/auth"
 // import { selectorLogin } from "~/redux/auth/containers"
 import { useAppDispatch } from "~/redux/store"
 // import { useEffect } from "react"
@@ -12,9 +11,9 @@ import { useAppDispatch } from "~/redux/store"
 const LoginForm = () => {
     const dispatch = useAppDispatch()
 
-    const auth = useSelector(selectorAuth)
+    // const auth = useSelector(selectorAuth)
 
-    console.log("auth", auth)
+    // console.log("auth", auth)
 
     // const resultLogin = useSelector(selectorLogin)
 
@@ -22,8 +21,13 @@ const LoginForm = () => {
     //     console.log("resultLogin", resultLogin)
     // }, [resultLogin])
 
+    // const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
+    const navigate = useNavigate();
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
     const onFinish = (values: LoginPayload) => {
-        console.log(dispatch(requestLogin(values)))
+        // console.log(dispatch(requestLogin(values)))
+        dispatch(loginToAccount({ email, password, navigate}))
     }
 
     return (
@@ -44,6 +48,7 @@ const LoginForm = () => {
                     prefix={<UserOutlined className="site-form-item-icon" />}
                     size="large"
                     placeholder="Email"
+                    onChange={(e) => setEmail(e.target.value)}
                 />
             </Form.Item>
             <Form.Item
@@ -56,6 +61,7 @@ const LoginForm = () => {
                     size="large"
                     type="password"
                     placeholder="Password"
+                    onChange={(e) => setPassword(e.target.value)}
                 />
             </Form.Item>
 

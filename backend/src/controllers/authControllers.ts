@@ -12,7 +12,7 @@ namespace AuthControllers {
                 id: user.id,
                 admin: user.admin,
             },
-            config.jwtActive,
+            config.jwtAccess,
             { expiresIn: "60d" },
         )
     }
