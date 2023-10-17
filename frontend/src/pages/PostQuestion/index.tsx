@@ -17,7 +17,6 @@ import {
 import { selectorAuth } from "~/redux/auth/containers"
 import { useAppDispatch } from "~/redux/store"
 import { requestCreatePost } from "~/redux/posts/actions"
-import { IPost } from "~/redux/posts/interfaces"
 
 export const PostQuestion = () => {
     const form = useSelector(selectorFormAsk)

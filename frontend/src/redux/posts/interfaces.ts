@@ -13,6 +13,7 @@ export interface IPost {
     views?: string[]
     tags?: ITag[]
     customTags?: string[]
+    createdAt?: string
 }
 
 export interface IPostState {

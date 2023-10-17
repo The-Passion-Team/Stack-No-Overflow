@@ -28,12 +28,13 @@ const QuesterContent = () => {
                 const vote = item.votes?.length
                 const answers = item.answers?.length
                 const views = item.views?.length
+                const createdAt = item?.createdAt
 
                 return (
                     <Flex key={index} vertical>
                         <Divider style={{ backgroundColor: "#ddd" }} />
 
-                        <Flex gap="large">
+                        <Flex gap="large" align="center">
                             <Rate vote={vote} answers={answers} views={views} />
 
                             <Flex vertical gap="middle" style={{ width: "100%" }}>
@@ -42,7 +43,7 @@ const QuesterContent = () => {
                                     <Tags tags={tags} customTags={customTags} />
                                     <Users
                                         username={displayname || _id_auth}
-                                        timepost="asked 1 min ago"
+                                        timepost={createdAt}
                                     />
                                 </Flex>
                             </Flex>
