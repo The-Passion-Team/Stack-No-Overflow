@@ -5,7 +5,7 @@ import { useSelector } from "react-redux"
 import { selectorFormAsk } from "~/redux/formAsk"
 import { PF } from "~/utils/variables"
 
-const SuggestWritingTry = () => {
+export const SuggestWritingTry = () => {
     const form = useSelector(selectorFormAsk)
 
     return (
@@ -57,5 +57,3 @@ const SuggestWritingTry = () => {
         </>
     )
 }
-
-export default SuggestWritingTry

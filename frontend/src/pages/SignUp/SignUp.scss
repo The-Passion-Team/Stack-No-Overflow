@@ -6,4 +6,20 @@
             color: dodgerblue;
         }
     }
+
+    .title-right {
+        display: none;
+    }
+}
+
+@media (max-width: 992px) {
+    #signup-page {
+        .left {
+            display: none;
+        }
+
+        .title-right {
+            display: block;
+        }
+    }
 }

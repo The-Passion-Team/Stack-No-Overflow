@@ -1,3 +1,3 @@
-import { RootState } from "../interfaces";
+import { RootState } from "../interfaces"
 
-export const selectorCurrentUser = (state: RootState) => state.auth.currentUser
+export const selectorAuth = (state: RootState) => state.auth

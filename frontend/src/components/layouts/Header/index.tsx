@@ -6,7 +6,7 @@ import Web from "./components/Web"
 import { useSelector } from "react-redux"
 import BtnLogIn from "./components/BtnLogIn"
 import BtnSignUp from "./components/BtnSignUp"
-import { selectorCurrentUser } from "~/redux/auth/containers"
+import { selectorAuth } from "~/redux/auth/containers"
 
 const { Header: HeaderAntDesign } = Layout
 
@@ -20,7 +20,7 @@ const headerStyle: React.CSSProperties = {
 }
 
 export function Header() {
-    const currentUser = useSelector(selectorCurrentUser)
+    const currentUser = useSelector(selectorAuth)?.currentUser
 
     console.log("currentUser", currentUser)
 
@@ -36,13 +36,13 @@ export function Header() {
                 </Col>
 
                 <Col>
-                    {currentUser === null ? (
+                    {currentUser ? (
+                        <NavRight />
+                    ) : (
                         <>
                             <BtnLogIn />
                             <BtnSignUp />
-                        </>      
-                    ) : (
-                        <NavRight />
+                        </>
                     )}
                 </Col>
             </Row>

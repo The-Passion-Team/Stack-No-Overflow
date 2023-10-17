@@ -1,12 +1,12 @@
-import mongoose, { model, Schema, SchemaDefinitionProperty } from "mongoose"
-import { IRole } from "./Role"
+import { model, Schema, SchemaDefinitionProperty } from "mongoose"
 
 export interface IUser {
     displayname: string
     email: string
     password: string
     avatar: string
-    role: IRole
+    role: SchemaDefinitionProperty
+    status: SchemaDefinitionProperty
 }
 
 const userSchema = new Schema<IUser>(
@@ -29,17 +29,18 @@ const userSchema = new Schema<IUser>(
             type: String,
         },
         role: {
-            type: mongoose.Types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: "Role",
+            default: "6505da44751464ef46c01d22",
+        },
+        status: {
+            type: Schema.Types.ObjectId,
+            ref: "StatusAccount",
+            default: "65261b9e437a3832ea6ee552", // Default offline
         },
     },
     { timestamps: true },
 )
-
-userSchema.pre("save", function (next) {
-    this.role == null ? (this.role === "6505da44751464ef46c01d22") : null
-    next()
-})
 
 const User = model<IUser>("User", userSchema)
 

@@ -3,7 +3,7 @@ import { Button, Layout, Space, Typography } from "antd"
 import LoginForm from "./components/LoginForm"
 import { Logo } from "~/components"
 import { Link, useParams } from "react-router-dom"
-import "./LogIn.scss"
+import "./styles/Login.scss"
 import { useDispatch } from "react-redux"
 import { useEffect } from "react"
 import { activationEmail } from "~/redux/auth"
@@ -33,6 +33,7 @@ export function LogIn() {
 		if (activationToken) {
 			dispatch(activationEmail({activationToken}));
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
     return (
         <Layout id="login-page">
@@ -63,10 +64,7 @@ export function LogIn() {
 
                 <Space className="space" direction="vertical">
                     <Typography>
-                        Don’t have an account?{" "}
-                        <Link to="/signup">
-                            <Typography.Link>Sign up</Typography.Link>
-                        </Link>
+                        Don’t have an account? <Link to="/signup">Sign up</Link>
                     </Typography>
                     <Typography>
                         Forgot Password? <Link to="/signup"> Change password </Link>
@@ -76,3 +74,4 @@ export function LogIn() {
         </Layout>
     )
 }
+

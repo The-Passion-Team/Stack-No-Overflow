@@ -5,13 +5,13 @@ import {
     TagsOutlined,
     TrophyOutlined,
 } from "@ant-design/icons"
+import "./SignUp.scss"
+import { useState } from "react"
+import { MethodLogin } from "../LogIn"
+import { Link } from "react-router-dom"
 import { Button, Space, Typography } from "antd"
 import SignUpForm from "./components/SignUpForm"
-import { Link } from "react-router-dom"
-import { MethodLogin } from "../LogIn"
-import "./SignUp.scss"
 import { RequestCheckMail } from "~/components"
-import React, { useState } from "react"
 
 const dummy1 = [
     { typ: "Get unstuck — ask a question", icon: <QuestionCircleOutlined /> },
@@ -21,7 +21,7 @@ const dummy1 = [
 ]
 
 export function SignUp() {
-    const [notiRegistrationEmail, setNotiRegistrationEmail] = useState(false);
+    const [notiRegistrationEmail, setNotiRegistrationEmail] = useState(false)
     const [emailConfirm, setEmailConfirm] = useState("")
     return (
         <div id="signup-page">
@@ -74,7 +74,10 @@ export function SignUp() {
                             ))}
                         </Space>
 
-                        <SignUpForm setNotiRegistrationEmail={setNotiRegistrationEmail} setEmailConfirm={setEmailConfirm}/>
+                        <SignUpForm
+                            setNotiRegistrationEmail={setNotiRegistrationEmail}
+                            setEmailConfirm={setEmailConfirm}
+                        />
 
                         <Space className="space" direction="vertical" align="center">
                             <Typography>
@@ -93,7 +96,7 @@ export function SignUp() {
                     </Space>
                 </Space>
             ) : (
-                <RequestCheckMail emailConfirm={emailConfirm}/>
+                <RequestCheckMail emailConfirm={emailConfirm} />
             )}
         </div>
     )

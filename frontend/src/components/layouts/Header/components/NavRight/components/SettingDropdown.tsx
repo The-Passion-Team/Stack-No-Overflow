@@ -5,12 +5,13 @@ import { Col, Space, Badge, Button, Dropdown, MenuProps } from "antd"
 import { UngroupOutlined } from "@ant-design/icons"
 import { useNavigate } from "react-router-dom"
 import { logoutFromAccount } from "~/redux/auth"
-import { selectorCurrentUser } from "~/redux/auth/containers"
+import { selectorAuth } from "~/redux/auth/containers"
 
 const SettingDropdown = () => {
-    const currentUser = useSelector(selectorCurrentUser)
+    const currentUser = useSelector(selectorAuth)
+    console.log(currentUser);
     const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
-    const userId = currentUser?.userLogin?._id
+    const userId = currentUser?._id
     const headers = { token: `Bearer ${currentUser?.accessToken}` }
     const navigate = useNavigate()
     const logOut = () => {

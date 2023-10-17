@@ -5,7 +5,7 @@ interface props {
     rightComponent?: JSX.Element
 }
 
-const Inrow = ({ leftComponent, rightComponent }: props) => {
+export const Inrow = ({ leftComponent, rightComponent }: props) => {
     return (
         <Row gutter={15}>
             <Col flex="1 1 200px">{leftComponent}</Col>
@@ -13,5 +13,3 @@ const Inrow = ({ leftComponent, rightComponent }: props) => {
         </Row>
     )
 }
-
-export default Inrow

@@ -1,6 +1,7 @@
 import { model, Schema } from "mongoose"
 
 export interface IRole {
+    _id?: string
     name: string
 }
 
@@ -15,9 +16,6 @@ const roleSchema = new Schema<IRole>(
     { timestamps: true },
 )
 
-const Role = model<IRole>("Role", roleSchema)
+const RoleSchema = model<IRole>("Role", roleSchema)
 
-// const role = new RoleSchema({ name: "admin" }, { name: "user" })
-// await role.save()
-
-export default Role
+export default RoleSchema

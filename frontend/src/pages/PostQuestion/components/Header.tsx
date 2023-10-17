@@ -5,7 +5,7 @@ interface props {
     title: string
 }
 
-const Header = ({ title }: props) => {
+export const Header = ({ title }: props) => {
     return (
         <div
             style={{
@@ -22,5 +22,3 @@ const Header = ({ title }: props) => {
         </div>
     )
 }
-
-export default Header

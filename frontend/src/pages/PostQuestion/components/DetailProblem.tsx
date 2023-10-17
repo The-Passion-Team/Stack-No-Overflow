@@ -1,41 +1,41 @@
 import { Button, Form, Typography } from "antd"
-import Wrapper from "./Wrapper"
 import TextArea from "antd/es/input/TextArea"
 import { useDispatch, useSelector } from "react-redux"
-import { selectorFormAsk, setStatusTry, setTry } from "~/redux/formAsk"
+import { selectorFormAsk, setDetail, setStatusDetail } from "~/redux/formAsk"
 import { Fragment } from "react"
+import { Wrapper } from "./Wrapper"
 
-const YouTry = () => {
+export const DetailProblem = () => {
     const form = useSelector(selectorFormAsk)
     const dispatch = useDispatch()
 
     const handleChange = () => {
-        const input = document.getElementById("textarea-try") as HTMLInputElement | null
+        const input = document.getElementById("textarea-detail") as HTMLInputElement | null
         const value = input?.value
-        dispatch(setTry(value))
+        dispatch(setDetail(value))
     }
 
     const handleClick = () => {
-        const input = document.getElementById("textarea-try") as HTMLInputElement | null
+        const input = document.getElementById("textarea-detail") as HTMLInputElement | null
         const value = input?.value
         if (value === "") return
-        dispatch(setStatusTry())
+        dispatch(setStatusDetail())
 
-        console.log("form.try.data", form.try.data)
+        console.log("form.detail.data", form.detail.data)
     }
 
     return (
-        <Form disabled={form.try.current && form.try.status !== "succeeded"}>
+        <Form disabled={form.detail.current && form.detail.status !== "succeeded"}>
             <Wrapper>
                 <Typography style={{ fontWeight: 500 }}>
-                    What did you try and what were you expecting?
+                    What are the details of your problem?
                 </Typography>
                 <Typography>
-                    Describe what you tried, what you expected to happen, and what actually
-                    resulted. Minimum 20 characters.
+                    Introduce the problem and expand on what you put in the title. Minimum 20
+                    characters.
                 </Typography>
-                <TextArea rows={10} id="textarea-try" onChange={handleChange} />
-                {form.try.current ? (
+                <TextArea rows={10} id="textarea-detail" onChange={handleChange} />
+                {form.detail.current ? (
                     <Fragment />
                 ) : (
                     <Button type="primary" onClick={handleClick}>
@@ -46,5 +46,3 @@ const YouTry = () => {
         </Form>
     )
 }
-
-export default YouTry

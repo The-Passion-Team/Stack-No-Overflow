@@ -14,7 +14,7 @@ const Rate = ({ vote, answers, views }: props) => {
     ]
 
     return (
-        <Space direction="vertical" align="end">
+        <Space className="snoRate">
             {type.map((item, index) => (
                 <Typography key={index} style={{ fontSize: 13.5 }}>
                     {item.value || 0} {item.name}

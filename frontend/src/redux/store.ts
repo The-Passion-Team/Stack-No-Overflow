@@ -1,15 +1,16 @@
 import { authReducer } from "./auth"
-import { configureStore, combineReducers } from "@reduxjs/toolkit"
-import { persistStore, persistReducer } from "redux-persist"
-import storage from "redux-persist/lib/storage"
+import { combineReducers, configureStore } from "@reduxjs/toolkit"
 import { usersReducer } from "./users"
 import { formAskReducer } from "./formAsk"
+import { persistStore, persistReducer } from "redux-persist"
+import storage from "redux-persist/lib/storage"
+import { useDispatch } from "react-redux"
 
 const persistConfig = {
     key: "root",
     version: 1,
     storage,
-    whitelist: ["auth", "users"],
+    whitelist: ["auth", "users", "formAsk"],
 }
 
 const combinedReducer = combineReducers({
@@ -37,3 +38,8 @@ export const store = configureStore({
 })
 
 export const StorePersistor = persistStore(store)
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
+
+export const useAppDispatch = () => useDispatch<AppDispatch>()

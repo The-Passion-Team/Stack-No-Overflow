@@ -2,25 +2,26 @@ import { createSlice } from "@reduxjs/toolkit"
 import { activationEmail, signupToAccount, loginToAccount, logoutFromAccount } from "./actions"
 import { AuthState } from "./interfaces"
 
-const authState: AuthState = {
-    status: "pending",
-    msg: "",
-    currentUser: null
+const initialState: AuthState = {
+    status: "idle",
+    message: null,
+    currentUser: null,
+    accessToken: undefined,
+    _id: undefined
 }
 
 const authSlice = createSlice({
     name: "auth",
-    initialState: authState,
+    initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(loginToAccount.pending, (state, action) => {
             	state.status = "pending";
-            	state.msg = undefined;
             })
             .addCase(loginToAccount.rejected, (state, action) => {
             	state.status = "failed";
-            	state.msg = action.payload;
+            	state.message = action.payload;
             })
             .addCase(loginToAccount.fulfilled, (state, action) => {
             	state.status = "succeeded";
@@ -29,27 +30,24 @@ const authSlice = createSlice({
             })
             .addCase(signupToAccount.pending, (state, action) => {
                 state.status = "pending"
-                state.msg = undefined;
             })
             .addCase(signupToAccount.rejected, (state, action) => {
                 state.status = "failed"
-                state.msg = action.payload
+                // state.msg = action.payload
             })
             .addCase(signupToAccount.fulfilled, (state, action) => {
                 state.status = "succeeded"
-                state.msg = action.payload
+                state.message = action.payload
             })
             .addCase(activationEmail.pending, (state, action) => {
                 state.status = "pending"
-                state.msg = undefined;
             })
             .addCase(activationEmail.rejected, (state, action) => {
                 state.status = "failed"
-                state.msg = action.payload
             })
             .addCase(activationEmail.fulfilled, (state, action) => {
                 state.status = "succeeded"
-                state.msg = action.payload
+                state.message = action.payload
             })
             .addCase(logoutFromAccount.pending, (state, action) => {
                 state.status = "pending"
