@@ -54,7 +54,7 @@ export const activationEmail = createAsyncThunk<any, ActivationPayload>(
         console.log("object")
         try {
             const res = await axios.post(`${APIPaths.Auth}/activation`, payload)
-            console.log(payload)
+            console.log("res", res)
         } catch (e: any) {
             console.log("e: ", e.response.data)
             return rejectWithValue(e)

@@ -1,7 +1,6 @@
 import { Router } from "express"
 import { check } from "express-validator"
 import { Request, Response } from "express"
-import Role from "../models/Role"
 import HttpStatusCodes from "http-status-codes"
 import AuthControllers from "../controllers/authControllers"
 import { Middlewares } from "../middlewares"
@@ -37,16 +36,7 @@ const authRouter = (): Router => {
         res.status(HttpStatusCodes.OK).json({ msg: "Logged out successfully!" })
     })
 
-    router.post("/add", async (req: Request, res: Response) => {
-        try {
-            await new Role({ name: "admin" }).save()
-
-            res.status(HttpStatusCodes.OK).send({ msg: "Add Success!" })
-        } catch (err: any) {
-            console.error(err.message)
-            res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
-        }
-    })
+    router.post("/activation", AuthControllers.activation)
 
     return router
 }

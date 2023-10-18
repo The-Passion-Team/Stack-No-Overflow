@@ -1,24 +1,24 @@
 import "./SignUpForm.scss"
 import { useState } from "react"
-import { useDispatch } from "react-redux"
 import { Button, Form, Input } from "antd"
 import Link from "antd/es/typography/Link"
-import { ThunkDispatch } from "@reduxjs/toolkit"
 import Typography from "antd/es/typography/Typography"
 import { AuthState, signupToAccount } from "~/redux/auth"
 import { LockOutlined, SmileOutlined, UserOutlined } from "@ant-design/icons"
+import { useAppDispatch } from "~/redux/store"
 
 const SignUpForm = ({ setNotiRegistrationEmail, setEmailConfirm }: AuthState) => {
-    const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
-    const [displayname, setDisplayName] = useState("")
+    const dispatch = useAppDispatch()
+    const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+
     const onFinish = (values: any) => {
         console.log("Received values of form: ", values)
-        console.log("displayname: ", displayname)
+        console.log("username: ", username)
         setNotiRegistrationEmail(true)
         setEmailConfirm(email)
-        dispatch(signupToAccount({ displayname, email, password }))
+        dispatch(signupToAccount({ username, email, password }))
     }
 
     return (
@@ -33,7 +33,7 @@ const SignUpForm = ({ setNotiRegistrationEmail, setEmailConfirm }: AuthState) =>
                     prefix={<SmileOutlined className="site-form-item-icon" />}
                     size="large"
                     placeholder="Display name"
-                    onChange={(e) => setDisplayName(e.target.value)}
+                    onChange={(e) => setUsername(e.target.value)}
                 />
             </Form.Item>
             <Form.Item
