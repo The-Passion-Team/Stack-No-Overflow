@@ -1,13 +1,21 @@
-import { useState } from "react"
+import { useState, useEffect, Fragment } from "react"
 import { useNavigate } from "react-router-dom"
 import { LockOutlined, UserOutlined } from "@ant-design/icons"
-import { Button, Flex, Form, Input } from "antd"
-import { LoginPayload, requestLogin } from "~/redux/auth"
+import { Alert, Button, Flex, Form, Input } from "antd"
+import { AuthState, LoginPayload, requestLogin } from "~/redux/auth"
 import { useAppDispatch } from "~/redux/store"
+import { useSelector } from "react-redux"
+import { selectorAuth } from "~/redux/auth/containers"
 
 const LoginForm = () => {
     const [loadings, setLoadings] = useState<boolean[]>([])
+    const [alertMsg, setAlertMsg] = useState<AuthState>()
+    const login = useSelector(selectorAuth)
     const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        setAlertMsg(login)
+    }, [login])
 
     const navigate = useNavigate()
     const [email, setEmail] = useState("")
@@ -65,6 +73,14 @@ const LoginForm = () => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </Form.Item>
+
+                {alertMsg?.error === 1 ? (
+                    <Form.Item>
+                        <Alert message={alertMsg.message} type="error" showIcon />
+                    </Form.Item>
+                ) : (
+                    <Fragment />
+                )}
 
                 <Form.Item style={{ marginBottom: 0 }}>
                     <Button

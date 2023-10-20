@@ -37,7 +37,7 @@ namespace AuthControllers {
             if (!user) {
                 return res
                     .status(HttpStatusCodes.OK)
-                    .send({ error: true, message: "Email does not exist" })
+                    .send({ error: 1, message: "Email does not exist" })
             }
 
             if (!password || !user.password)
@@ -46,9 +46,7 @@ namespace AuthControllers {
             const matchPassword = await bcrypt.compare(password, user.password)
 
             if (!matchPassword) {
-                return res
-                    .status(HttpStatusCodes.OK)
-                    .send({ error: true, message: "Wrong password" })
+                return res.status(HttpStatusCodes.OK).send({ error: 1, message: "Wrong password" })
             }
 
             // Not Error get data
@@ -82,7 +80,6 @@ namespace AuthControllers {
                 })
             }
         } catch (error: any) {
-            console.error(error.message)
             res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
         }
     }
@@ -93,7 +90,6 @@ namespace AuthControllers {
             const response = await AuthServices.signupServices({ email, password, username })
             res.status(HttpStatusCodes.OK).json(response)
         } catch (err: any) {
-            console.error(err.message)
             res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
         }
     }
@@ -104,7 +100,6 @@ namespace AuthControllers {
             const response = await AuthServices.activation(activationToken)
             return res.status(HttpStatusCodes.OK).json(response)
         } catch (err: any) {
-            console.error(err.message)
             res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
         }
     }

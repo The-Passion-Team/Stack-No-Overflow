@@ -2,21 +2,9 @@ import { FacebookOutlined, GithubOutlined, GoogleOutlined } from "@ant-design/ic
 import { Button, Flex, Typography } from "antd"
 import LoginForm from "./components/LoginForm"
 import { Logo } from "~/components"
-import { Link, useParams } from "react-router-dom"
-import { useEffect } from "react"
-import { activationEmail } from "~/redux/auth"
-import { useAppDispatch } from "~/redux/store"
+import { Link } from "react-router-dom"
 
 export function LogIn() {
-    const { activationToken } = useParams()
-    const dispatch = useAppDispatch()
-
-    useEffect(() => {
-        if (activationToken) {
-            dispatch(activationEmail({ activationToken }))
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
     return (
         <Flex align="center" justify="center" style={{ minHeight: "calc(100vh - 104px)" }}>
             <Flex

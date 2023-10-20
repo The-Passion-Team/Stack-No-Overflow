@@ -2,7 +2,6 @@ import axios from "axios"
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { ActivationPayload, LoginPayload, LogoutPayload, SignupPayload } from "./interfaces"
 import { APIPaths } from "~/utils"
-import { useNavigate } from "react-router-dom"
 import Message from "~/components/Message"
 
 // API LOG IN
@@ -14,10 +13,9 @@ export const requestLogin = createAsyncThunk<any, LoginPayload>(
             const err = res?.data?.error
             const msg = res?.data?.message
 
-            Message(err, msg)
-
             if (err === 0) {
                 userData.navigate("/")
+                Message(err, msg)
                 fulfillWithValue(res.data)
             }
 
@@ -31,32 +29,23 @@ export const requestLogin = createAsyncThunk<any, LoginPayload>(
 // SIGN UP
 export const signupToAccount = createAsyncThunk<any, SignupPayload>(
     "auth/signup",
-    async (payload, { rejectWithValue }) => {
-        console.log("object")
+    async (payload, { rejectWithValue, fulfillWithValue }) => {
         try {
             const res = await axios.post(`${APIPaths.Auth}/signup`, payload)
-            console.log(payload)
-            const navigate = useNavigate()
-            navigate("/login")
-            // dispatch(loginSuccess(res.data));
+            return fulfillWithValue(res.data)
         } catch (e: any) {
-            console.log("e: ", e.response.data)
             return rejectWithValue(e)
-            // dispatch(loginFailed(e.response.data));
-            // dispatch(updateError());
         }
     },
 )
 
 export const activationEmail = createAsyncThunk<any, ActivationPayload>(
     "auth/activation",
-    async (payload, { rejectWithValue }) => {
-        console.log("object")
+    async (payload, { rejectWithValue, fulfillWithValue }) => {
         try {
             const res = await axios.post(`${APIPaths.Auth}/activation`, payload)
-            console.log("res", res)
+            return fulfillWithValue(res.data)
         } catch (e: any) {
-            console.log("e: ", e.response.data)
             return rejectWithValue(e)
         }
     },
@@ -73,7 +62,6 @@ export const logoutFromAccount = createAsyncThunk<any, LogoutPayload>(
             localStorage.clear()
             payload.navigate("/login")
         } catch (e: any) {
-            console.log("e: ", e.response.data)
             return rejectWithValue(e)
         }
     },

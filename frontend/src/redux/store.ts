@@ -9,16 +9,15 @@ import { postReducer } from "./posts/slice"
 
 const rootPersistConfig = {
     key: "root",
-    version: 1,
     storage,
-    blacklist: ["formAsk", "posts"],
+    blacklist: ["formAsk", "posts", "auth"],
 }
 
 const authPersistConfig = {
     key: "auth",
-    version: 1,
     storage,
     whitelist: ["currentUser"],
+    blacklist: ["status", "message"],
 }
 
 const authPersistReducer = persistReducer(authPersistConfig, authReducer)

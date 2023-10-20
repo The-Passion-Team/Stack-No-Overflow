@@ -1,5 +1,5 @@
 export type Status = "idle" | "pending" | "succeeded" | "failed"
-export type Error = "0" | "true" // 0 is not error, true is error
+export type Error = "idle" | 0 | 1
 
 export const APIHost = "http://localhost:5000"
 export const APIVer1 = "api/v1"

@@ -1,24 +1,31 @@
 import "./SignUpForm.scss"
-import { useState } from "react"
-import { Button, Form, Input } from "antd"
+import { Alert, Button, Form, Input } from "antd"
 import Link from "antd/es/typography/Link"
 import Typography from "antd/es/typography/Typography"
 import { AuthState, signupToAccount } from "~/redux/auth"
 import { LockOutlined, SmileOutlined, UserOutlined } from "@ant-design/icons"
 import { useAppDispatch } from "~/redux/store"
+import { useSelector } from "react-redux"
+import { selectorAuth } from "~/redux/auth/containers"
+import { useEffect, useState, Fragment } from "react"
 
 const SignUpForm = ({ setNotiRegistrationEmail, setEmailConfirm }: AuthState) => {
     const dispatch = useAppDispatch()
-    const [username, setUsername] = useState("")
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const [alertMsg, setAlertMsg] = useState<AuthState>()
+    const signUp = useSelector(selectorAuth)
 
-    const onFinish = (values: any) => {
-        console.log("Received values of form: ", values)
-        console.log("username: ", username)
-        setNotiRegistrationEmail(true)
+    useEffect(() => {
+        setAlertMsg(signUp)
+    }, [signUp])
+
+    const onFinish = async (values: any) => {
+        const username = values?.name
+        const email = values?.email
+        const password = values?.password
+
         setEmailConfirm(email)
-        dispatch(signupToAccount({ username, email, password }))
+        const result = await dispatch(signupToAccount({ username, email, password }))
+        if (result?.payload?.error === 0) setNotiRegistrationEmail(true)
     }
 
     return (
@@ -33,7 +40,6 @@ const SignUpForm = ({ setNotiRegistrationEmail, setEmailConfirm }: AuthState) =>
                     prefix={<SmileOutlined className="site-form-item-icon" />}
                     size="large"
                     placeholder="Display name"
-                    onChange={(e) => setUsername(e.target.value)}
                 />
             </Form.Item>
             <Form.Item
@@ -47,7 +53,6 @@ const SignUpForm = ({ setNotiRegistrationEmail, setEmailConfirm }: AuthState) =>
                     prefix={<UserOutlined className="site-form-item-icon" />}
                     size="large"
                     placeholder="Email"
-                    onChange={(e) => setEmail(e.target.value)}
                 />
             </Form.Item>
             <Form.Item
@@ -60,9 +65,16 @@ const SignUpForm = ({ setNotiRegistrationEmail, setEmailConfirm }: AuthState) =>
                     size="large"
                     type="password"
                     placeholder="Password"
-                    onChange={(e) => setPassword(e.target.value)}
                 />
             </Form.Item>
+
+            {alertMsg?.error === 1 ? (
+                <Form.Item>
+                    <Alert message={alertMsg.message} type="error" showIcon />
+                </Form.Item>
+            ) : (
+                <Fragment />
+            )}
 
             <Form.Item style={{ marginBottom: 0 }}>
                 <Button type="primary" htmlType="submit" className="login-form-button" size="large">

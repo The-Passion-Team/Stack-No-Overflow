@@ -1,5 +1,6 @@
 import OnlyHeaderLayout from "~/layouts/OnlyHeaderLayout"
 import NoSiderLayout from "~/layouts/NoSiderLayout"
+import EmptyLayout from "~/layouts/EmptyLayout"
 import {
     PostQuestion,
     Companies,
@@ -10,6 +11,7 @@ import {
     SignUp,
     Tags,
     Users,
+    ValidateTokenSignUp,
 } from "~/pages"
 
 export const Path = {
@@ -23,7 +25,7 @@ export const Path = {
     Users: "/users",
     Companies: "/companies",
     Ask: "/questions/ask",
-    ActivationEmail: "/activation/:activationToken"
+    ActivationEmail: "/activation/:activationToken",
 }
 
 type props = {
@@ -42,5 +44,5 @@ export const routes: props = [
     { path: Path.Tags, page: Tags },
     { path: Path.Users, page: Users },
     { path: Path.Companies, page: Companies },
-    { path: Path.ActivationEmail, page: LogIn, layout: OnlyHeaderLayout },
+    { path: Path.ActivationEmail, page: ValidateTokenSignUp, layout: EmptyLayout },
 ]

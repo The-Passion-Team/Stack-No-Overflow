@@ -1,11 +1,11 @@
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
 import User, { IUser } from "../models/User"
-import { sendEmail } from "../middlewares"
+import { Middlewares, sendEmail } from "../middlewares"
 import config from "../config/appConfig.config"
 
 const generateActivationToken = (user: any) => {
-    return jwt.sign(user, config.jwtSecret, { expiresIn: "60d" })
+    return jwt.sign(user, config.jwtSecret, { expiresIn: "10m" })
 }
 
 namespace AuthServices {
@@ -21,6 +21,10 @@ namespace AuthServices {
             const salt = await bcrypt.genSalt(10)
             //set user password to hashed password
             const hashedPassword = await bcrypt.hash(password, salt)
+
+            // Check username is already exists
+            const checkUsername = await Middlewares.checkUsernameExists(username)
+            if (checkUsername) return { error: 1, message: "Username not available" }
 
             // has 2 type tags is avail tags and custom tags
             const user = await User.findOne({ email })
@@ -38,7 +42,7 @@ namespace AuthServices {
 
                 return { error: 0, message: "Please complete your registration." }
             } else {
-                return { error: true, message: "This email already exists." }
+                return { error: 1, message: "This email already exists." }
             }
         } catch (error) {
             return error
@@ -48,6 +52,7 @@ namespace AuthServices {
     export const activation = async (activationToken: string) => {
         try {
             const user: any = jwt.verify(activationToken, config.jwtSecret)
+            console.log("user", user)
             const { username, email, password } = user
             const checkEmail = await User.findOne({ email })
 
@@ -61,12 +66,9 @@ namespace AuthServices {
 
                 await newUser.save()
 
-                return {
-                    error: 0,
-                    message: "Account has been activated!",
-                }
+                return { error: 0, message: "Account has been activated!" }
             } else {
-                return { msg: "This email already exists." }
+                return { error: 1, message: "This email already exists." }
             }
         } catch (error) {
             return error

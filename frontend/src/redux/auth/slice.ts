@@ -8,6 +8,7 @@ const initialState: AuthState = {
     currentUser: null,
     accessToken: undefined,
     _id: undefined,
+    error: "idle",
 }
 
 const authSlice = createSlice({
@@ -25,8 +26,8 @@ const authSlice = createSlice({
                 state.message = action.payload
             })
             .addCase(requestLogin.fulfilled, (state, action) => {
-                console.log('action.payload', action.payload)
                 state.status = "succeeded"
+                state.error = action.payload?.error
                 state.message = action.payload?.message
                 state.currentUser = action.payload?.data
             })
@@ -35,13 +36,13 @@ const authSlice = createSlice({
             .addCase(signupToAccount.pending, (state) => {
                 state.status = "pending"
             })
-            .addCase(signupToAccount.rejected, (state) => {
+            .addCase(signupToAccount.rejected, (state, action) => {
                 state.status = "failed"
-                // state.msg = action.payload
             })
             .addCase(signupToAccount.fulfilled, (state, action) => {
                 state.status = "succeeded"
-                state.message = action.payload
+                state.error = action.payload.error
+                state.message = action.payload.message
             })
 
             // ACTIVE EMAIL

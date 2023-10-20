@@ -7,6 +7,7 @@ import nodemailer from "nodemailer"
 import { OAuth2Client } from "google-auth-library"
 import dotenv from "dotenv"
 import config from "../config/appConfig.config"
+import User from "../models/User"
 
 export namespace Middlewares {
     export const verifyToken: any = (req: Request, res: Response, next: NextFunction) => {
@@ -33,6 +34,12 @@ export namespace Middlewares {
                 .status(HttpStatusCodes.UNAUTHORIZED)
                 .json({ msg: "No token, authorization denied" })
         }
+    }
+
+    export const checkUsernameExists = async (username: string) => {
+        const check = await User.findOne({ username })
+        if (check) return true
+        return false
     }
 }
 
