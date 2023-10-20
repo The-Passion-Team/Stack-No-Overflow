@@ -20,8 +20,6 @@ export const DetailProblem = () => {
         const value = input?.value
         if (value === "") return
         dispatch(setStatusDetail())
-
-        console.log("form.detail.data", form.detail.data)
     }
 
     return (

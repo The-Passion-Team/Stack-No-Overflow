@@ -47,6 +47,17 @@ namespace TagControllers {
             return error
         }
     }
+
+    export const findTag = async (req: Request, res: Response) => {
+        try {
+            const key: string = req.body.key
+
+            const response = await TagServices.findTag(key)
+            res.status(HttpStatusCodes.OK).json(response)
+        } catch (error) {
+            return error
+        }
+    }
 }
 
 export default TagControllers

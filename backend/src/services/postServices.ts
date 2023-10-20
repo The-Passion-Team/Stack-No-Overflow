@@ -1,14 +1,37 @@
+import Tag from "../models/Tag"
 import Post, { IPost } from "../models/Post"
 
+const updateTags = async (tags: string[], id_post: string) => {
+    try {
+        // has 2 type tags is avail tags and custom tags
+        tags.map(async (tag: string) => {
+            const find = await Tag.findOne({ name: tag }).select("-createdAt -updatedAt -__v")
+
+            // find = true OK update _id of tag to tags props of Model Tags
+            if (find) {
+                await Post.updateOne({ _id: id_post }, { $push: { tags: find._id } })
+            } else {
+                await Post.updateOne({ _id: id_post }, { $push: { customTags: tag } })
+            }
+        })
+    } catch (error) {
+        return console.log("error", error)
+    }
+}
+
 namespace PostServices {
-    export const createPost = async (data: IPost) => {
+    export const createPost = async (data: IPost, tags: string[]) => {
         try {
+            // First, create new post with no tags
             const create = await Post.create(data)
+            if (!create) return
+
+            // Next, update tags
+            updateTags(tags, create?._id)
 
             return {
-                error: create ? null : true,
-                message: create ? "Successful" : "Failed",
-                data: create || null,
+                error: create ? 0 : true,
+                message: create ? "Create Successful" : "Create Failed",
             }
         } catch (error) {
             return error
@@ -18,11 +41,16 @@ namespace PostServices {
     export const getAllPosts = async () => {
         try {
             const data = await Post.find()
+                .sort({ createdAt: -1 })
+                .limit(20)
+                .skip(0)
+                .populate("auth", "displayname")
+                .populate("tags", "name")
 
             return {
                 error: data ? null : true,
                 message: data ? "Successful" : "Failed",
-                data: data || null,
+                data: data,
             }
         } catch (error) {
             return error

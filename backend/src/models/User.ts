@@ -1,21 +1,27 @@
 import { model, Schema, SchemaDefinitionProperty } from "mongoose"
 
 export interface IUser {
-    displayname: string
-    email: string
-    password: string
-    avatar: string
-    role: SchemaDefinitionProperty
-    status: SchemaDefinitionProperty
+    // displayname: string
+    username?: string
+    email?: string
+    password?: string
+    avatar?: string
+    role?: SchemaDefinitionProperty
+    status?: SchemaDefinitionProperty
 }
 
 const userSchema = new Schema<IUser>(
     {
-        displayname: {
+        // displayname: {
+        //     type: String,
+        //     // required: true,
+        //     unique: true,
+        // },
+        username: {
             type: String,
             required: true,
             unique: true,
-        },   
+        },
         email: {
             type: String,
             required: true,

@@ -1,76 +1,101 @@
-import React, { useState } from "react"
-import { useNavigate } from "react-router-dom";
-import { loginToAccount } from "~/redux/auth"
+import { useState, useEffect, Fragment } from "react"
+import { useNavigate } from "react-router-dom"
 import { LockOutlined, UserOutlined } from "@ant-design/icons"
-import { Button, Form, Input } from "antd"
-import { LoginPayload } from "~/redux/auth"
-// import { selectorLogin } from "~/redux/auth/containers"
+import { Alert, Button, Flex, Form, Input } from "antd"
+import { AuthState, LoginPayload, requestLogin } from "~/redux/auth"
 import { useAppDispatch } from "~/redux/store"
-// import { useEffect } from "react"
+import { useSelector } from "react-redux"
+import { selectorAuth } from "~/redux/auth/containers"
 
 const LoginForm = () => {
+    const [loadings, setLoadings] = useState<boolean[]>([])
+    const [alertMsg, setAlertMsg] = useState<AuthState>()
+    const login = useSelector(selectorAuth)
     const dispatch = useAppDispatch()
 
-    // const auth = useSelector(selectorAuth)
+    useEffect(() => {
+        setAlertMsg(login)
+    }, [login])
 
-    // console.log("auth", auth)
-
-    // const resultLogin = useSelector(selectorLogin)
-
-    // useEffect(() => {
-    //     console.log("resultLogin", resultLogin)
-    // }, [resultLogin])
-
-    // const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
-    const navigate = useNavigate();
+    const navigate = useNavigate()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const onFinish = (values: LoginPayload) => {
-        // console.log(dispatch(requestLogin(values)))
-        dispatch(loginToAccount({ email, password, navigate}))
+        setLoadings((prevLoadings) => {
+            const newLoadings = [...prevLoadings]
+            newLoadings[0] = true
+            return newLoadings
+        })
+
+        setTimeout(() => {
+            setLoadings((prevLoadings) => {
+                const newLoadings = [...prevLoadings]
+                newLoadings[0] = false
+                return newLoadings
+            })
+            dispatch(requestLogin({ email, password, navigate }))
+        }, 1500)
     }
 
     return (
-        <Form
-            name="normal_login"
-            className="login-form"
-            initialValues={{ remember: true }}
-            onFinish={onFinish}
-        >
-            <Form.Item
-                name="email"
-                rules={[
-                    { type: "email", message: "The input is not valid Email!" },
-                    { required: true, message: "Please input your Email!" },
-                ]}
+        <Flex style={{ width: "100%" }}>
+            <Form
+                name="normal_login"
+                className="login-form"
+                initialValues={{ remember: true }}
+                onFinish={onFinish}
+                style={{ width: "100%" }}
             >
-                <Input
-                    prefix={<UserOutlined className="site-form-item-icon" />}
-                    size="large"
-                    placeholder="Email"
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-            </Form.Item>
-            <Form.Item
-                name="password"
-                rules={[{ required: true, message: "Please input your Password!" }]}
-                hasFeedback
-            >
-                <Input.Password
-                    prefix={<LockOutlined className="site-form-item-icon" />}
-                    size="large"
-                    type="password"
-                    placeholder="Password"
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-            </Form.Item>
+                <Form.Item
+                    name="email"
+                    rules={[
+                        { type: "email", message: "The input is not valid Email!" },
+                        { required: true, message: "Please input your Email!" },
+                    ]}
+                >
+                    <Input
+                        prefix={<UserOutlined className="site-form-item-icon" />}
+                        size="large"
+                        placeholder="Email"
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                </Form.Item>
+                <Form.Item
+                    name="password"
+                    rules={[{ required: true, message: "Please input your Password!" }]}
+                    hasFeedback
+                >
+                    <Input.Password
+                        prefix={<LockOutlined className="site-form-item-icon" />}
+                        size="large"
+                        type="password"
+                        placeholder="Password"
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                </Form.Item>
 
-            <Form.Item style={{ marginBottom: 0 }}>
-                <Button type="primary" htmlType="submit" className="login-form-button" size="large">
-                    Log in
-                </Button>
-            </Form.Item>
-        </Form>
+                {alertMsg?.error === 1 ? (
+                    <Form.Item>
+                        <Alert message={alertMsg.message} type="error" showIcon />
+                    </Form.Item>
+                ) : (
+                    <Fragment />
+                )}
+
+                <Form.Item style={{ marginBottom: 0 }}>
+                    <Button
+                        type="primary"
+                        htmlType="submit"
+                        className="login-form-button"
+                        size="large"
+                        style={{ width: "100%" }}
+                        loading={loadings[0]}
+                    >
+                        Log in
+                    </Button>
+                </Form.Item>
+            </Form>
+        </Flex>
     )
 }
 

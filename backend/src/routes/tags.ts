@@ -14,6 +14,8 @@ const tagRouter = (): Router => {
     router.put("/updateTag", TagControllers.updateTag)
     router.delete("/deleteTag", TagControllers.deleteTag)
 
+    router.post("/findTag", TagControllers.findTag) // For auto complete search
+
     return router
 }
 

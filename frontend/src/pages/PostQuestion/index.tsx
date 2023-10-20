@@ -14,24 +14,42 @@ import {
     Title,
     YouTry,
 } from "./components"
+import { selectorAuth } from "~/redux/auth/containers"
+import { useAppDispatch } from "~/redux/store"
+import { requestCreatePost } from "~/redux/posts/actions"
+import { useNavigate } from "react-router-dom"
+import Message from "~/components/Message"
 
 export const PostQuestion = () => {
     const form = useSelector(selectorFormAsk)
+    const currentUser_id = useSelector(selectorAuth)?.currentUser?._id
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const title = form.title.data
-        const detail = form.detail.data
-        const expecting = form.try.data
+        const problem = form.detail.data
+        const tried = form.try.data
         const tags = form.tags.data
 
-        let data = {
+        if (!currentUser_id || !title || !problem || !tried || !tags) return
+
+        let data: any = {
+            auth: currentUser_id,
             title,
-            detail,
-            expecting,
+            problem,
+            tried,
             tags,
         }
 
-        console.log("data", data)
+        const response_post_question = await dispatch(requestCreatePost(data))
+
+        const error = response_post_question?.payload?.error
+        const message = response_post_question?.payload?.message
+
+        Message(error, message)
+
+        if (!error) return navigate("/")
     }
 
     return (

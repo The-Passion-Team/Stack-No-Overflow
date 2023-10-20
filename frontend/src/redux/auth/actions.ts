@@ -1,64 +1,51 @@
-import axios from "axios";
-import { createAsyncThunk, createAction } from "@reduxjs/toolkit";
-import { ActivationPayload, LoginPayload, LogoutPayload, SignupPayload } from "./interfaces";
-import { APIPaths } from "~/utils";
-import { useNavigate } from "react-router-dom";
+import axios from "axios"
+import { createAsyncThunk } from "@reduxjs/toolkit"
+import { ActivationPayload, LoginPayload, LogoutPayload, SignupPayload } from "./interfaces"
+import { APIPaths } from "~/utils"
+import Message from "~/components/Message"
 
-// export const requestLogin = createAsyncThunk<any, LoginPayload>(
-//     "auth/login",
-//     async (userData, { rejectWithValue, fulfillWithValue }) => {
-//         try {
-//             const response = await axios.post(`${APIPaths.Auth}/login`, userData)
-//             if (response) localStorage.setItem("token", response.data.data.accessToken)
-//             return fulfillWithValue(response.data)
-//         } catch (error: any) {
-//             return rejectWithValue(error)
-//         }
-//     },
-// )
-
-export const loginToAccount = createAsyncThunk<any, LoginPayload>(
+// API LOG IN
+export const requestLogin = createAsyncThunk<any, LoginPayload>(
     "auth/login",
-    async (payload, { rejectWithValue }) => {
+    async (userData, { rejectWithValue, fulfillWithValue }) => {
         try {
-            const res = await axios.post(`${APIPaths.Auth}/login`, payload)
-            payload.navigate("/")
-			return res.data
+            const res = await axios.post(`${APIPaths.Auth}/login`, userData)
+            const err = res?.data?.error
+            const msg = res?.data?.message
+
+            if (err === 0) {
+                userData.navigate("/")
+                Message(err, msg)
+                fulfillWithValue(res.data)
+            }
+
+            return fulfillWithValue(res.data)
+        } catch (error: any) {
+            return rejectWithValue(error)
+        }
+    },
+)
+
+// SIGN UP
+export const signupToAccount = createAsyncThunk<any, SignupPayload>(
+    "auth/signup",
+    async (payload, { rejectWithValue, fulfillWithValue }) => {
+        try {
+            const res = await axios.post(`${APIPaths.Auth}/signup`, payload)
+            return fulfillWithValue(res.data)
         } catch (e: any) {
-            console.log("e: ", e.response.data)
             return rejectWithValue(e)
         }
     },
 )
 
-export const signupToAccount = createAsyncThunk<any, SignupPayload>(
-	"auth/signup", 
-	async (payload, {rejectWithValue}) => {
-		console.log("object");
-		try {
-			const res = await axios.post(`${APIPaths.Auth}/signup`, payload);
-			console.log(payload);
-			const navigate = useNavigate();
-			navigate("/login");
-			// dispatch(loginSuccess(res.data));
-		} catch (e : any) {
-			console.log("e: ", e.response.data);
-			return rejectWithValue(e);
-			// dispatch(loginFailed(e.response.data));
-			// dispatch(updateError());
-		}
-	}
-);
-
 export const activationEmail = createAsyncThunk<any, ActivationPayload>(
     "auth/activation",
-    async (payload, { rejectWithValue }) => {
-        console.log("object")
+    async (payload, { rejectWithValue, fulfillWithValue }) => {
         try {
             const res = await axios.post(`${APIPaths.Auth}/activation`, payload)
-            console.log(payload)
+            return fulfillWithValue(res.data)
         } catch (e: any) {
-            console.log("e: ", e.response.data)
             return rejectWithValue(e)
         }
     },
@@ -71,11 +58,10 @@ export const logoutFromAccount = createAsyncThunk<any, LogoutPayload>(
             const res = await axios.post(`${APIPaths.Auth}/logout`, payload)
             console.log(payload)
             console.log(res)
-            console.log(localStorage);
-            localStorage.clear();
+            console.log(localStorage)
+            localStorage.clear()
             payload.navigate("/login")
         } catch (e: any) {
-            console.log("e: ", e.response.data)
             return rejectWithValue(e)
         }
     },

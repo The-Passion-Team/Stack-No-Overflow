@@ -14,24 +14,23 @@ export interface AuthState {
 }
 
 export interface LoginPayload {
-	email: string;
-	password: string;
-	navigate: any;
+    email: string
+    password: string
+    navigate: any
 }
 
 export interface SignupPayload {
-    displayname: string
+    username: string
     email: string
     password: string
 }
 
 export interface ActivationPayload {
-	activationToken: string;
+    activationToken: string
 }
 
 export interface LogoutPayload {
-	userId: any;
-	headers: any;
-	navigate: any;
+    userId: any
+    headers: any
+    navigate: any
 }
-

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { activationEmail, signupToAccount, loginToAccount, logoutFromAccount } from "./actions"
+import { activationEmail, signupToAccount, logoutFromAccount, requestLogin } from "./actions"
 import { AuthState } from "./interfaces"
 
 const initialState: AuthState = {
@@ -7,7 +7,8 @@ const initialState: AuthState = {
     message: null,
     currentUser: null,
     accessToken: undefined,
-    _id: undefined
+    _id: undefined,
+    error: "idle",
 }
 
 const authSlice = createSlice({
@@ -16,50 +17,57 @@ const authSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(loginToAccount.pending, (state, action) => {
-            	state.status = "pending";
+            // LOG IN
+            .addCase(requestLogin.pending, (state) => {
+                state.status = "pending"
             })
-            .addCase(loginToAccount.rejected, (state, action) => {
-            	state.status = "failed";
-            	state.message = action.payload;
+            .addCase(requestLogin.rejected, (state, action) => {
+                state.status = "failed"
+                state.message = action.payload
             })
-            .addCase(loginToAccount.fulfilled, (state, action) => {
-            	state.status = "succeeded";
-            	// state.msg = action.payload;
-                state.currentUser = action.payload;
+            .addCase(requestLogin.fulfilled, (state, action) => {
+                state.status = "succeeded"
+                state.error = action.payload?.error
+                state.message = action.payload?.message
+                state.currentUser = action.payload?.data
             })
-            .addCase(signupToAccount.pending, (state, action) => {
+
+            // SIGN UP
+            .addCase(signupToAccount.pending, (state) => {
                 state.status = "pending"
             })
             .addCase(signupToAccount.rejected, (state, action) => {
                 state.status = "failed"
-                // state.msg = action.payload
             })
             .addCase(signupToAccount.fulfilled, (state, action) => {
                 state.status = "succeeded"
-                state.message = action.payload
+                state.error = action.payload.error
+                state.message = action.payload.message
             })
-            .addCase(activationEmail.pending, (state, action) => {
+
+            // ACTIVE EMAIL
+            .addCase(activationEmail.pending, (state) => {
                 state.status = "pending"
             })
-            .addCase(activationEmail.rejected, (state, action) => {
+            .addCase(activationEmail.rejected, (state) => {
                 state.status = "failed"
             })
             .addCase(activationEmail.fulfilled, (state, action) => {
                 state.status = "succeeded"
                 state.message = action.payload
             })
-            .addCase(logoutFromAccount.pending, (state, action) => {
+
+            // LOG OUT
+            .addCase(logoutFromAccount.pending, (state) => {
                 state.status = "pending"
             })
-            .addCase(logoutFromAccount.rejected, (state, action) => {
+            .addCase(logoutFromAccount.rejected, (state) => {
                 state.status = "failed"
             })
-            .addCase(logoutFromAccount.fulfilled, (state, action) => {
+            .addCase(logoutFromAccount.fulfilled, (state) => {
                 state.status = "succeeded"
                 state.currentUser = null
-				// return authState;
-			});
+            })
     },
 })
 

@@ -3,7 +3,8 @@ import { Request, Response } from "express"
 import bcrypt from "bcrypt"
 import User from "../models/User"
 import HttpStatusCodes from "http-status-codes"
-import { config } from "../index"
+import AuthServices from "../services/authServices"
+import config from "../config/appConfig.config"
 
 namespace AuthControllers {
     export const generateAccessToken = (user: any) => {
@@ -36,15 +37,16 @@ namespace AuthControllers {
             if (!user) {
                 return res
                     .status(HttpStatusCodes.OK)
-                    .send({ error: true, message: "Email does not exist" })
+                    .send({ error: 1, message: "Email does not exist" })
             }
 
+            if (!password || !user.password)
+                return res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
             //  compare the user-entered password with the hashed password
             const matchPassword = await bcrypt.compare(password, user.password)
+
             if (!matchPassword) {
-                return res
-                    .status(HttpStatusCodes.OK)
-                    .send({ err: true, message: "Wrong password" })
+                return res.status(HttpStatusCodes.OK).send({ error: 1, message: "Wrong password" })
             }
 
             // Not Error get data
@@ -72,47 +74,32 @@ namespace AuthControllers {
                 data = { ...data, accessToken }
 
                 res.status(HttpStatusCodes.OK).json({
-                    error: null,
+                    error: 0,
                     message: "Login Success!",
                     data: data,
                 })
             }
         } catch (error: any) {
-            console.error(error.message)
             res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
         }
     }
 
     export const signup = async (req: Request, res: Response) => {
         try {
-            const { username, email, password, role } = req.body
-            //generate salt to hash password
-            const salt = await bcrypt.genSalt(10)
-            //set user password to hashed password
-            const hashedPassword = await bcrypt.hash(password, salt)
-
-            const user = await User.findOne({ email })
-            if (!user) {
-                //create new user
-                const newUser = {
-                    username,
-                    email,
-                    password: hashedPassword,
-                    role,
-                }
-
-                jwt.sign(newUser, config.jwtSecret, { expiresIn: "60d" })
-
-                await new User(newUser).save()
-
-                res.status(HttpStatusCodes.OK).send({ message: "Signup Success!" })
-            } else {
-                return res
-                    .status(HttpStatusCodes.BAD_REQUEST)
-                    .json({ message: "This email already exists." })
-            }
+            const { username, email, password } = req.body
+            const response = await AuthServices.signupServices({ email, password, username })
+            res.status(HttpStatusCodes.OK).json(response)
         } catch (err: any) {
-            console.error(err.message)
+            res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+        }
+    }
+
+    export const activation = async (req: Request, res: Response) => {
+        try {
+            const { activationToken } = req.body
+            const response = await AuthServices.activation(activationToken)
+            return res.status(HttpStatusCodes.OK).json(response)
+        } catch (err: any) {
             res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
         }
     }

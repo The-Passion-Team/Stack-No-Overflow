@@ -1,11 +1,16 @@
 import HttpStatusCodes from "http-status-codes"
 import { Request, Response } from "express"
 import PostServices from "../services/postServices"
+import { IPost } from "models/Post"
 
 namespace PostControllers {
     export const createPost = async (req: Request, res: Response) => {
         try {
-            const response = await PostServices.createPost(req.body)
+            console.log('req.body', req.body)
+            const tags = req.body.tags || []
+            delete req.body.tags
+            const data: IPost = req.body
+            const response = await PostServices.createPost(data, tags)
             res.status(HttpStatusCodes.OK).json(response)
         } catch (error) {
             return error

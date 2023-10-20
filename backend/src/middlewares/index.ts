@@ -3,10 +3,11 @@ import HttpStatusCodes from "http-status-codes"
 import jwt from "jsonwebtoken"
 import Payload from "../types/Payload"
 import Request from "../types/Request"
-import { config } from "../index"
 import nodemailer from "nodemailer"
 import { OAuth2Client } from "google-auth-library"
 import dotenv from "dotenv"
+import config from "../config/appConfig.config"
+import User from "../models/User"
 
 export namespace Middlewares {
     export const verifyToken: any = (req: Request, res: Response, next: NextFunction) => {
@@ -34,6 +35,12 @@ export namespace Middlewares {
                 .json({ msg: "No token, authorization denied" })
         }
     }
+
+    export const checkUsernameExists = async (username: string) => {
+        const check = await User.findOne({ username })
+        if (check) return true
+        return false
+    }
 }
 
 export namespace HandleError {
@@ -60,11 +67,11 @@ const oauth2Client = new OAuth2Client(
 // send mail
 type sendEmail = {
     email: string
-    displayname: string
+    username: string
     url: string
 }
 
-export const sendEmail = async ({ email, displayname, url }: sendEmail) => {
+export const sendEmail = async ({ email, username, url }: sendEmail) => {
     try {
         oauth2Client.setCredentials({
             refresh_token: MAILING_SERVICE_REFRESH_TOKEN,
@@ -90,7 +97,7 @@ export const sendEmail = async ({ email, displayname, url }: sendEmail) => {
             html: `
                 <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
                     <h2 style="text-align: center; text-transform: uppercase;color: teal;">
-                        Hi, ${displayname}!
+                        Hi, ${username}!
                     </h2>
 
                     <p>

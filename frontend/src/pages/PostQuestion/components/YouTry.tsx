@@ -20,8 +20,6 @@ export const YouTry = () => {
         const value = input?.value
         if (value === "") return
         dispatch(setStatusTry())
-
-        console.log("form.try.data", form.try.data)
     }
 
     return (

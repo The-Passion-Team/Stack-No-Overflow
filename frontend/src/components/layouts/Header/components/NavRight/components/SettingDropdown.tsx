@@ -1,4 +1,3 @@
-import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { ThunkDispatch } from "@reduxjs/toolkit"
 import { Col, Space, Badge, Button, Dropdown, MenuProps } from "antd"
@@ -9,7 +8,7 @@ import { selectorAuth } from "~/redux/auth/containers"
 
 const SettingDropdown = () => {
     const currentUser = useSelector(selectorAuth)
-    console.log(currentUser);
+    console.log(currentUser)
     const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
     const userId = currentUser?._id
     const headers = { token: `Bearer ${currentUser?.accessToken}` }
@@ -39,7 +38,7 @@ const SettingDropdown = () => {
             key: "3",
             label: (
                 <Button type="text" onClick={logOut}>
-                    logout
+                    Logout
                 </Button>
             ),
         },

@@ -84,6 +84,20 @@ namespace TagServices {
             return error
         }
     }
+
+    export const findTag = async (key: string) => {
+        try {
+            const find = await Tag.find({ name: { $regex: key, $options: "i" } }).select("_id name")
+
+            return {
+                error: find ? 0 : true,
+                message: find ? "Find Successful" : "Find Failure",
+                data: find,
+            }
+        } catch (error) {
+            return error
+        }
+    }
 }
 
 export default TagServices
