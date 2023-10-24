@@ -7,11 +7,11 @@ import {
 } from "@ant-design/icons"
 import "./SignUp.scss"
 import { useState } from "react"
-import { MethodLogin } from "../LogIn"
 import { Link } from "react-router-dom"
 import { Button, Space, Typography } from "antd"
 import SignUpForm from "./components/SignUpForm"
 import { RequestCheckMail } from "~/components"
+import { MethodLogin } from "../LogIn/components/MethodLoginOther"
 
 const dummy1 = [
     { typ: "Get unstuck — ask a question", icon: <QuestionCircleOutlined /> },

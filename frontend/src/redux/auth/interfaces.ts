@@ -14,9 +14,10 @@ export interface AuthState {
 }
 
 export interface LoginPayload {
-    email: string
-    password: string
-    navigate: any
+    email?: string
+    password?: string
+    navigate?: any
+    mediateLogin?: boolean | false
 }
 
 export interface SignupPayload {

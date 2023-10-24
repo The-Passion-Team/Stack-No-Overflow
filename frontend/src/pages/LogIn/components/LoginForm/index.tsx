@@ -18,8 +18,6 @@ const LoginForm = () => {
     }, [login])
 
     const navigate = useNavigate()
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
     const onFinish = (values: LoginPayload) => {
         setLoadings((prevLoadings) => {
             const newLoadings = [...prevLoadings]
@@ -33,7 +31,7 @@ const LoginForm = () => {
                 newLoadings[0] = false
                 return newLoadings
             })
-            dispatch(requestLogin({ email, password, navigate }))
+            dispatch(requestLogin({ email: values?.email, password: values?.password, navigate }))
         }, 1500)
     }
 
@@ -57,7 +55,6 @@ const LoginForm = () => {
                         prefix={<UserOutlined className="site-form-item-icon" />}
                         size="large"
                         placeholder="Email"
-                        onChange={(e) => setEmail(e.target.value)}
                     />
                 </Form.Item>
                 <Form.Item
@@ -70,7 +67,6 @@ const LoginForm = () => {
                         size="large"
                         type="password"
                         placeholder="Password"
-                        onChange={(e) => setPassword(e.target.value)}
                     />
                 </Form.Item>
 

@@ -5,6 +5,7 @@ import { UngroupOutlined } from "@ant-design/icons"
 import { useNavigate } from "react-router-dom"
 import { logoutFromAccount } from "~/redux/auth"
 import { selectorAuth } from "~/redux/auth/containers"
+import { googleLogout } from "@react-oauth/google"
 
 const SettingDropdown = () => {
     const currentUser = useSelector(selectorAuth)
@@ -15,6 +16,7 @@ const SettingDropdown = () => {
     const navigate = useNavigate()
     const logOut = () => {
         dispatch(logoutFromAccount({ userId, headers, navigate }))
+        googleLogout()
     }
 
     const items: MenuProps["items"] = [
