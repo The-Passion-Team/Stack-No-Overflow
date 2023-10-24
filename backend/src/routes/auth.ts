@@ -15,6 +15,9 @@ const authRouter = (): Router => {
         AuthControllers.login,
     )
 
+    // LOGIN WITH GOOGLE
+    router.post("/loginWithGoogle", AuthControllers.loginWithGoogle)
+
     // SIGN UP
     router.post(
         "/signup",

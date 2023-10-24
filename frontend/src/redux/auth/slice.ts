@@ -1,5 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { activationEmail, signupToAccount, logoutFromAccount, requestLogin } from "./actions"
+import {
+    activationEmail,
+    signupToAccount,
+    logoutFromAccount,
+    requestLogin,
+    requestLoginWithGoogle,
+} from "./actions"
 import { AuthState } from "./interfaces"
 
 const initialState: AuthState = {
@@ -26,6 +32,21 @@ const authSlice = createSlice({
                 state.message = action.payload
             })
             .addCase(requestLogin.fulfilled, (state, action) => {
+                state.status = "succeeded"
+                state.error = action.payload?.error
+                state.message = action.payload?.message
+                state.currentUser = action.payload?.data
+            })
+
+            // LOG IN
+            .addCase(requestLoginWithGoogle.pending, (state) => {
+                state.status = "pending"
+            })
+            .addCase(requestLoginWithGoogle.rejected, (state, action) => {
+                state.status = "failed"
+                state.message = action.payload
+            })
+            .addCase(requestLoginWithGoogle.fulfilled, (state, action) => {
                 state.status = "succeeded"
                 state.error = action.payload?.error
                 state.message = action.payload?.message

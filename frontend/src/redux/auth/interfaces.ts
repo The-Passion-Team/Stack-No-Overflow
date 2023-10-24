@@ -17,7 +17,7 @@ export interface LoginPayload {
     email?: string
     password?: string
     navigate?: any
-    mediateLogin?: boolean | false
+    userGoogle?: any
 }
 
 export interface SignupPayload {

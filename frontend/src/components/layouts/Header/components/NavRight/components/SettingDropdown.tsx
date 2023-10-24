@@ -9,7 +9,6 @@ import { googleLogout } from "@react-oauth/google"
 
 const SettingDropdown = () => {
     const currentUser = useSelector(selectorAuth)
-    console.log(currentUser)
     const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
     const userId = currentUser?._id
     const headers = { token: `Bearer ${currentUser?.accessToken}` }
