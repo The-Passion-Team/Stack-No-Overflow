@@ -3,13 +3,19 @@ import Navigation from "./components/Navigation"
 import Relative from "./components/Relative"
 import Stats from "./components/Stats"
 import { Communities } from "./components"
+import { useSelector } from "react-redux"
+import { selectorAuth } from "~/redux/auth/containers"
 
 export function Profile() {
+    const user = useSelector(selectorAuth)?.currentUser
+
+    console.log("user", user)
+
     return (
         <div style={{ paddingLeft: 20, paddingRight: 20, width: "100%" }}>
             <Relative
-                avatar=""
-                username="Hà Văn Được"
+                avatar={`${user?.picture}`}
+                username={user?.name || user?.username || user?.displayname || ""}
                 joinedAt="Member for 1 year, 2 months"
                 lastSeen="Last seen this week"
                 visited="Visited 156 days, 8 consecutive"

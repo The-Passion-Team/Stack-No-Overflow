@@ -31,8 +31,7 @@ namespace AuthControllers {
 
     export const login = async (req: Request, res: Response) => {
         try {
-            const { email, password, mediateLogin } = req.body
-            var matchPassword = {}
+            const { email, password } = req.body
 
             // find the user's email in the model
             const user = await User.findOne({ email }).select("+password")
@@ -42,17 +41,13 @@ namespace AuthControllers {
                     .send({ error: 1, message: "Email does not exist" })
             }
 
-            if (!mediateLogin) {
-                if (mediateLogin === false || !password || !user.password)
-                    return res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
-                //  compare the user-entered password with the hashed password
-                matchPassword = await bcrypt.compare(password, user.password)
+            if (!password || !user.password)
+                return res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+            //  compare the user-entered password with the hashed password
+            const matchPassword = await bcrypt.compare(password, user.password)
 
-                if (!mediateLogin === false || !matchPassword) {
-                    return res
-                        .status(HttpStatusCodes.OK)
-                        .send({ error: 1, message: "Wrong password" })
-                }
+            if (!matchPassword) {
+                return res.status(HttpStatusCodes.OK).send({ error: 1, message: "Wrong password" })
             }
 
             // Not Error get data
@@ -79,8 +74,6 @@ namespace AuthControllers {
                 data = userLogin._doc
                 data = { ...data, accessToken }
 
-                console.log('data', data)
-
                 res.status(HttpStatusCodes.OK).json({
                     error: 0,
                     message: "Login Success!",
@@ -94,24 +87,26 @@ namespace AuthControllers {
 
     export const loginWithGoogle = async (req: Request, res: Response) => {
         try {
-            const user = req.body.userGoogle
+            const userGoogle = req.body.userGoogle
 
-            const userLogin: any = await User.findOne({ email: user?.email })
+            // find the user's email in the model
+            const user = await User.findOne({ email: userGoogle?.email }).select("+password")
+            if (!user) {
+                return res
+                    .status(HttpStatusCodes.OK)
+                    .send({ error: 1, message: "Email does not exist" })
+            }
+
+            const id = await User.findOne({ email: user?.email })
                 .select("-password -__v -updatedAt")
-                .populate({ path: "role", select: "-_id name" })
                 .exec()
 
-            const accessToken = generateAccessToken(user)
-
-            // Custom data return
-            let data = new Object()
-            data = userLogin._doc
-            data = { ...data, accessToken }
+            userGoogle["_id"] = id?._id
 
             res.status(HttpStatusCodes.OK).json({
                 error: 0,
                 message: "Login Success!",
-                data: data,
+                data: userGoogle,
             })
         } catch (error: any) {
             res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")

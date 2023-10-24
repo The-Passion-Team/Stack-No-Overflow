@@ -25,6 +25,26 @@ export const requestLogin = createAsyncThunk<any, LoginPayload>(
         }
     },
 )
+export const requestLoginWithGoogle = createAsyncThunk<any, LoginPayload>(
+    "auth/loginWithGoogle",
+    async (userGoogle, { rejectWithValue, fulfillWithValue }) => {
+        try {
+            const res = await axios.post(`${APIPaths.Auth}/loginWithGoogle`, userGoogle)
+            const err = res?.data?.error
+            const msg = res?.data?.message
+
+            if (err === 0) {
+                userGoogle.navigate("/")
+                Message(err, msg)
+                fulfillWithValue(res.data)
+            }
+
+            return fulfillWithValue(res.data)
+        } catch (error: any) {
+            return rejectWithValue(error)
+        }
+    },
+)
 
 // SIGN UP
 export const signupToAccount = createAsyncThunk<any, SignupPayload>(

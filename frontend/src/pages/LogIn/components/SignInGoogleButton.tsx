@@ -3,7 +3,7 @@ import { GoogleLogin } from "@react-oauth/google"
 import { Flex } from "antd"
 import jwt_decode from "jwt-decode"
 import { useNavigate } from "react-router-dom"
-import { requestLogin } from "~/redux/auth"
+import { requestLoginWithGoogle } from "~/redux/auth"
 import { useAppDispatch } from "~/redux/store"
 
 const SignInGoogleButton = () => {
@@ -19,9 +19,8 @@ const SignInGoogleButton = () => {
                         const decoded: any = jwt_decode(credentialResponse?.credential || "")
 
                         dispatch(
-                            requestLogin({
-                                email: decoded.email,
-                                mediateLogin: true,
+                            requestLoginWithGoogle({
+                                userGoogle: decoded,
                                 navigate,
                             }),
                         )
