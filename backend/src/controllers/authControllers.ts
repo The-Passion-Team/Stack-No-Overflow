@@ -89,8 +89,11 @@ namespace AuthControllers {
         try {
             const userGoogle = req.body.userGoogle
 
+            
             // find the user's email in the model
             const user = await User.findOne({ email: userGoogle?.email }).select("+password")
+            console.log('userGoogle', userGoogle)
+            console.log('user', user)
             if (!user) {
                 return res
                     .status(HttpStatusCodes.OK)
