@@ -4,7 +4,7 @@ import bcrypt from "bcrypt"
 import User from "../models/User"
 import HttpStatusCodes from "http-status-codes"
 import AuthServices from "../services/authServices"
-import config from "../config/appConfig.config"
+import config from "../config"
 
 namespace AuthControllers {
     export const generateAccessToken = (user: any) => {
@@ -89,11 +89,10 @@ namespace AuthControllers {
         try {
             const userGoogle = req.body.userGoogle
 
-            
             // find the user's email in the model
             const user = await User.findOne({ email: userGoogle?.email }).select("+password")
-            console.log('userGoogle', userGoogle)
-            console.log('user', user)
+            console.log("userGoogle", userGoogle)
+            console.log("user", user)
             if (!user) {
                 return res
                     .status(HttpStatusCodes.OK)
