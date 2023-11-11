@@ -1,11 +1,11 @@
 import { model, Schema } from "mongoose"
 
-export interface IRole {
+export interface ITag {
     _id?: string
     name: string
 }
 
-const roleSchema = new Schema<IRole>(
+const tagSchema = new Schema<ITag>(
     {
         name: {
             type: String,
@@ -16,6 +16,6 @@ const roleSchema = new Schema<IRole>(
     { timestamps: true },
 )
 
-const RoleSchema = model<IRole>("Role", roleSchema)
+const TagSchema = model<ITag>("Tag", tagSchema)
 
-export default RoleSchema
+export default TagSchema

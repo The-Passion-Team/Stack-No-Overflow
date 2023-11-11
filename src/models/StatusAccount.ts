@@ -1,11 +1,11 @@
 import { model, Schema } from "mongoose"
 
-export interface IRole {
+export interface IStatusAccount {
     _id?: string
     name: string
 }
 
-const roleSchema = new Schema<IRole>(
+const statusAccountSchema = new Schema<IStatusAccount>(
     {
         name: {
             type: String,
@@ -16,6 +16,6 @@ const roleSchema = new Schema<IRole>(
     { timestamps: true },
 )
 
-const RoleSchema = model<IRole>("Role", roleSchema)
+const StatusAccountSchema = model<IStatusAccount>("StatusAccount", statusAccountSchema)
 
-export default RoleSchema
+export default StatusAccountSchema
