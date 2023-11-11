@@ -60,8 +60,8 @@ namespace PostServices {
     export const getPost = async (data: IPost) => {
         try {
             const post = await Post.findOne(data)
-
-            console.log("post", post)
+                .populate("auth", "displayname")
+                .populate("tags", "name")
 
             return {
                 error: post ? null : true,

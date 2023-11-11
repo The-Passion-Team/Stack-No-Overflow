@@ -1,11 +1,8 @@
-const theme = {
+import { ThemeConfig } from "antd"
+
+const theme: ThemeConfig = {
     token: {
         colorText: "#000",
-    },
-    components: {
-        Layout: {
-            // colorBgLayout: "#fff",
-        },
     },
 }
 

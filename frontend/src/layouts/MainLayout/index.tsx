@@ -3,7 +3,7 @@ import Container from "~/components/Container"
 import { Feeder, Footer, Header, Sider } from "~/components/layouts"
 
 type MainLayoutProps = {
-    children: any
+    children: React.ReactNode
 }
 
 const MainLayout = (props: MainLayoutProps) => {

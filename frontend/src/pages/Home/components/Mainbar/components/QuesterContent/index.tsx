@@ -20,6 +20,7 @@ const QuesterContent = () => {
     return (
         <>
             {posts.map((item, index) => {
+                const postId = item?._id || ""
                 const title = item?.title
                 const tags = item?.tags || []
                 const customTags = item?.customTags || []
@@ -38,7 +39,7 @@ const QuesterContent = () => {
                             <Rate vote={vote} answers={answers} views={views} />
 
                             <Flex vertical gap="middle" style={{ width: "100%" }}>
-                                <Ask content={title} size={16} />
+                                <Ask id={postId} content={title} size={16} />
                                 <Flex gap="middle" justify="space-between" wrap="wrap">
                                     <Tags tags={tags} customTags={customTags} />
                                     <Users

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { IPostState } from "./interfaces"
-import { requestCreatePost, requestGetPosts } from "./actions"
+import { requestCreatePost, requestGetPost, requestGetPosts } from "./actions"
 
 const initialState: IPostState = {
     status: "idle",
@@ -36,6 +36,19 @@ const postSlice = createSlice({
                 state.posts = action.payload.data
             })
             .addCase(requestGetPosts.rejected, (state) => {
+                state.status = "failed"
+            })
+
+            // GET One Post
+            .addCase(requestGetPost.pending, (state) => {
+                state.status = "pending"
+            })
+            .addCase(requestGetPost.fulfilled, (state, action) => {
+                state.status = "succeeded"
+                state.message = action.payload.message
+                state.post = action.payload.data
+            })
+            .addCase(requestGetPost.rejected, (state) => {
                 state.status = "failed"
             })
     },
