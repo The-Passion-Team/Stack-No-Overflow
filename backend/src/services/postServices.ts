@@ -44,7 +44,7 @@ namespace PostServices {
                 .sort({ createdAt: -1 })
                 .limit(20)
                 .skip(0)
-                .populate("auth", "displayname")
+                .populate("auth")
                 .populate("tags", "name")
 
             return {

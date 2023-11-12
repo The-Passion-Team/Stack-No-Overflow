@@ -94,12 +94,26 @@ namespace AuthControllers {
             console.log("userGoogle", userGoogle)
             console.log("user", user)
             if (!user) {
-                return res
-                    .status(HttpStatusCodes.OK)
-                    .send({ error: 1, message: "Email does not exist" })
+                const newUser = new User({
+                    email: userGoogle.email,
+                    displayname: userGoogle.name,
+                    avatar: userGoogle.picture,
+                })
+
+                console.log("newUser", newUser)
+
+                await newUser.save()
             }
 
-            const id = await User.findOne({ email: user?.email })
+            const update = await User.findOneAndUpdate(
+                { email: userGoogle?.email },
+                {
+                    displayname: userGoogle.name,
+                    avatar: userGoogle.picture,
+                },
+            )
+
+            const id = await User.findOne({ email: userGoogle?.email })
                 .select("-password -__v -updatedAt")
                 .exec()
 

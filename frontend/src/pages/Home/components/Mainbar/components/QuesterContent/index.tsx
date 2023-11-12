@@ -30,6 +30,7 @@ const QuesterContent = () => {
                 const answers = item.answers?.length
                 const views = item.views?.length
                 const createdAt = item?.createdAt
+                const avatar = item?.auth?.avatar || ""
 
                 return (
                     <Flex key={index} vertical>
@@ -43,6 +44,7 @@ const QuesterContent = () => {
                                 <Flex gap="middle" justify="space-between" wrap="wrap">
                                     <Tags tags={tags} customTags={customTags} />
                                     <Users
+                                        avatar={avatar}
                                         username={displayname || _id_auth}
                                         timepost={createdAt}
                                     />

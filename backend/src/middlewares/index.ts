@@ -6,7 +6,7 @@ import Request from "../types/Request"
 import nodemailer from "nodemailer"
 import { OAuth2Client } from "google-auth-library"
 import dotenv from "dotenv"
-import config from "../config/appConfig.config"
+import config from "../config"
 import User from "../models/User"
 
 export namespace Middlewares {

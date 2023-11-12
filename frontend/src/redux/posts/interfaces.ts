@@ -15,6 +15,7 @@ export interface IPost {
     customTags?: string[]
     createdAt?: string
     updatedAt?: string
+    avatar?: string
 }
 
 export interface IPostState {

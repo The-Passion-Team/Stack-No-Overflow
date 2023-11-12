@@ -22,6 +22,7 @@ import Message from "~/components/Message"
 export const PostQuestion = () => {
     const form = useSelector(selectorFormAsk)
     const currentUser_id = useSelector(selectorAuth)?.currentUser?._id
+    console.log('currentUser_id', currentUser_id)
     const dispatch = useAppDispatch()
 
     const handleSubmit = async () => {

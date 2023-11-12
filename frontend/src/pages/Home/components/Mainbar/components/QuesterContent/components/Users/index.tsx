@@ -10,9 +10,10 @@ interface props {
 }
 
 const Users = ({ avatar, username, timepost }: props) => {
+    console.log("avatar", avatar)
     return (
         <Flex wrap="wrap" gap="small">
-            <Avatar shape="square" size="small" icon={avatar || <UserOutlined />} />
+            <Avatar shape="square" size="small" icon={<UserOutlined />} src={avatar} />
             <Typography.Link style={{ fontSize: 13 }}>{username}</Typography.Link>
             {timepost ? (
                 <Typography style={{ fontSize: 13 }}>
