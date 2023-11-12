@@ -10,7 +10,7 @@ const postRouter = (): Router => {
 
     router.post("/createPost", PostControllers.createPost)
     router.get("/getAllPosts", PostControllers.getAllPosts)
-    router.get("/getPost", PostControllers.getPost)
+    router.post("/getPost", PostControllers.getPost)
     router.put("/updatePost", PostControllers.updatePost)
     router.delete("/deletePost", PostControllers.deletePost)
 

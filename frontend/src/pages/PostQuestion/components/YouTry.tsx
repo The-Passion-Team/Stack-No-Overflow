@@ -1,29 +1,26 @@
 import { Button, Form, Typography } from "antd"
-import TextArea from "antd/es/input/TextArea"
 import { useDispatch, useSelector } from "react-redux"
 import { selectorFormAsk, setStatusTry, setTry } from "~/redux/formAsk"
 import { Fragment } from "react"
 import { Wrapper } from "./Wrapper"
+import Editor from "~/components/Editor"
 
 export const YouTry = () => {
-    const form = useSelector(selectorFormAsk)
     const dispatch = useDispatch()
+    const form = useSelector(selectorFormAsk)
+    const tryValue = useSelector(selectorFormAsk)?.try?.data || ""
 
-    const handleChange = () => {
-        const input = document.getElementById("textarea-try") as HTMLInputElement | null
-        const value = input?.value
-        dispatch(setTry(value))
+    const handleEditorChange = (newData: any) => {
+        dispatch(setTry(newData))
     }
 
     const handleClick = () => {
-        const input = document.getElementById("textarea-try") as HTMLInputElement | null
-        const value = input?.value
-        if (value === "") return
+        if (tryValue === "") return
         dispatch(setStatusTry())
     }
 
     return (
-        <Form disabled={form.try.current && form.try.status !== "succeeded"}>
+        <Form>
             <Wrapper>
                 <Typography style={{ fontWeight: 500 }}>
                     What did you try and what were you expecting?
@@ -32,7 +29,13 @@ export const YouTry = () => {
                     Describe what you tried, what you expected to happen, and what actually
                     resulted. Minimum 20 characters.
                 </Typography>
-                <TextArea rows={10} id="textarea-try" onChange={handleChange} />
+                <Editor
+                    value={tryValue}
+                    onChange={handleEditorChange}
+                    readOnly={form.try.current && form.try.status !== "succeeded"}
+                    target="try"
+                />
+
                 {form.try.current ? (
                     <Fragment />
                 ) : (

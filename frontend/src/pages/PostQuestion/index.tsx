@@ -17,14 +17,13 @@ import {
 import { selectorAuth } from "~/redux/auth/containers"
 import { useAppDispatch } from "~/redux/store"
 import { requestCreatePost } from "~/redux/posts/actions"
-import { useNavigate } from "react-router-dom"
 import Message from "~/components/Message"
 
 export const PostQuestion = () => {
     const form = useSelector(selectorFormAsk)
     const currentUser_id = useSelector(selectorAuth)?.currentUser?._id
+    console.log('currentUser_id', currentUser_id)
     const dispatch = useAppDispatch()
-    const navigate = useNavigate()
 
     const handleSubmit = async () => {
         const title = form.title.data
@@ -49,7 +48,7 @@ export const PostQuestion = () => {
 
         Message(error, message)
 
-        if (!error) return navigate("/")
+        if (!error) window.location.href = "http://localhost:3000/"
     }
 
     return (

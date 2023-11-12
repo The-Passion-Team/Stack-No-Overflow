@@ -11,6 +11,7 @@ export interface UserData {
     accessToken?: string
     picture?: string
     name?: string
+    avatar?: string
 }
 
 export interface UsersState {

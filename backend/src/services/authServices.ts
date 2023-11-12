@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
 import User, { IUser } from "../models/User"
 import { Middlewares, sendEmail } from "../middlewares"
-import config from "../config/appConfig.config"
+import config from "../config"
 
 const generateActivationToken = (user: any) => {
     return jwt.sign(user, config.jwtSecret, { expiresIn: "10m" })
@@ -37,7 +37,7 @@ namespace AuthServices {
                 }
 
                 const activationToken = generateActivationToken(newUser)
-                const url = `${config.clientUrl}/activation/${activationToken}`
+                const url = `${config.clientHost}/activation/${activationToken}`
                 sendEmail({ email, username, url })
 
                 return { error: 0, message: "Please complete your registration." }

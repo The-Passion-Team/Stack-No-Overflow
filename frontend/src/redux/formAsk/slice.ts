@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit"
 import { FormAskState } from "./interfaces"
 import { createQuestion } from "./actions"
 
+export const steps = ["title", "detail", "try", "tags"]
+
 const fromState: FormAskState = {
     title: {
         status: "pending",
@@ -65,10 +67,9 @@ const formAskSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder
-            .addCase(createQuestion.pending, (state, action) => {
-                state.title.status = "pending"
-            })
+        builder.addCase(createQuestion.pending, (state, action) => {
+            state.title.status = "pending"
+        })
     },
 })
 

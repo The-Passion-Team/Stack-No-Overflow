@@ -1,29 +1,28 @@
 import { Button, Form, Typography } from "antd"
-import TextArea from "antd/es/input/TextArea"
 import { useDispatch, useSelector } from "react-redux"
 import { selectorFormAsk, setDetail, setStatusDetail } from "~/redux/formAsk"
 import { Fragment } from "react"
 import { Wrapper } from "./Wrapper"
+import Editor from "~/components/Editor"
 
 export const DetailProblem = () => {
-    const form = useSelector(selectorFormAsk)
     const dispatch = useDispatch()
+    const form = useSelector(selectorFormAsk)
+    const detailValue = useSelector(selectorFormAsk)?.detail?.data || ""
 
-    const handleChange = () => {
-        const input = document.getElementById("textarea-detail") as HTMLInputElement | null
-        const value = input?.value
-        dispatch(setDetail(value))
+    console.log("detailValue", detailValue)
+
+    const handleEditorChange = (newData: any) => {
+        dispatch(setDetail(newData))
     }
 
     const handleClick = () => {
-        const input = document.getElementById("textarea-detail") as HTMLInputElement | null
-        const value = input?.value
-        if (value === "") return
+        if (detailValue === "") return
         dispatch(setStatusDetail())
     }
 
     return (
-        <Form disabled={form.detail.current && form.detail.status !== "succeeded"}>
+        <Form>
             <Wrapper>
                 <Typography style={{ fontWeight: 500 }}>
                     What are the details of your problem?
@@ -32,7 +31,12 @@ export const DetailProblem = () => {
                     Introduce the problem and expand on what you put in the title. Minimum 20
                     characters.
                 </Typography>
-                <TextArea rows={10} id="textarea-detail" onChange={handleChange} />
+                <Editor
+                    value={detailValue}
+                    onChange={handleEditorChange}
+                    readOnly={form.detail.current && form.detail.status !== "succeeded"}
+                    target="detail"
+                />
                 {form.detail.current ? (
                     <Fragment />
                 ) : (

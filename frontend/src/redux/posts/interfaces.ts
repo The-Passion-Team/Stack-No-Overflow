@@ -14,12 +14,15 @@ export interface IPost {
     tags?: ITag[]
     customTags?: string[]
     createdAt?: string
+    updatedAt?: string
+    avatar?: string
 }
 
 export interface IPostState {
     status?: Status
     error?: Error
     message?: any
+    post?: IPost
     posts?: IPost[]
     setNotiRegistrationEmail?: any
     emailConfirm?: string

@@ -7,7 +7,7 @@ import cookieParser from "cookie-parser"
 import connectDB from "./utils/connectDB"
 import _ from "lodash"
 import initRouter from "./routes"
-import config from "./config/appConfig.config"
+import config from "./config"
 
 const app = express()
 dotenv.config()
@@ -19,41 +19,14 @@ app.use(morgan("common"))
 app.use(cookieParser())
 app.use(
     cors({
-        origin: [
-            process.env.NODE_ENV === "development"
-                ? config.development.clientUrl
-                : config.production.clientUrl || "*",
-        ],
+        origin: [config.clientHost],
     }),
 )
 
 initRouter(app)
 
-app.listen(
-    process.env.NODE_ENV === "production"
-        ? config.production.serverPort
-        : process.env.NODE_ENV === "temp"
-        ? config.temp.serverPort
-        : config.development.serverPort,
-    () => {
-        console.log(
-            `Server is running on port ${
-                process.env.NODE_ENV === "production"
-                    ? config.production.serverPort
-                    : process.env.NODE_ENV === "temp"
-                    ? config.temp.serverPort
-                    : config.development.serverPort
-            }`,
-        )
-        console.log(
-            `On ${
-                process.env.NODE_ENV === "production"
-                    ? config.production.nodeEnv
-                    : process.env.NODE_ENV === "temp"
-                    ? config.temp.nodeEnv
-                    : config.development.nodeEnv
-            }`,
-        )
-        connectDB()
-    },
-)
+app.listen(config.port, () => {
+    console.log(`Environment ${config.name}`)
+    console.log(`Server is running on ${config.serverHost}`)
+    connectDB()
+})

@@ -1,12 +1,18 @@
 import { Typography } from "antd"
+import { Path } from "~/routes"
 
-interface props {
+interface IAsk {
+    id?: string
     content?: string
     size?: number
 }
 
-const Ask = ({ content, size }: props) => {
-    return <Typography.Link style={{ fontSize: size }}>{content || "404!"}</Typography.Link>
+const Ask = ({ id, content, size }: IAsk) => {
+    return (
+        <Typography.Link href={`${Path.Questions}/${id}`} style={{ fontSize: size }}>
+            {content || "404!"}
+        </Typography.Link>
+    )
 }
 
 export default Ask

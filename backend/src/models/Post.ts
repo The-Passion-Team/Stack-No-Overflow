@@ -11,6 +11,7 @@ export interface IPost {
     views?: string[]
     tags?: Schema.Types.ObjectId[]
     customTags?: string[]
+    avatar?: string
 }
 
 const postSchema = new Schema<IPost>(
@@ -52,6 +53,9 @@ const postSchema = new Schema<IPost>(
         views: {
             type: [],
             default: [],
+        },
+        avatar: {
+            type: String,
         },
     },
     { timestamps: true },
