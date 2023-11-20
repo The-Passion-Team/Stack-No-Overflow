@@ -2,7 +2,7 @@
 
 This is a demo product for learning purposes only
 
-The goal of the project is to research typescript and ant-design
+The goal of the project is to research typescript and ant-design (complete)
 
 ## Technology applied
 
@@ -22,7 +22,7 @@ The goal of the project is to research typescript and ant-design
 - Post
   - Can be create new question
   - And read post
-  
+
 ## Demo
 
 ### 1. Home page
@@ -39,6 +39,6 @@ The goal of the project is to research typescript and ant-design
 
 ### 4. Sign page
 
-<img src="https://github.com/The-Passion-Team/Stack-No-Overflow/blob/master/frontend/public/assets/4-signup.pngg">
+<img src="https://github.com/The-Passion-Team/Stack-No-Overflow/blob/master/frontend/public/assets/4-signup.png">
 
 
