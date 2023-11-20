@@ -27,7 +27,7 @@ The goal of the project is to research typescript and ant-design (complete)
 
 ### 1. Home page
 
-<img src="https://github.com/The-Passion-Team/Stack-No-Overflow/blob/master/frontend/public/assets/1-home.png">
+<img src="https://github.com/The-Passion-Team/Stack-No-Overflow/blob/master/frontend/public/assets/1-home-2.png">
 
 ### 2. Post question page
 
