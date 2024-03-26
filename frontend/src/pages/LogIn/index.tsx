@@ -3,8 +3,22 @@ import { Button, Flex, Typography } from "antd"
 import LoginForm from "./components/LoginForm"
 import { Logo } from "~/components"
 import { Link } from "react-router-dom"
+import { useEffect } from "react"
+
+const CLIENT_GITHUB_ID = "22a7f65ef3aa497188cb"
 
 export function LogIn() {
+    function LoginWithGithub() {
+        window.location.assign("https://github.com/login/oauth/authorize?client_id=" + CLIENT_GITHUB_ID)
+    }
+
+    useEffect(() => {
+        const queryString = window.location.search
+        const urlParams = new URLSearchParams(queryString)
+        const codeParams = urlParams.get("code")
+        console.log(codeParams);
+    }, [])
+
     return (
         <Flex align="center" justify="center" style={{ minHeight: "calc(100vh - 104px)" }}>
             <Flex
@@ -29,6 +43,17 @@ export function LogIn() {
                             }}
                         />
                     ))}
+                    <Button
+                        onClick={LoginWithGithub}
+                        children={"Log in with GitHub"}
+                        icon={<GithubOutlined />}
+                        style={{
+                            color: "#fff",
+                            backgroundColor: "#232629",
+                            fontSize: 13,
+                            height: 40,
+                        }}
+                    />
                 </Flex>
 
                 <LoginForm />

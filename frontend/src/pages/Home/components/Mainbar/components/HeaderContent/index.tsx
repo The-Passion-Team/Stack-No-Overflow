@@ -2,6 +2,7 @@ import { Layout, Row, Space } from "antd"
 import { Filter, Title } from "~/components/contents"
 import { Path } from "~/routes"
 import ButtonAskQuestion from "./components/ButtonAskQuestion"
+import { ReactNode } from "react"
 
 const style1 = {
     paddingLeft: 20,
@@ -17,12 +18,17 @@ const dummyData = [
     { name: "Month" },
 ]
 
-const HeaderContent = () => {
+type HeaderCnt = {
+    titleCnt: string
+    children?: ReactNode
+}
+
+const HeaderContent = (HeaderCnt: HeaderCnt) => {
     return (
         <Layout style={style1}>
             <Space direction="vertical" size="middle">
                 <Row align="middle" justify="space-between">
-                    <Title content="Top Questions" />
+                    <Title content={HeaderCnt.titleCnt} />
                     <ButtonAskQuestion
                         children="Ask question"
                         path={Path.Ask}
@@ -31,7 +37,8 @@ const HeaderContent = () => {
                     />
                 </Row>
 
-                <Row align="middle" justify="end">
+                <Row align="middle" justify="space-between">
+                    {HeaderCnt.children}
                     <Filter arrayData={dummyData} />
                 </Row>
             </Space>

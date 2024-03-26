@@ -1,11 +1,15 @@
-import { Fragment } from "react"
-import HeaderContent from "./components/HeaderContent"
+import { Fragment, ReactNode } from "react"
+// import HeaderContent from "./components/HeaderContent"
 import QuesterContent from "./components/QuesterContent"
 
-const MainBar = () => {
+type Main = {
+    HeaderMain: ReactNode
+} 
+
+const MainBar = (Main: Main) => {
     return (
         <Fragment>
-            <HeaderContent />
+            {Main.HeaderMain}
             <QuesterContent />
         </Fragment>
     )

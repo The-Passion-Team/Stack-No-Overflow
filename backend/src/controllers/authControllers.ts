@@ -5,13 +5,14 @@ import User from "../models/User"
 import HttpStatusCodes from "http-status-codes"
 import AuthServices from "../services/authServices"
 import config from "../config/appConfig.config"
+import {Strategy} from 'passport-github2';
+import passport from "passport"
 
 namespace AuthControllers {
     export const generateAccessToken = (user: any) => {
         return jwt.sign(
             {
                 id: user.id,
-                admin: user.admin,
             },
             config.jwtAccess,
             { expiresIn: "60d" },
@@ -22,7 +23,6 @@ namespace AuthControllers {
         return jwt.sign(
             {
                 id: user.id,
-                admin: user.admin,
             },
             config.jwtRefresh,
             { expiresIn: "365d" },
@@ -83,6 +83,50 @@ namespace AuthControllers {
             res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
         }
     }
+
+    export const loginWithGithub = async (req: Request, res: Response) => {
+        try {
+            interface user {
+                user: any
+            }
+            
+            passport.use(new Strategy({
+                clientID: config.githubClientId,
+                clientSecret: config.githubClientSecret,
+                callbackURL: `https://github.com/login/oauth/authorize?client_id=${config.githubClientId}`
+              },
+              function(profile: any, done) {
+                User.findOrCreate({ githubId: profile.id }, function (err, user) {
+                  return done(err, user);
+                });
+              }
+            ));
+            const userGoogle = req.body.userGoogle
+
+            // // find the user's email in the model
+            // const user = await User.findOne({ email: userGoogle?.email }).select("+password")
+            // if (!user) {
+            //     return res
+            //         .status(HttpStatusCodes.OK)
+            //         .send({ error: 1, message: "Email does not exist" })
+            // }
+
+            // const id = await User.findOne({ email: user?.email })
+            //     .select("-password -__v -updatedAt")
+            //     .exec()
+
+            // userGoogle["_id"] = id?._id
+
+            // res.status(HttpStatusCodes.OK).json({
+            //     error: 0,
+            //     message: "Login Success!",
+            //     data: userGoogle,
+            // })
+        } catch (error: any) {
+            res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send("Server Error")
+        }
+    }
+
 
     export const signup = async (req: Request, res: Response) => {
         try {
